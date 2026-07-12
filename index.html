@@ -13,18 +13,23 @@
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;1,400&display=swap" rel="stylesheet">
 
     <style>
+        /* --- Refined Light Blue & Warm White Palette --- */
         :root {
-            --midnight: #060B18;
-            --navy: #0F1B35;
-            --navy-light: #1A2B4C;
-            --gold: #C5A059;
-            --gold-light: #E2C792;
-            --charcoal: #2C2C2C;
-            --ivory: #FDFBF7;
-            --pearl: #FFFFFF;
-            --text-dark: #1E2229;
-            --text-muted: #666E7D;
-            --transition: all 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+            --warm-white: #FDFBF7;
+            --pure-white: #FFFFFF;
+            --off-white: #F4F7FB;
+            
+            --light-blue: #4A90E2;
+            --light-blue-hover: #357ABD;
+            --glow-blue: rgba(74, 144, 226, 0.25);
+            --pale-blue: #EBF3FA;
+            
+            --text-dark: #1E293B;
+            --text-muted: #64748B;
+            --gold-accent: #C5A059;
+            
+            --transition-fast: all 0.3s ease;
+            --transition-smooth: all 0.6s cubic-bezier(0.16, 1, 0.3, 1);
         }
 
         * {
@@ -40,7 +45,7 @@
         body {
             font-family: 'Inter', sans-serif;
             color: var(--text-dark);
-            background-color: var(--pearl);
+            background-color: var(--warm-white);
             line-height: 1.6;
             overflow-x: hidden;
             -webkit-font-smoothing: antialiased;
@@ -49,7 +54,7 @@
         h1, h2, h3, h4 {
             font-family: 'Playfair Display', serif;
             font-weight: 600;
-            color: var(--navy);
+            color: var(--text-dark);
             line-height: 1.2;
         }
 
@@ -61,18 +66,14 @@
         .container {
             max-width: 1300px;
             margin: 0 auto;
-            padding: 0 40px;
-        }
-
-        @media (max-width: 768px) {
-            .container { padding: 0 20px; }
+            padding: 0 5%;
         }
 
         /* --- Global Scroll Animation Engine --- */
         .reveal {
             opacity: 0;
-            transform: translateY(40px);
-            transition: var(--transition);
+            transform: translateY(30px);
+            transition: var(--transition-smooth);
         }
 
         .reveal.active {
@@ -84,133 +85,146 @@
         .delay-2 { transition-delay: 0.3s; }
         .delay-3 { transition-delay: 0.45s; }
 
-        /* --- Premium Interactive Buttons --- */
+        /* --- Premium Responsive Buttons --- */
         .btn {
             display: inline-flex;
             align-items: center;
             justify-content: center;
-            padding: 16px 36px;
-            font-size: 0.9rem;
+            padding: 16px 32px;
+            font-size: 0.95rem;
             font-weight: 500;
-            letter-spacing: 2px;
+            letter-spacing: 1.5px;
             text-transform: uppercase;
-            border-radius: 0;
+            border-radius: 50px; /* Modern pill shape */
             cursor: pointer;
             position: relative;
-            transition: var(--transition);
-            z-index: 1;
+            transition: var(--transition-fast);
+            text-align: center;
+            border: 2px solid transparent;
         }
 
         .btn-primary {
-            background-color: var(--gold);
-            color: var(--pearl);
-            border: 1px solid var(--gold);
-        }
-
-        .btn-primary::before {
-            content: '';
-            position: absolute;
-            top: 0; left: 0; width: 0%; height: 100%;
-            background-color: var(--navy);
-            transition: var(--transition);
-            z-index: -1;
-        }
-
-        .btn-primary:hover::before {
-            width: 100%;
+            background-color: var(--light-blue);
+            color: var(--pure-white);
+            box-shadow: 0 4px 15px var(--glow-blue);
         }
 
         .btn-primary:hover {
-            border-color: var(--navy);
-            color: var(--pearl);
+            background-color: var(--light-blue-hover);
+            transform: translateY(-2px);
+            box-shadow: 0 8px 25px var(--glow-blue);
         }
 
         .btn-secondary {
             background-color: transparent;
-            color: var(--pearl);
-            border: 1px solid rgba(255, 255, 255, 0.4);
-            backdrop-filter: blur(10px);
+            color: var(--light-blue);
+            border-color: var(--light-blue);
         }
 
         .btn-secondary:hover {
-            background-color: var(--pearl);
-            color: var(--midnight);
-            border-color: var(--pearl);
+            background-color: var(--pale-blue);
+            transform: translateY(-2px);
         }
 
-        /* --- Header Styling --- */
+        /* --- Futuristic Glass Header --- */
         header {
-            position: absolute;
+            position: fixed;
             top: 0; left: 0; width: 100%;
-            padding: 25px 0;
+            padding: 15px 0;
             z-index: 1000;
-            border-bottom: 1px solid rgba(255, 255, 255, 0.08);
-            background: linear-gradient(to bottom, rgba(6, 11, 24, 0.8), transparent);
+            background: rgba(253, 251, 247, 0.85);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border-bottom: 1px solid rgba(74, 144, 226, 0.1);
+            transition: var(--transition-fast);
+        }
+
+        /* Shrink header slightly on scroll (controlled by JS) */
+        header.scrolled {
+            padding: 10px 0;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.03);
         }
 
         .header-wrap {
             display: flex;
             justify-content: space-between;
             align-items: center;
+            gap: 20px;
         }
 
         .logo-box img {
-            height: 55px;
+            height: 48px;
             width: auto;
             object-fit: contain;
-            transition: var(--transition);
+            transition: var(--transition-fast);
         }
 
         .logo-box img:hover {
-            transform: scale(1.03);
+            transform: scale(1.05);
         }
 
         .nav-menu {
             display: flex;
-            gap: 40px;
+            gap: 35px;
             list-style: none;
         }
 
         .nav-menu a {
-            color: rgba(255, 255, 255, 0.85);
-            font-size: 0.9rem;
-            font-weight: 400;
-            letter-spacing: 1px;
-            transition: var(--transition);
+            color: var(--text-dark);
+            font-size: 0.95rem;
+            font-weight: 500;
+            letter-spacing: 0.5px;
+            position: relative;
+            transition: var(--transition-fast);
+        }
+
+        .nav-menu a::after {
+            content: '';
+            position: absolute;
+            width: 0; height: 2px;
+            bottom: -5px; left: 0;
+            background-color: var(--light-blue);
+            transition: var(--transition-fast);
         }
 
         .nav-menu a:hover {
-            color: var(--gold-light);
+            color: var(--light-blue);
+        }
+
+        .nav-menu a:hover::after {
+            width: 100%;
         }
 
         .header-actions {
             display: flex;
             align-items: center;
-            gap: 25px;
+            gap: 20px;
         }
 
         .phone-link {
-            color: var(--pearl);
+            color: var(--text-dark);
             font-weight: 600;
             letter-spacing: 0.5px;
             display: flex;
             align-items: center;
             gap: 8px;
+            transition: var(--transition-fast);
+        }
+        
+        .phone-link:hover {
+            color: var(--light-blue);
         }
 
-        .phone-link span {
-            color: var(--gold);
-        }
-
-        /* --- Cinematic Hero Section --- */
+        /* --- Bright Cinematic Hero Section --- */
         .hero {
             height: 100vh;
-            min-height: 800px;
-            background: linear-gradient(135deg, rgba(6, 11, 24, 0.9) 30%, rgba(15, 27, 53, 0.6)), url('https://images.unsplash.com/photo-1600585154340-be6161a56a0c?ixlib=rb-4.0.3&auto=format&fit=crop&w=1920&q=80') center/cover no-repeat;
+            min-height: 700px;
+            /* Using a bright, clean background overlay */
+            background: linear-gradient(135deg, rgba(253, 251, 247, 0.95) 0%, rgba(235, 243, 250, 0.85) 100%), url('https://images.unsplash.com/photo-1600585154340-be6161a56a0c?ixlib=rb-4.0.3&auto=format&fit=crop&w=1920&q=80') center/cover no-repeat;
             display: flex;
             align-items: center;
             position: relative;
-            color: var(--pearl);
+            padding-top: 80px; /* Offset for sticky header */
         }
 
         .hero-inner {
@@ -218,23 +232,23 @@
         }
 
         .hero-inner h1 {
-            color: var(--pearl);
-            font-size: 4.5rem;
-            font-weight: 500;
+            font-size: clamp(3rem, 5vw, 4.5rem);
+            font-weight: 700;
             line-height: 1.15;
             margin-bottom: 25px;
+            color: var(--text-dark);
         }
 
         .hero-inner h1 span {
             font-style: italic;
-            color: var(--gold-light);
-            font-weight: 400;
+            color: var(--light-blue);
+            font-weight: 500;
         }
 
         .hero-inner p {
-            font-size: 1.25rem;
-            color: rgba(255, 255, 255, 0.8);
-            font-weight: 300;
+            font-size: clamp(1.1rem, 2vw, 1.25rem);
+            color: var(--text-muted);
+            font-weight: 400;
             max-width: 650px;
             margin-bottom: 45px;
         }
@@ -243,47 +257,49 @@
             display: flex;
             gap: 20px;
             align-items: center;
+            flex-wrap: wrap;
         }
 
         .hero-meta {
-            margin-top: 60px;
-            display: flex;
+            margin-top: 50px;
+            display: inline-flex;
             align-items: center;
-            gap: 20px;
-            border-top: 1px solid rgba(255, 255, 255, 0.1);
-            padding-top: 30px;
-            max-width: max-content;
+            gap: 15px;
+            background: var(--pure-white);
+            padding: 12px 25px;
+            border-radius: 50px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.04);
+            border: 1px solid var(--pale-blue);
         }
 
         .rating-stars {
-            color: var(--gold);
+            color: var(--gold-accent);
             font-size: 1.3rem;
-            letter-spacing: 3px;
+            letter-spacing: 2px;
         }
 
         .rating-text {
-            font-size: 0.95rem;
-            letter-spacing: 1px;
-            text-transform: uppercase;
-            color: rgba(255, 255, 255, 0.7);
+            font-size: 0.9rem;
+            font-weight: 600;
+            color: var(--text-dark);
         }
 
-        /* --- Curated About Section --- */
+        /* --- Bright About Section --- */
         .about {
-            padding: 140px 0;
-            background-color: var(--ivory);
+            padding: 120px 0;
+            background-color: var(--pure-white);
             position: relative;
         }
 
         .about-grid {
             display: grid;
-            grid-template-columns: 1.1fr 0.9fr;
+            grid-template-columns: 1fr 1fr;
             gap: 80px;
             align-items: center;
         }
 
         .about-content h2 {
-            font-size: 3rem;
+            font-size: clamp(2.5rem, 4vw, 3rem);
             margin-bottom: 30px;
         }
 
@@ -291,445 +307,282 @@
             color: var(--text-muted);
             font-size: 1.05rem;
             margin-bottom: 25px;
-            font-weight: 400;
         }
 
         .about-highlight {
-            background-color: var(--navy);
-            color: var(--pearl);
-            padding: 40px;
-            border-left: 4px solid var(--gold);
+            background-color: var(--pale-blue);
+            padding: 35px;
+            border-radius: 12px;
+            border-left: 5px solid var(--light-blue);
             margin-top: 40px;
-            position: relative;
         }
 
         .about-highlight h4 {
-            color: var(--gold-light);
-            font-size: 1.3rem;
-            margin-bottom: 12px;
-        }
-
-        .about-highlight p {
-            color: rgba(255, 255, 255, 0.8);
-            margin-bottom: 0;
-            font-size: 1rem;
-        }
-
-        .about-image-wrapper {
-            position: relative;
+            color: var(--light-blue-hover);
+            font-size: 1.2rem;
+            margin-bottom: 10px;
         }
 
         .about-img {
             width: 100%;
-            height: 600px;
+            height: 100%;
+            min-height: 500px;
             object-fit: cover;
-            box-shadow: 30px 30px 0px var(--navy);
-            transition: var(--transition);
+            border-radius: 20px;
+            box-shadow: 20px 20px 0px var(--pale-blue);
+            transition: var(--transition-smooth);
         }
 
         .about-img:hover {
             transform: scale(1.02);
+            box-shadow: 25px 25px 0px var(--light-blue);
         }
 
-        /* --- Premium Services Section --- */
+        /* --- Premium Services Grid --- */
         .services {
-            padding: 140px 0;
-            background-color: var(--pearl);
+            padding: 120px 0;
+            background-color: var(--off-white);
         }
 
         .section-header {
             text-align: center;
             max-width: 700px;
-            margin: 0 auto 80px;
+            margin: 0 auto 70px;
         }
 
         .section-header span {
-            color: var(--gold);
+            color: var(--light-blue);
             text-transform: uppercase;
             letter-spacing: 3px;
             font-size: 0.85rem;
-            font-weight: 600;
+            font-weight: 700;
             display: block;
             margin-bottom: 15px;
         }
 
-        .section-header h2 {
-            font-size: 3rem;
-        }
-
         .services-grid {
             display: grid;
-            grid-template-columns: repeat(3, 1fr);
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
             gap: 40px;
         }
 
         .service-card {
-            background-color: var(--ivory);
+            background-color: var(--pure-white);
             padding: 50px 40px;
-            border: 1px solid rgba(15, 27, 53, 0.04);
-            transition: var(--transition);
-            display: flex;
-            flex-direction: column;
-            justify-content: space-between;
+            border-radius: 16px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.02);
+            border: 1px solid rgba(74, 144, 226, 0.05);
+            transition: var(--transition-smooth);
         }
 
         .service-card:hover {
             transform: translateY(-10px);
-            background-color: var(--navy);
-            color: var(--pearl);
-            box-shadow: 0 30px 60px rgba(15, 27, 53, 0.12);
+            box-shadow: 0 20px 40px var(--glow-blue);
+            border-color: var(--light-blue);
         }
 
         .service-icon {
-            font-size: 2.5rem;
-            color: var(--gold);
-            margin-bottom: 30px;
-            transition: var(--transition);
+            font-size: 2.8rem;
+            margin-bottom: 25px;
+            transition: var(--transition-fast);
         }
 
         .service-card:hover .service-icon {
-            color: var(--gold-light);
-            transform: scale(1.1);
+            transform: scale(1.1) rotate(5deg);
         }
 
         .service-card h3 {
             font-size: 1.5rem;
-            margin-bottom: 20px;
-            transition: var(--transition);
+            margin-bottom: 15px;
         }
 
-        .service-card:hover h3 {
-            color: var(--pearl);
-        }
-
-        .service-card p {
-            color: var(--text-muted);
-            font-size: 0.98rem;
-            transition: var(--transition);
-        }
-
-        .service-card:hover p {
-            color: rgba(255, 255, 255, 0.75);
-        }
-
-        /* --- Why Choose Us Section --- */
+        /* --- Trust / Why Choose Us --- */
         .why-us {
-            background-color: var(--navy);
-            color: var(--pearl);
+            background-color: var(--light-blue);
+            color: var(--pure-white);
             padding: 120px 0;
-            position: relative;
+            border-radius: 0 0 50px 50px;
         }
 
-        .why-us h2 {
-            color: var(--pearl);
+        .why-us h2, .why-us span {
+            color: var(--pure-white);
         }
 
         .features-grid {
             display: grid;
-            grid-template-columns: repeat(4, 1fr);
+            grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
             gap: 30px;
             margin-top: 60px;
         }
 
         .feature-box {
-            background-color: var(--navy-light);
+            background-color: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
             padding: 40px 30px;
+            border-radius: 16px;
             text-align: center;
-            border-top: 3px solid var(--gold);
-            transition: var(--transition);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            transition: var(--transition-smooth);
         }
 
         .feature-box:hover {
             transform: translateY(-5px);
-            background-color: #21355c;
+            background-color: rgba(255, 255, 255, 0.2);
         }
 
         .feature-box h4 {
-            color: var(--gold-light);
+            color: var(--pure-white);
             font-size: 1.25rem;
             margin: 20px 0 12px;
         }
 
-        .feature-box p {
-            color: rgba(255, 255, 255, 0.7);
-            font-size: 0.95rem;
-        }
-
-        /* --- Testimonials Section --- */
+        /* --- Testimonials --- */
         .testimonials {
-            padding: 140px 0;
-            background-color: var(--ivory);
+            padding: 120px 0;
+            background-color: var(--warm-white);
         }
 
         .testimonials-grid {
             display: grid;
-            grid-template-columns: repeat(3, 1fr);
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
             gap: 40px;
         }
 
         .testimonial-card {
-            background-color: var(--pearl);
+            background-color: var(--pure-white);
             padding: 50px 40px;
-            box-shadow: 0 15px 45px rgba(0,0,0,0.02);
+            border-radius: 16px;
+            box-shadow: 0 10px 40px rgba(0,0,0,0.03);
             position: relative;
-            transition: var(--transition);
+            transition: var(--transition-smooth);
+            border: 1px solid var(--pale-blue);
         }
 
         .testimonial-card:hover {
-            box-shadow: 0 30px 60px rgba(15, 27, 53, 0.06);
-            transform: translateY(-2px);
+            box-shadow: 0 20px 40px var(--glow-blue);
+            transform: translateY(-5px);
         }
 
         .testimonial-card::before {
             content: "“";
             font-family: 'Playfair Display', serif;
             font-size: 6rem;
-            color: var(--gold-light);
-            opacity: 0.25;
+            color: var(--pale-blue);
             position: absolute;
             top: 15px; left: 30px;
             line-height: 1;
+            z-index: 1;
         }
 
         .quote-text {
             font-size: 1.1rem;
             font-style: italic;
-            color: var(--charcoal);
+            color: var(--text-dark);
             margin-bottom: 30px;
             position: relative;
             z-index: 2;
-        }
-
-        .reviewer-meta {
-            display: flex;
-            flex-direction: column;
-            border-top: 1px solid rgba(0,0,0,0.05);
-            padding-top: 20px;
         }
 
         .reviewer-name {
             font-family: 'Playfair Display', serif;
             font-weight: 700;
             font-size: 1.15rem;
-            color: var(--navy);
+            display: block;
         }
 
-        .reviewer-title {
-            font-size: 0.8rem;
-            text-transform: uppercase;
-            letter-spacing: 1px;
-            color: var(--text-muted);
-            margin-top: 4px;
-        }
-
-        /* --- Proof Gallery Section --- */
-        .proof-gallery {
-            padding: 140px 0;
-            background-color: var(--pearl);
-        }
-
-        .gallery-split {
-            display: grid;
-            grid-template-columns: 0.9fr 1.1fr;
-            gap: 85px;
-            align-items: center;
-        }
-
-        .gallery-image-box {
-            position: relative;
-        }
-
-        .gallery-img {
-            width: 100%;
-            height: 550px;
-            object-fit: cover;
-            box-shadow: -30px 30px 0px var(--gold);
-        }
-
-        .gallery-text h2 {
-            font-size: 3rem;
-            margin-bottom: 25px;
-        }
-
-        .gallery-text p {
-            color: var(--text-muted);
-            font-size: 1.1rem;
-            margin-bottom: 35px;
-        }
-
-        .stat-row {
-            display: flex;
-            gap: 40px;
-            margin-top: 30px;
-        }
-
-        .stat-item h5 {
-            font-size: 2.5rem;
-            color: var(--gold);
-            font-weight: 600;
-        }
-
-        .stat-item p {
-            font-size: 0.9rem;
-            text-transform: uppercase;
-            letter-spacing: 1px;
-            color: var(--navy);
-            margin-bottom: 0;
-        }
-
-        /* --- High-Converting CTA & Booking Form --- */
+        /* --- Interactive Booking Form --- */
         .cta-section {
             padding: 120px 0;
-            background-color: var(--ivory);
+            background-color: var(--pure-white);
         }
 
         .cta-wrapper {
-            background-color: var(--navy);
-            color: var(--pearl);
+            background-color: var(--off-white);
+            border-radius: 24px;
             display: grid;
             grid-template-columns: 1fr 1fr;
-            box-shadow: 0 40px 80px rgba(6, 11, 24, 0.18);
+            overflow: hidden;
+            box-shadow: 0 30px 60px rgba(0,0,0,0.05);
+            border: 1px solid var(--pale-blue);
         }
 
         .cta-info-side {
-            padding: 80px;
+            padding: 80px 60px;
+            background: linear-gradient(135deg, var(--light-blue), var(--light-blue-hover));
+            color: var(--pure-white);
             display: flex;
             flex-direction: column;
             justify-content: center;
         }
 
-        .cta-info-side h2 {
-            color: var(--pearl);
-            font-size: 3rem;
-            margin-bottom: 25px;
+        .cta-info-side h2, .cta-info-side p {
+            color: var(--pure-white);
         }
 
-        .cta-info-side p {
-            color: rgba(255, 255, 255, 0.75);
-            font-size: 1.1rem;
-            margin-bottom: 45px;
-        }
+        .cta-info-side h2 { font-size: 2.8rem; margin-bottom: 20px; }
+        .cta-info-side p { font-size: 1.1rem; margin-bottom: 40px; opacity: 0.9; }
 
-        .cta-details-list {
-            display: flex;
-            flex-direction: column;
-            gap: 25px;
+        .detail-icon {
+            width: 50px; height: 50px;
+            background-color: rgba(255,255,255,0.2);
+            border-radius: 50%;
+            display: flex; align-items: center; justify-content: center;
+            font-size: 1.2rem;
+            margin-right: 20px;
         }
-
+        
         .cta-detail-node {
             display: flex;
             align-items: center;
-            gap: 20px;
-        }
-
-        .detail-icon {
-            width: 50px;
-            height: 50px;
-            background-color: var(--navy-light);
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            color: var(--gold-light);
-            font-size: 1.2rem;
-        }
-
-        .detail-data h6 {
-            font-size: 0.85rem;
-            text-transform: uppercase;
-            letter-spacing: 1px;
-            color: var(--gold-light);
-        }
-
-        .detail-data p {
-            margin-bottom: 0;
-            font-size: 1.1rem;
-            color: var(--pearl);
-            font-weight: 500;
+            margin-bottom: 25px;
         }
 
         .cta-form-side {
-            background-color: var(--pearl);
-            padding: 80px;
-            color: var(--text-dark);
-        }
-
-        .cta-form-side h3 {
-            font-size: 2rem;
-            margin-bottom: 35px;
-            text-align: center;
+            background-color: var(--pure-white);
+            padding: 80px 60px;
         }
 
         .form-grid {
             display: grid;
-            grid-template-columns: 1fr;
-            gap: 24px;
-        }
-
-        .form-field {
-            position: relative;
+            gap: 20px;
         }
 
         .form-input {
             width: 100%;
             padding: 16px 20px;
-            border: 1px solid rgba(15, 27, 53, 0.12);
-            background-color: var(--ivory);
+            border-radius: 12px;
+            border: 2px solid var(--pale-blue);
+            background-color: var(--warm-white);
             font-family: 'Inter', sans-serif;
-            font-size: 0.98rem;
+            font-size: 1rem;
             color: var(--text-dark);
-            transition: var(--transition);
+            transition: var(--transition-fast);
         }
 
         .form-input:focus {
             outline: none;
-            border-color: var(--gold);
-            background-color: var(--pearl);
-        }
-
-        select.form-input {
-            appearance: none;
-            cursor: pointer;
+            border-color: var(--light-blue);
+            background-color: var(--pure-white);
+            box-shadow: 0 0 0 4px var(--glow-blue);
         }
 
         .form-submit-btn {
             width: 100%;
-            margin-top: 15px;
+            margin-top: 10px;
         }
 
-        /* --- Architectural Footer --- */
+        /* --- Footer --- */
         footer {
-            background-color: var(--midnight);
-            color: var(--pearl);
-            padding: 100px 0 40px;
-            border-top: 1px solid rgba(255,255,255,0.05);
+            background-color: var(--pure-white);
+            padding: 80px 0 30px;
+            border-top: 1px solid var(--pale-blue);
         }
 
         .footer-grid {
             display: grid;
-            grid-template-columns: 1.2fr 0.8fr 1fr;
-            gap: 80px;
-            margin-bottom: 80px;
-        }
-
-        .footer-col-brand img {
-            height: 50px;
-            width: auto;
-            object-fit: contain;
-            margin-bottom: 25px;
-        }
-
-        .footer-col-brand p {
-            color: rgba(255, 255, 255, 0.6);
-            font-size: 0.95rem;
-            max-width: 320px;
-        }
-
-        .footer-col-nav h4, .footer-col-contact h4 {
-            color: var(--pearl);
-            font-size: 1.2rem;
-            margin-bottom: 25px;
-            letter-spacing: 1px;
+            grid-template-columns: 1.5fr 1fr 1fr;
+            gap: 60px;
+            margin-bottom: 60px;
         }
 
         .footer-links {
@@ -740,90 +593,76 @@
         }
 
         .footer-links a {
-            color: rgba(255, 255, 255, 0.65);
-            font-size: 0.95rem;
-            transition: var(--transition);
+            color: var(--text-muted);
+            transition: var(--transition-fast);
         }
 
         .footer-links a:hover {
-            color: var(--gold-light);
+            color: var(--light-blue);
             padding-left: 5px;
         }
 
-        .footer-contact-items {
-            display: flex;
-            flex-direction: column;
-            gap: 15px;
-            color: rgba(255, 255, 255, 0.65);
-            font-size: 0.95rem;
-        }
-
-        .footer-contact-items li span {
-            color: var(--gold-light);
-        }
-
         .footer-base {
-            padding-top: 40px;
-            border-top: 1px solid rgba(255, 255, 255, 0.06);
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            color: rgba(255, 255, 255, 0.4);
-            font-size: 0.85rem;
+            padding-top: 30px;
+            border-top: 1px solid var(--pale-blue);
+            text-align: center;
+            color: var(--text-muted);
+            font-size: 0.9rem;
         }
 
-        /* --- Mobile Responsive & Sticky Implementations --- */
+        /* --- Mobile Responsive Rules --- */
         .mobile-sticky-dock {
             display: none;
             position: fixed;
             bottom: 0; left: 0; width: 100%;
-            background-color: var(--navy);
+            background-color: var(--pure-white);
             z-index: 9999;
             grid-template-columns: 1fr 1fr;
-            box-shadow: 0 -10px 30px rgba(6, 11, 24, 0.25);
+            box-shadow: 0 -10px 30px rgba(0,0,0,0.05);
+            border-top: 1px solid var(--pale-blue);
         }
 
         .dock-btn {
             text-align: center;
             padding: 18px 10px;
-            font-size: 0.85rem;
+            font-size: 0.9rem;
             font-weight: 600;
             text-transform: uppercase;
-            letter-spacing: 1px;
-            color: var(--pearl);
+            color: var(--text-dark);
         }
 
         .dock-call {
-            background-color: var(--gold);
+            background-color: var(--light-blue);
+            color: var(--pure-white);
         }
 
         @media (max-width: 1024px) {
-            .services-grid, .testimonials-grid { grid-template-columns: repeat(2, 1fr); gap: 30px; }
-            .why-us .features-grid { grid-template-columns: repeat(2, 1fr); }
-            .hero-inner h1 { font-size: 3.5rem; }
+            .about-grid { grid-template-columns: 1fr; gap: 50px; }
             .cta-wrapper { grid-template-columns: 1fr; }
-            .cta-info-side, .cta-form-side { padding: 60px 40px; }
-            .footer-grid { grid-template-columns: 1fr 1fr; gap: 40px; }
+            .footer-grid { grid-template-columns: 1fr 1fr; }
         }
 
         @media (max-width: 768px) {
-            header .nav-menu, header .btn-primary { display: none; }
-            .hero-inner h1 { font-size: 2.8rem; }
-            .hero-ctas { flex-direction: column; align-items: stretch; }
-            .about-grid, .gallery-split { grid-template-columns: 1fr; gap: 50px; }
-            .about-img { height: 400px; box-shadow: 15px 15px 0px var(--navy); }
-            .gallery-img { height: 400px; box-shadow: -15px 15px 0px var(--gold); }
-            .services-grid, .testimonials-grid, .why-us .features-grid { grid-template-columns: 1fr; }
-            .footer-grid { grid-template-columns: 1fr; }
-            .footer-base { flex-direction: column; gap: 15px; text-align: center; }
-            body { padding-bottom: 56px; }
+            /* Fix Header wrapping */
+            .nav-menu { display: none; }
+            .header-actions .btn { display: none; }
+            
+            .hero-inner { text-align: center; }
+            .hero-ctas { flex-direction: column; width: 100%; }
+            .hero-ctas .btn { width: 100%; }
+            .hero-meta { flex-direction: column; text-align: center; }
+            
+            .cta-info-side, .cta-form-side { padding: 50px 30px; }
+            .footer-grid { grid-template-columns: 1fr; text-align: center; }
+            
+            body { padding-bottom: 60px; } /* Space for mobile dock */
             .mobile-sticky-dock { display: grid; }
         }
     </style>
 </head>
 <body>
 
-    <header>
+    <header id="main-header">
         <div class="container header-wrap">
             <a href="#" class="logo-box">
                 <img src="image_91d85c.jpg" alt="Clean Har Professional Cleaning Service Logo">
@@ -833,12 +672,11 @@
                 <li><a href="#services">Services</a></li>
                 <li><a href="#why-us">Why Clean Har</a></li>
                 <li><a href="#reviews">Testimonials</a></li>
-                <li><a href="#proof">Proof</a></li>
                 <li><a href="#book">Contact</a></li>
             </ul>
             <div class="header-actions">
-                <a href="tel:0977430815" class="phone-link"><span>📞</span> 097 743 0815</a>
-                <a href="#book" class="btn btn-primary" style="padding: 10px 24px; font-size: 0.8rem;">Request Quote</a>
+                <a href="tel:0977430815" class="phone-link">📞 097 743 0815</a>
+                <a href="#book" class="btn btn-primary" style="padding: 10px 24px;">Request Quote</a>
             </div>
         </div>
     </header>
@@ -854,7 +692,7 @@
                 </div>
                 <div class="hero-meta reveal active delay-3">
                     <div class="rating-stars">★★★★★</div>
-                    <div class="rating-text">5.0/5 Star Google Rated Service (6 Reviews)</div>
+                    <div class="rating-text">5.0/5 Star Google Rated Service</div>
                 </div>
             </div>
         </div>
@@ -870,11 +708,11 @@
                     
                     <div class="about-highlight">
                         <h4>Meticulous Performance Scale</h4>
-                        <p>Our operational capability is best reflected in our large-scale execution profile—recently completing the deep purification, cleaning, and delicate drying of a continuous 1,000 square meter layout of luxury textiles and curtains without a single deviation in quality.</p>
+                        <p style="margin-bottom:0;">Our operational capability is best reflected in our large-scale execution profile—recently completing the deep purification, cleaning, and delicate drying of a continuous <strong>1,000 m² of curtains</strong> without a single deviation in quality.</p>
                     </div>
                 </div>
-                <div class="about-image-wrapper reveal delay-1">
-                    <img src="https://images.unsplash.com/photo-1584622650111-993a426fbf0a?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="Clean Har Meticulous Luxury Cleaning Process" class="about-img">
+                <div class="reveal delay-1" style="height: 100%;">
+                    <img src="https://images.unsplash.com/photo-1584622650111-993a426fbf0a?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="Clean Har Meticulous Luxury Cleaning" class="about-img">
                 </div>
             </div>
         </div>
@@ -889,51 +727,34 @@
             
             <div class="services-grid">
                 <div class="service-card reveal">
-                    <div>
-                        <div class="service-icon">🏠</div>
-                        <h3>Residential Cleaning</h3>
-                        <p>Complete purification mapping for estate homes and modern apartments. Comprehensive handling of premium surfaces, marble, glass, and architectural components.</p>
-                    </div>
+                    <div class="service-icon">🏠</div>
+                    <h3>Residential Cleaning</h3>
+                    <p style="color: var(--text-muted);">Complete purification mapping for estate homes and modern apartments. Comprehensive handling of premium surfaces.</p>
                 </div>
-                
                 <div class="service-card reveal delay-1">
-                    <div>
-                        <div class="service-icon">🏢</div>
-                        <h3>Office & Commercial</h3>
-                        <p>Corporate environment management designed to project prestige and sustain maximum operational clarity. Flexible off-hour execution frameworks.</p>
-                    </div>
+                    <div class="service-icon">🏢</div>
+                    <h3>Office & Commercial</h3>
+                    <p style="color: var(--text-muted);">Corporate environment management designed to project prestige and sustain maximum operational clarity.</p>
                 </div>
-
                 <div class="service-card reveal delay-2">
-                    <div>
-                        <div class="service-icon">✨</div>
-                        <h3>Curtain Washing & Care</h3>
-                        <p>Specialized architectural drapery care. Complete structural removal, delicate allergen extraction, tailored washing, and calibrated vertical alignment drying.</p>
-                    </div>
+                    <div class="service-icon">✨</div>
+                    <h3>Curtain Washing & Care</h3>
+                    <p style="color: var(--text-muted);">Specialized architectural drapery care. Complete structural removal, delicate washing, and calibrated drying.</p>
                 </div>
-
                 <div class="service-card reveal">
-                    <div>
-                        <div class="service-icon">🧽</div>
-                        <h3>Deep Cleaning</h3>
-                        <p>Top-to-bottom remediation targeting micro-dust vectors, baseboard tracking, HVAC vents, and detailed tile sterilization processes.</p>
-                    </div>
+                    <div class="service-icon">🧽</div>
+                    <h3>Deep Cleaning</h3>
+                    <p style="color: var(--text-muted);">Top-to-bottom remediation targeting micro-dust vectors, baseboard tracking, and detailed tile sterilization processes.</p>
                 </div>
-
                 <div class="service-card reveal delay-1">
-                    <div>
-                        <div class="service-icon">📦</div>
-                        <h3>Move-In / Move-Out</h3>
-                        <p>Sterile turnaround staging for properties preparing for high-value real estate representation, landlord delivery, or new tenant possession.</p>
-                    </div>
+                    <div class="service-icon">📦</div>
+                    <h3>Move-In / Move-Out</h3>
+                    <p style="color: var(--text-muted);">Sterile turnaround staging for properties preparing for high-value real estate representation or new tenant possession.</p>
                 </div>
-
                 <div class="service-card reveal delay-2">
-                    <div>
-                        <div class="service-icon">💎</div>
-                        <h3>Custom Solutions</h3>
-                        <p>Bespoke schedule profiles, specialized delicate floor treatment arrays, and programmatic maintenance tailored precisely to your estate's ecosystem.</p>
-                    </div>
+                    <div class="service-icon">💎</div>
+                    <h3>Custom Solutions</h3>
+                    <p style="color: var(--text-muted);">Bespoke schedule profiles, specialized floor treatment arrays, and programmatic maintenance tailored to your estate.</p>
                 </div>
             </div>
         </div>
@@ -941,31 +762,31 @@
 
     <section id="why-us" class="why-us">
         <div class="container">
-            <div class="section-header reveal">
-                <span style="color: var(--gold-light);">Uncompromising Safeguards</span>
-                <h2>The Principles Behind Our Elite Rating</h2>
+            <div class="section-header reveal" style="margin-bottom: 40px;">
+                <span style="color: rgba(255,255,255,0.8);">Uncompromising Safeguards</span>
+                <h2 style="color: white;">The Principles Behind Our Elite Rating</h2>
             </div>
             
             <div class="features-grid">
                 <div class="feature-box reveal">
-                    <div class="rating-stars">★★★★★</div>
+                    <div class="rating-stars" style="color: white;">★★★★★</div>
                     <h4>5.0-Star Mastery</h4>
-                    <p>Unanimous structural acclaim from elite homeowners and commercial administrators in Addis Ababa.</p>
+                    <p style="color: rgba(255,255,255,0.9);">Unanimous structural acclaim from elite homeowners.</p>
                 </div>
                 <div class="feature-box reveal delay-1">
                     <div style="font-size: 2rem;">👤</div>
                     <h4>Detail-Driven Staff</h4>
-                    <p>Rigorous operational vetting ensures complete security, utmost competence, and deep spatial respect.</p>
+                    <p style="color: rgba(255,255,255,0.9);">Rigorous operational vetting ensures complete security and respect.</p>
                 </div>
                 <div class="feature-box reveal delay-2">
                     <div style="font-size: 2rem;">🛡️</div>
-                    <h4>Absolute Property Care</h4>
-                    <p>Every artifact, historical material, and imported textile is isolated, analyzed, and handled with extreme care.</p>
+                    <h4>Absolute Care</h4>
+                    <p style="color: rgba(255,255,255,0.9);">Every artifact and imported textile is handled with extreme care.</p>
                 </div>
                 <div class="feature-box reveal delay-3">
                     <div style="font-size: 2rem;">📐</div>
-                    <h4>Industrial Scale Profile</h4>
-                    <p>Equipped and experienced to execute massive complex spatial projects fluidly within tight timeframes.</p>
+                    <h4>Industrial Scale</h4>
+                    <p style="color: rgba(255,255,255,0.9);">Equipped to execute massive complex spatial projects fluidly.</p>
                 </div>
             </div>
         </div>
@@ -981,53 +802,18 @@
             <div class="testimonials-grid">
                 <div class="testimonial-card reveal">
                     <p class="quote-text">"If you're thinking of cleaning your home, you should consider Clean Har."</p>
-                    <div class="reviewer-meta">
-                        <span class="reviewer-name">Ledxlightsolution</span>
-                        <span class="reviewer-title">Google Verified Client</span>
-                    </div>
+                    <div class="rating-stars" style="margin-bottom: 10px; font-size:1rem;">★★★★★</div>
+                    <span class="reviewer-name">Ledxlightsolution</span>
                 </div>
-
                 <div class="testimonial-card reveal delay-1">
                     <p class="quote-text">"Clean Har services offer the best residential cleaning service I have ever seen!"</p>
-                    <div class="reviewer-meta">
-                        <span class="reviewer-name">Kal Nigatu</span>
-                        <span class="reviewer-title">Google Verified Client</span>
-                    </div>
+                    <div class="rating-stars" style="margin-bottom: 10px; font-size:1rem;">★★★★★</div>
+                    <span class="reviewer-name">Kal Nigatu</span>
                 </div>
-
                 <div class="testimonial-card reveal delay-2">
                     <p class="quote-text">"The best cleaning service."</p>
-                    <div class="reviewer-meta">
-                        <span class="reviewer-name">Abel Chernet</span>
-                        <span class="reviewer-title">Google Verified Client</span>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <section id="proof" class="proof-gallery">
-        <div class="container">
-            <div class="gallery-split">
-                <div class="gallery-image-box reveal">
-                    <img src="https://images.unsplash.com/photo-1513694203232-719a280e022f?ixlib=rb-4.0.3&auto=format&fit=crop&w=1000&q=80" alt="1,000 square meters of high-end curtain washing project verification image" class="gallery-img">
-                </div>
-                <div class="gallery-text reveal delay-1">
-                    <span>Signature Enterprise Case Study</span>
-                    <h2>1,000 m² of Curtains Washed and Dried with Care</h2>
-                    <p>When an elite installation required the specialized maintenance of a sprawling 1,000 square meters of custom high-value drapes and curtains, Clean Har designed a tailored operational pipeline.</p>
-                    <p>The entire volume was accurately uninstalled, protected against material friction, treated with specific pH-balanced formulations to maintain dye density, and vertically air-dried to preserve form factor perfectly.</p>
-                    
-                    <div class="stat-row">
-                        <div class="stat-item">
-                            <h5>1,000m²</h5>
-                            <p>Textiles Managed</p>
-                        </div>
-                        <div class="stat-item">
-                            <h5>100%</h5>
-                            <p>Zero Fabric Strain</p>
-                        </div>
-                    </div>
+                    <div class="rating-stars" style="margin-bottom: 10px; font-size:1rem;">★★★★★</div>
+                    <span class="reviewer-name">Abel Chernet</span>
                 </div>
             </div>
         </div>
@@ -1038,59 +824,49 @@
             <div class="cta-wrapper">
                 <div class="cta-info-side reveal">
                     <h2>Ready for a Cleaner, Healthier Space?</h2>
-                    <p>Connect with our concierge team today to secure your preferred date block or coordinate a structural property assessment walkthrough.</p>
+                    <p>Connect with our concierge team today to secure your preferred date block or coordinate a structural property assessment.</p>
                     
-                    <div class="cta-details-list">
+                    <div>
                         <div class="cta-detail-node">
                             <div class="detail-icon">📞</div>
-                            <div class="detail-data">
-                                <h6>Immediate Direct Line</h6>
-                                <p>097 743 0815</p>
+                            <div>
+                                <h6 style="text-transform: uppercase; opacity: 0.8; font-size:0.8rem;">Direct Line</h6>
+                                <p style="margin:0; font-size:1.1rem; font-weight:600;">097 743 0815</p>
                             </div>
                         </div>
-
                         <div class="cta-detail-node">
                             <div class="detail-icon">📍</div>
-                            <div class="detail-data">
-                                <h6>Central Headquarters</h6>
-                                <p>Addis Ababa, Ethiopia</p>
+                            <div>
+                                <h6 style="text-transform: uppercase; opacity: 0.8; font-size:0.8rem;">Headquarters</h6>
+                                <p style="margin:0; font-size:1.1rem; font-weight:600;">Addis Ababa, Ethiopia</p>
                             </div>
                         </div>
-
                         <div class="cta-detail-node">
                             <div class="detail-icon">🕒</div>
-                            <div class="detail-data">
-                                <h6>Operational Hours</h6>
-                                <p>Opens at 7:00 AM Monday</p>
+                            <div>
+                                <h6 style="text-transform: uppercase; opacity: 0.8; font-size:0.8rem;">Hours</h6>
+                                <p style="margin:0; font-size:1.1rem; font-weight:600;">Opens at 7:00 AM Monday</p>
                             </div>
                         </div>
                     </div>
                 </div>
 
                 <div class="cta-form-side reveal delay-1">
-                    <h3>Request a Free Quote</h3>
+                    <h3 style="font-size: 2rem; margin-bottom: 30px; text-align: center;">Request a Free Quote</h3>
                     <form onsubmit="event.preventDefault(); alert('Thank you. Your request has been directed to Clean Har Priority Booking Group. We will call you within 15 minutes.');">
                         <div class="form-grid">
-                            <div class="form-field">
-                                <input type="text" class="form-input" placeholder="Your Name" required>
-                            </div>
-                            <div class="form-field">
-                                <input type="tel" class="form-input" placeholder="Phone Number" required>
-                            </div>
-                            <div class="form-field">
-                                <select class="form-input" required>
-                                    <option value="" disabled selected>Select Desired Service Suite</option>
-                                    <option value="residential">Residential Elite Care</option>
-                                    <option value="commercial">Office & Corporate Staging</option>
-                                    <option value="curtains">Curtain Purification Array</option>
-                                    <option value="deep">Bespoke Deep Cleaning</option>
-                                    <option value="move">Move-In / Move-Out Cleans</option>
-                                </select>
-                            </div>
-                            <div class="form-field">
-                                <input type="date" class="form-input" required>
-                            </div>
-                            <button type="submit" class="btn btn-primary form-submit-btn">Book Your Cleaning Today</button>
+                            <input type="text" class="form-input" placeholder="Your Name" required>
+                            <input type="tel" class="form-input" placeholder="Phone Number" required>
+                            <select class="form-input" required style="cursor: pointer; appearance: none;">
+                                <option value="" disabled selected>Select Desired Service Suite</option>
+                                <option value="residential">Residential Elite Care</option>
+                                <option value="commercial">Office & Corporate Staging</option>
+                                <option value="curtains">Curtain Purification Array</option>
+                                <option value="deep">Bespoke Deep Cleaning</option>
+                                <option value="move">Move-In / Move-Out Cleans</option>
+                            </select>
+                            <input type="date" class="form-input" required>
+                            <button type="submit" class="btn btn-primary form-submit-btn">Book Your Cleaning</button>
                         </div>
                     </form>
                 </div>
@@ -1101,36 +877,31 @@
     <footer>
         <div class="container">
             <div class="footer-grid">
-                <div class="footer-col-brand">
-                    <img src="image_91d85c.jpg" alt="Clean Har Professional Cleaning Service Embedded Branding">
-                    <p>Addis Ababa's standard-setting environmental care group. Engineered for flawless outcomes, perfect clarity, and immediate spatial health optimization.</p>
+                <div>
+                    <img src="image_91d85c.jpg" alt="Clean Har Professional Cleaning Service" style="height: 50px; margin-bottom: 20px;">
+                    <p style="color: var(--text-muted); font-size: 0.95rem; max-width: 300px;">Addis Ababa's standard-setting environmental care group. Engineered for flawless outcomes and immediate spatial health optimization.</p>
                 </div>
-                
-                <div class="footer-col-nav">
-                    <h4>Site Navigation</h4>
+                <div>
+                    <h4 style="margin-bottom: 20px;">Site Navigation</h4>
                     <ul class="footer-links">
                         <li><a href="#about">Corporate About</a></li>
                         <li><a href="#services">Service Matrix</a></li>
                         <li><a href="#why-us">Vetting & Quality</a></li>
                         <li><a href="#reviews">Client Testimonials</a></li>
-                        <li><a href="#proof">Case Proofs</a></li>
                     </ul>
                 </div>
-
-                <div class="footer-col-contact">
-                    <h4>Contact Metrics</h4>
-                    <ul class="footer-contact-items">
-                        <li><span>Direct Telephony:</span> 097 743 0815</li>
-                        <li><span>Geographic Bounds:</span> Addis Ababa, Ethiopia</li>
-                        <li><span>Weekly Profile:</span> Opens at 7:00 AM Monday</li>
-                        <li><span>Google Trust Score:</span> 5.0 / 5.0 Verified Rating</li>
+                <div>
+                    <h4 style="margin-bottom: 20px;">Contact Metrics</h4>
+                    <ul class="footer-links" style="color: var(--text-muted); font-size: 0.95rem;">
+                        <li><strong>Direct:</strong> 097 743 0815</li>
+                        <li><strong>Location:</strong> Addis Ababa, Ethiopia</li>
+                        <li><strong>Hours:</strong> Opens 7:00 AM Monday</li>
+                        <li><strong>Trust Score:</strong> 5.0 / 5.0 Verified</li>
                     </ul>
                 </div>
             </div>
-
             <div class="footer-base">
                 <p>&copy; 2026 Clean Har Professional Cleaning Service. All rights reserved.</p>
-                <p>Designed for Performance & Absolute Trust</p>
             </div>
         </div>
     </footer>
@@ -1142,26 +913,31 @@
 
     <script>
         document.addEventListener('DOMContentLoaded', () => {
+            // Header Shrink Effect on Scroll
+            const header = document.getElementById('main-header');
+            window.addEventListener('scroll', () => {
+                if (window.scrollY > 50) {
+                    header.classList.add('scrolled');
+                } else {
+                    header.classList.remove('scrolled');
+                }
+            });
+
+            // Intersection Observer for Smooth Reveals
             const revealElements = document.querySelectorAll('.reveal');
-            
             const revealOnScroll = () => {
-                const triggerBottom = window.innerHeight * 0.88;
+                const triggerBottom = window.innerHeight * 0.9;
                 
                 revealElements.forEach(element => {
                     const elementTop = element.getBoundingClientRect().top;
-                    
                     if(elementTop < triggerBottom) {
                         element.classList.add('active');
-                    } else {
-                        // Keep content interactive/re-animatable if scrolled back out smoothly
-                        element.classList.remove('active');
                     }
                 });
             };
 
             window.addEventListener('scroll', revealOnScroll);
-            // Run initially to capture assets inside viewport on initial loading pass
-            revealOnScroll();
+            revealOnScroll(); // Trigger on initial load
         });
     </script>
 </body>
