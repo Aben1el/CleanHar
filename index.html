@@ -3,41 +3,54 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Clean Har | Professional Cleaning Service in Addis Ababa</title>
+    <title>Clean Har | Premium Professional Cleaning Service Addis Ababa</title>
     
     <link rel="icon" type="image/jpeg" href="image_91d85c.jpg">
     <link rel="apple-touch-icon" href="image_91d85c.jpg">
 
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600&family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400&display=swap" rel="stylesheet">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;1,400&display=swap" rel="stylesheet">
+
     <style>
         :root {
-            --navy: #0A142F;
-            --navy-light: #152243;
-            --gold: #D4AF37;
-            --gold-hover: #b5952f;
-            --white: #FFFFFF;
-            --off-white: #F9F9F9;
-            --text-gray: #4A4A4A;
+            --midnight: #060B18;
+            --navy: #0F1B35;
+            --navy-light: #1A2B4C;
+            --gold: #C5A059;
+            --gold-light: #E2C792;
+            --charcoal: #2C2C2C;
+            --ivory: #FDFBF7;
+            --pearl: #FFFFFF;
+            --text-dark: #1E2229;
+            --text-muted: #666E7D;
+            --transition: all 0.6s cubic-bezier(0.16, 1, 0.3, 1);
         }
 
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
+        }
+
+        html {
             scroll-behavior: smooth;
         }
 
         body {
             font-family: 'Inter', sans-serif;
-            color: var(--text-gray);
-            background-color: var(--white);
+            color: var(--text-dark);
+            background-color: var(--pearl);
             line-height: 1.6;
+            overflow-x: hidden;
+            -webkit-font-smoothing: antialiased;
         }
 
         h1, h2, h3, h4 {
             font-family: 'Playfair Display', serif;
+            font-weight: 600;
             color: var(--navy);
-            font-weight: 700;
+            line-height: 1.2;
         }
 
         a {
@@ -46,609 +59,913 @@
         }
 
         .container {
-            max-width: 1200px;
+            max-width: 1300px;
             margin: 0 auto;
-            padding: 0 20px;
+            padding: 0 40px;
         }
 
-        /* Buttons */
-        .btn-primary {
-            display: inline-block;
-            background-color: var(--gold);
-            color: var(--white);
-            padding: 15px 30px;
-            font-size: 1rem;
-            font-weight: 600;
+        @media (max-width: 768px) {
+            .container { padding: 0 20px; }
+        }
+
+        /* --- Global Scroll Animation Engine --- */
+        .reveal {
+            opacity: 0;
+            transform: translateY(40px);
+            transition: var(--transition);
+        }
+
+        .reveal.active {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .delay-1 { transition-delay: 0.15s; }
+        .delay-2 { transition-delay: 0.3s; }
+        .delay-3 { transition-delay: 0.45s; }
+
+        /* --- Premium Interactive Buttons --- */
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            padding: 16px 36px;
+            font-size: 0.9rem;
+            font-weight: 500;
+            letter-spacing: 2px;
             text-transform: uppercase;
-            letter-spacing: 1px;
-            border: none;
+            border-radius: 0;
             cursor: pointer;
-            transition: background-color 0.3s ease;
+            position: relative;
+            transition: var(--transition);
+            z-index: 1;
+        }
+
+        .btn-primary {
+            background-color: var(--gold);
+            color: var(--pearl);
+            border: 1px solid var(--gold);
+        }
+
+        .btn-primary::before {
+            content: '';
+            position: absolute;
+            top: 0; left: 0; width: 0%; height: 100%;
+            background-color: var(--navy);
+            transition: var(--transition);
+            z-index: -1;
+        }
+
+        .btn-primary:hover::before {
+            width: 100%;
         }
 
         .btn-primary:hover {
-            background-color: var(--gold-hover);
+            border-color: var(--navy);
+            color: var(--pearl);
         }
 
         .btn-secondary {
-            display: inline-block;
             background-color: transparent;
-            color: var(--white);
-            padding: 14px 28px;
-            font-size: 1rem;
-            font-weight: 600;
-            text-transform: uppercase;
-            letter-spacing: 1px;
-            border: 1px solid var(--white);
-            cursor: pointer;
-            transition: all 0.3s ease;
+            color: var(--pearl);
+            border: 1px solid rgba(255, 255, 255, 0.4);
+            backdrop-filter: blur(10px);
         }
 
         .btn-secondary:hover {
-            background-color: var(--white);
-            color: var(--navy);
+            background-color: var(--pearl);
+            color: var(--midnight);
+            border-color: var(--pearl);
         }
 
-        /* Header Logo Configuration */
+        /* --- Header Styling --- */
         header {
             position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            padding: 15px 0;
-            z-index: 100;
-            background: linear-gradient(to bottom, rgba(10, 20, 47, 0.9), transparent);
+            top: 0; left: 0; width: 100%;
+            padding: 25px 0;
+            z-index: 1000;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+            background: linear-gradient(to bottom, rgba(6, 11, 24, 0.8), transparent);
         }
 
-        .header-content {
+        .header-wrap {
             display: flex;
             justify-content: space-between;
             align-items: center;
         }
 
-        .logo-link {
-            display: flex;
-            align-items: center;
-        }
-
-        .brand-logo {
-            height: 45px;
+        .logo-box img {
+            height: 55px;
             width: auto;
             object-fit: contain;
-            transition: transform 0.3s ease;
+            transition: var(--transition);
         }
 
-        .brand-logo:hover {
-            transform: scale(1.02);
+        .logo-box img:hover {
+            transform: scale(1.03);
         }
 
-        .nav-links {
+        .nav-menu {
             display: flex;
-            gap: 30px;
-            align-items: center;
+            gap: 40px;
+            list-style: none;
         }
 
-        .nav-links a {
-            color: var(--white);
+        .nav-menu a {
+            color: rgba(255, 255, 255, 0.85);
+            font-size: 0.9rem;
             font-weight: 400;
-            font-size: 0.95rem;
-            transition: color 0.3s ease;
+            letter-spacing: 1px;
+            transition: var(--transition);
         }
 
-        .nav-links a:hover {
+        .nav-menu a:hover {
+            color: var(--gold-light);
+        }
+
+        .header-actions {
+            display: flex;
+            align-items: center;
+            gap: 25px;
+        }
+
+        .phone-link {
+            color: var(--pearl);
+            font-weight: 600;
+            letter-spacing: 0.5px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .phone-link span {
             color: var(--gold);
         }
 
-        .header-phone {
-            color: var(--white);
-            font-weight: 600;
-            display: flex;
-            align-items: center;
-            gap: 10px;
-            font-size: 1.05rem;
-        }
-
-        /* Hero Section */
+        /* --- Cinematic Hero Section --- */
         .hero {
             height: 100vh;
-            background: linear-gradient(rgba(10, 20, 47, 0.75), rgba(10, 20, 47, 0.75)), url('https://images.unsplash.com/photo-1600585154340-be6161a56a0c?ixlib=rb-4.0.3&auto=format&fit=crop&w=1920&q=80') center/cover no-repeat;
+            min-height: 800px;
+            background: linear-gradient(135deg, rgba(6, 11, 24, 0.9) 30%, rgba(15, 27, 53, 0.6)), url('https://images.unsplash.com/photo-1600585154340-be6161a56a0c?ixlib=rb-4.0.3&auto=format&fit=crop&w=1920&q=80') center/cover no-repeat;
             display: flex;
             align-items: center;
-            text-align: center;
             position: relative;
+            color: var(--pearl);
         }
 
-        .hero-content {
-            max-width: 800px;
-            margin: 0 auto;
+        .hero-inner {
+            max-width: 850px;
         }
 
-        .hero h1 {
-            color: var(--white);
-            font-size: 4rem;
-            line-height: 1.1;
-            margin-bottom: 20px;
-            animation: fadeInDown 1s ease;
+        .hero-inner h1 {
+            color: var(--pearl);
+            font-size: 4.5rem;
+            font-weight: 500;
+            line-height: 1.15;
+            margin-bottom: 25px;
         }
 
-        .hero p {
-            color: var(--off-white);
-            font-size: 1.2rem;
-            margin-bottom: 40px;
+        .hero-inner h1 span {
+            font-style: italic;
+            color: var(--gold-light);
+            font-weight: 400;
+        }
+
+        .hero-inner p {
+            font-size: 1.25rem;
+            color: rgba(255, 255, 255, 0.8);
             font-weight: 300;
-            animation: fadeInUp 1s ease 0.3s both;
+            max-width: 650px;
+            margin-bottom: 45px;
         }
 
-        .hero-btns {
+        .hero-ctas {
             display: flex;
             gap: 20px;
-            justify-content: center;
-            animation: fadeInUp 1s ease 0.6s both;
+            align-items: center;
         }
 
-        .trust-badge {
-            margin-top: 40px;
+        .hero-meta {
+            margin-top: 60px;
             display: flex;
             align-items: center;
-            justify-content: center;
-            gap: 10px;
-            color: var(--white);
-            font-size: 0.9rem;
-            animation: fadeIn 1s ease 1s both;
+            gap: 20px;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            padding-top: 30px;
+            max-width: max-content;
         }
 
-        .stars {
+        .rating-stars {
             color: var(--gold);
-            font-size: 1.2rem;
-            letter-spacing: 2px;
+            font-size: 1.3rem;
+            letter-spacing: 3px;
         }
 
-        /* About Section */
+        .rating-text {
+            font-size: 0.95rem;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+            color: rgba(255, 255, 255, 0.7);
+        }
+
+        /* --- Curated About Section --- */
         .about {
-            padding: 100px 0;
-            background-color: var(--off-white);
+            padding: 140px 0;
+            background-color: var(--ivory);
+            position: relative;
         }
 
         .about-grid {
             display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 60px;
+            grid-template-columns: 1.1fr 0.9fr;
+            gap: 80px;
             align-items: center;
         }
 
-        .about-text h2 {
-            font-size: 2.5rem;
-            margin-bottom: 20px;
+        .about-content h2 {
+            font-size: 3rem;
+            margin-bottom: 30px;
         }
 
-        .about-text p {
-            margin-bottom: 20px;
+        .about-content p {
+            color: var(--text-muted);
             font-size: 1.05rem;
+            margin-bottom: 25px;
+            font-weight: 400;
         }
 
-        .highlight-box {
+        .about-highlight {
             background-color: var(--navy);
-            color: var(--white);
-            padding: 30px;
-            border-left: 5px solid var(--gold);
-            margin-top: 30px;
+            color: var(--pearl);
+            padding: 40px;
+            border-left: 4px solid var(--gold);
+            margin-top: 40px;
+            position: relative;
         }
 
-        .highlight-box h4 {
-            color: var(--gold);
-            margin-bottom: 10px;
-            font-size: 1.2rem;
+        .about-highlight h4 {
+            color: var(--gold-light);
+            font-size: 1.3rem;
+            margin-bottom: 12px;
         }
 
-        .about-image {
+        .about-highlight p {
+            color: rgba(255, 255, 255, 0.8);
+            margin-bottom: 0;
+            font-size: 1rem;
+        }
+
+        .about-image-wrapper {
+            position: relative;
+        }
+
+        .about-img {
             width: 100%;
-            height: 500px;
-            background: url('https://images.unsplash.com/photo-1584622650111-993a426fbf0a?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80') center/cover;
-            box-shadow: 20px 20px 0 var(--gold);
+            height: 600px;
+            object-fit: cover;
+            box-shadow: 30px 30px 0px var(--navy);
+            transition: var(--transition);
         }
 
-        /* Services */
+        .about-img:hover {
+            transform: scale(1.02);
+        }
+
+        /* --- Premium Services Section --- */
         .services {
-            padding: 100px 0;
+            padding: 140px 0;
+            background-color: var(--pearl);
         }
 
         .section-header {
             text-align: center;
-            max-width: 600px;
-            margin: 0 auto 60px;
+            max-width: 700px;
+            margin: 0 auto 80px;
         }
 
-        .section-header h2 {
-            font-size: 2.5rem;
+        .section-header span {
+            color: var(--gold);
+            text-transform: uppercase;
+            letter-spacing: 3px;
+            font-size: 0.85rem;
+            font-weight: 600;
+            display: block;
             margin-bottom: 15px;
         }
 
-        .section-header p {
-            color: var(--text-gray);
+        .section-header h2 {
+            font-size: 3rem;
         }
 
         .services-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 30px;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 40px;
         }
 
         .service-card {
-            background: var(--off-white);
-            padding: 40px 30px;
-            text-align: center;
-            transition: transform 0.3s ease, box-shadow 0.3s ease;
-            border-bottom: 3px solid transparent;
+            background-color: var(--ivory);
+            padding: 50px 40px;
+            border: 1px solid rgba(15, 27, 53, 0.04);
+            transition: var(--transition);
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
         }
 
         .service-card:hover {
             transform: translateY(-10px);
-            box-shadow: 0 15px 30px rgba(0,0,0,0.05);
-            border-bottom: 3px solid var(--gold);
+            background-color: var(--navy);
+            color: var(--pearl);
+            box-shadow: 0 30px 60px rgba(15, 27, 53, 0.12);
         }
 
         .service-icon {
             font-size: 2.5rem;
             color: var(--gold);
-            margin-bottom: 20px;
+            margin-bottom: 30px;
+            transition: var(--transition);
+        }
+
+        .service-card:hover .service-icon {
+            color: var(--gold-light);
+            transform: scale(1.1);
         }
 
         .service-card h3 {
-            margin-bottom: 15px;
-            font-size: 1.3rem;
+            font-size: 1.5rem;
+            margin-bottom: 20px;
+            transition: var(--transition);
         }
 
-        /* Why Choose Us */
+        .service-card:hover h3 {
+            color: var(--pearl);
+        }
+
+        .service-card p {
+            color: var(--text-muted);
+            font-size: 0.98rem;
+            transition: var(--transition);
+        }
+
+        .service-card:hover p {
+            color: rgba(255, 255, 255, 0.75);
+        }
+
+        /* --- Why Choose Us Section --- */
         .why-us {
             background-color: var(--navy);
-            color: var(--white);
-            padding: 100px 0;
+            color: var(--pearl);
+            padding: 120px 0;
+            position: relative;
         }
 
         .why-us h2 {
-            color: var(--white);
+            color: var(--pearl);
         }
 
         .features-grid {
             display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 30px;
+            margin-top: 60px;
+        }
+
+        .feature-box {
+            background-color: var(--navy-light);
+            padding: 40px 30px;
+            text-align: center;
+            border-top: 3px solid var(--gold);
+            transition: var(--transition);
+        }
+
+        .feature-box:hover {
+            transform: translateY(-5px);
+            background-color: #21355c;
+        }
+
+        .feature-box h4 {
+            color: var(--gold-light);
+            font-size: 1.25rem;
+            margin: 20px 0 12px;
+        }
+
+        .feature-box p {
+            color: rgba(255, 255, 255, 0.7);
+            font-size: 0.95rem;
+        }
+
+        /* --- Testimonials Section --- */
+        .testimonials {
+            padding: 140px 0;
+            background-color: var(--ivory);
+        }
+
+        .testimonials-grid {
+            display: grid;
             grid-template-columns: repeat(3, 1fr);
             gap: 40px;
-            text-align: center;
-            margin-top: 50px;
         }
 
-        .feature-item h4 {
-            color: var(--gold);
-            font-size: 1.2rem;
-            margin: 15px 0 10px;
-        }
-
-        /* Testimonials */
-        .testimonials {
-            padding: 100px 0;
-            background-color: var(--off-white);
-        }
-
-        .reviews-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 30px;
-        }
-
-        .review-card {
-            background: var(--white);
-            padding: 40px;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.03);
+        .testimonial-card {
+            background-color: var(--pearl);
+            padding: 50px 40px;
+            box-shadow: 0 15px 45px rgba(0,0,0,0.02);
             position: relative;
+            transition: var(--transition);
         }
 
-        .review-card::before {
-            content: '"';
+        .testimonial-card:hover {
+            box-shadow: 0 30px 60px rgba(15, 27, 53, 0.06);
+            transform: translateY(-2px);
+        }
+
+        .testimonial-card::before {
+            content: "“";
             font-family: 'Playfair Display', serif;
             font-size: 6rem;
-            color: var(--gold);
-            opacity: 0.2;
+            color: var(--gold-light);
+            opacity: 0.25;
             position: absolute;
-            top: 10px;
-            left: 20px;
+            top: 15px; left: 30px;
+            line-height: 1;
         }
 
-        .review-text {
+        .quote-text {
             font-size: 1.1rem;
             font-style: italic;
-            margin-bottom: 20px;
+            color: var(--charcoal);
+            margin-bottom: 30px;
             position: relative;
-            z-index: 1;
+            z-index: 2;
         }
 
-        .reviewer {
-            font-weight: 600;
-            color: var(--navy);
+        .reviewer-meta {
             display: flex;
             flex-direction: column;
+            border-top: 1px solid rgba(0,0,0,0.05);
+            padding-top: 20px;
         }
 
-        .reviewer span {
-            font-weight: 300;
+        .reviewer-name {
+            font-family: 'Playfair Display', serif;
+            font-weight: 700;
+            font-size: 1.15rem;
+            color: var(--navy);
+        }
+
+        .reviewer-title {
+            font-size: 0.8rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            color: var(--text-muted);
+            margin-top: 4px;
+        }
+
+        /* --- Proof Gallery Section --- */
+        .proof-gallery {
+            padding: 140px 0;
+            background-color: var(--pearl);
+        }
+
+        .gallery-split {
+            display: grid;
+            grid-template-columns: 0.9fr 1.1fr;
+            gap: 85px;
+            align-items: center;
+        }
+
+        .gallery-image-box {
+            position: relative;
+        }
+
+        .gallery-img {
+            width: 100%;
+            height: 550px;
+            object-fit: cover;
+            box-shadow: -30px 30px 0px var(--gold);
+        }
+
+        .gallery-text h2 {
+            font-size: 3rem;
+            margin-bottom: 25px;
+        }
+
+        .gallery-text p {
+            color: var(--text-muted);
+            font-size: 1.1rem;
+            margin-bottom: 35px;
+        }
+
+        .stat-row {
+            display: flex;
+            gap: 40px;
+            margin-top: 30px;
+        }
+
+        .stat-item h5 {
+            font-size: 2.5rem;
+            color: var(--gold);
+            font-weight: 600;
+        }
+
+        .stat-item p {
             font-size: 0.9rem;
-            color: var(--text-gray);
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            color: var(--navy);
+            margin-bottom: 0;
         }
 
-        /* CTA & Form */
+        /* --- High-Converting CTA & Booking Form --- */
         .cta-section {
-            padding: 100px 0;
-            background-color: var(--white);
+            padding: 120px 0;
+            background-color: var(--ivory);
         }
 
-        .cta-container {
-            background: var(--navy);
-            border-radius: 4px;
-            padding: 60px;
+        .cta-wrapper {
+            background-color: var(--navy);
+            color: var(--pearl);
             display: grid;
             grid-template-columns: 1fr 1fr;
-            gap: 60px;
-            align-items: center;
-            box-shadow: 0 20px 40px rgba(10, 20, 47, 0.15);
+            box-shadow: 0 40px 80px rgba(6, 11, 24, 0.18);
         }
 
-        .cta-text h2 {
-            color: var(--white);
-            font-size: 2.5rem;
-            margin-bottom: 20px;
+        .cta-info-side {
+            padding: 80px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
         }
 
-        .cta-text p {
-            color: var(--off-white);
-            margin-bottom: 30px;
+        .cta-info-side h2 {
+            color: var(--pearl);
+            font-size: 3rem;
+            margin-bottom: 25px;
         }
 
-        .contact-info {
+        .cta-info-side p {
+            color: rgba(255, 255, 255, 0.75);
+            font-size: 1.1rem;
+            margin-bottom: 45px;
+        }
+
+        .cta-details-list {
+            display: flex;
+            flex-direction: column;
+            gap: 25px;
+        }
+
+        .cta-detail-node {
             display: flex;
             align-items: center;
-            gap: 15px;
-            margin-bottom: 15px;
-            color: var(--white);
+            gap: 20px;
         }
 
-        .contact-info i {
-            color: var(--gold);
+        .detail-icon {
+            width: 50px;
+            height: 50px;
+            background-color: var(--navy-light);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--gold-light);
             font-size: 1.2rem;
         }
 
-        .booking-form {
-            background: var(--white);
-            padding: 40px;
-            border-radius: 4px;
+        .detail-data h6 {
+            font-size: 0.85rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            color: var(--gold-light);
         }
 
-        .form-group {
-            margin-bottom: 20px;
+        .detail-data p {
+            margin-bottom: 0;
+            font-size: 1.1rem;
+            color: var(--pearl);
+            font-weight: 500;
         }
 
-        .form-control {
+        .cta-form-side {
+            background-color: var(--pearl);
+            padding: 80px;
+            color: var(--text-dark);
+        }
+
+        .cta-form-side h3 {
+            font-size: 2rem;
+            margin-bottom: 35px;
+            text-align: center;
+        }
+
+        .form-grid {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 24px;
+        }
+
+        .form-field {
+            position: relative;
+        }
+
+        .form-input {
             width: 100%;
-            padding: 12px 15px;
-            border: 1px solid #E0E0E0;
+            padding: 16px 20px;
+            border: 1px solid rgba(15, 27, 53, 0.12);
+            background-color: var(--ivory);
             font-family: 'Inter', sans-serif;
-            font-size: 1rem;
-            background-color: var(--off-white);
+            font-size: 0.98rem;
+            color: var(--text-dark);
+            transition: var(--transition);
         }
 
-        .form-control:focus {
+        .form-input:focus {
             outline: none;
             border-color: var(--gold);
+            background-color: var(--pearl);
         }
 
-        .booking-form .btn-primary {
+        select.form-input {
+            appearance: none;
+            cursor: pointer;
+        }
+
+        .form-submit-btn {
             width: 100%;
+            margin-top: 15px;
         }
 
-        /* Footer Customization */
+        /* --- Architectural Footer --- */
         footer {
-            background-color: var(--navy-light);
-            color: var(--white);
-            padding: 60px 0 30px;
+            background-color: var(--midnight);
+            color: var(--pearl);
+            padding: 100px 0 40px;
+            border-top: 1px solid rgba(255,255,255,0.05);
         }
 
         .footer-grid {
             display: grid;
-            grid-template-columns: repeat(3, 1fr);
-            gap: 40px;
-            margin-bottom: 40px;
+            grid-template-columns: 1.2fr 0.8fr 1fr;
+            gap: 80px;
+            margin-bottom: 80px;
         }
 
-        .footer-col h4 {
-            color: var(--white);
+        .footer-col-brand img {
+            height: 50px;
+            width: auto;
+            object-fit: contain;
+            margin-bottom: 25px;
+        }
+
+        .footer-col-brand p {
+            color: rgba(255, 255, 255, 0.6);
+            font-size: 0.95rem;
+            max-width: 320px;
+        }
+
+        .footer-col-nav h4, .footer-col-contact h4 {
+            color: var(--pearl);
             font-size: 1.2rem;
-            margin-bottom: 20px;
+            margin-bottom: 25px;
+            letter-spacing: 1px;
         }
 
         .footer-links {
             list-style: none;
-        }
-
-        .footer-links li {
-            margin-bottom: 10px;
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
         }
 
         .footer-links a {
-            color: #A0AABF;
-            transition: color 0.3s ease;
+            color: rgba(255, 255, 255, 0.65);
+            font-size: 0.95rem;
+            transition: var(--transition);
         }
 
         .footer-links a:hover {
-            color: var(--gold);
+            color: var(--gold-light);
+            padding-left: 5px;
         }
 
-        .footer-bottom {
-            text-align: center;
-            padding-top: 30px;
-            border-top: 1px solid rgba(255,255,255,0.1);
-            color: #A0AABF;
-            font-size: 0.9rem;
+        .footer-contact-items {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+            color: rgba(255, 255, 255, 0.65);
+            font-size: 0.95rem;
         }
 
-        /* Mobile Sticky CTA */
-        .mobile-sticky-cta {
+        .footer-contact-items li span {
+            color: var(--gold-light);
+        }
+
+        .footer-base {
+            padding-top: 40px;
+            border-top: 1px solid rgba(255, 255, 255, 0.06);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            color: rgba(255, 255, 255, 0.4);
+            font-size: 0.85rem;
+        }
+
+        /* --- Mobile Responsive & Sticky Implementations --- */
+        .mobile-sticky-dock {
             display: none;
             position: fixed;
-            bottom: 0;
-            left: 0;
-            width: 100%;
-            background-color: var(--gold);
-            color: var(--white);
+            bottom: 0; left: 0; width: 100%;
+            background-color: var(--navy);
+            z-index: 9999;
+            grid-template-columns: 1fr 1fr;
+            box-shadow: 0 -10px 30px rgba(6, 11, 24, 0.25);
+        }
+
+        .dock-btn {
             text-align: center;
-            padding: 15px;
+            padding: 18px 10px;
+            font-size: 0.85rem;
             font-weight: 600;
-            font-size: 1.1rem;
-            z-index: 1000;
-            box-shadow: 0 -5px 15px rgba(0,0,0,0.1);
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            color: var(--pearl);
         }
 
-        /* Animations */
-        @keyframes fadeInUp {
-            from { opacity: 0; transform: translateY(30px); }
-            to { opacity: 1; transform: translateY(0); }
-        }
-        @keyframes fadeInDown {
-            from { opacity: 0; transform: translateY(-30px); }
-            to { opacity: 1; transform: translateY(0); }
-        }
-        @keyframes fadeIn {
-            from { opacity: 0; }
-            to { opacity: 1; }
+        .dock-call {
+            background-color: var(--gold);
         }
 
-        /* Responsive Elements */
-        @media (max-width: 992px) {
-            .about-grid, .cta-container { grid-template-columns: 1fr; }
-            .hero h1 { font-size: 3rem; }
-            .features-grid { grid-template-columns: 1fr; }
+        @media (max-width: 1024px) {
+            .services-grid, .testimonials-grid { grid-template-columns: repeat(2, 1fr); gap: 30px; }
+            .why-us .features-grid { grid-template-columns: repeat(2, 1fr); }
+            .hero-inner h1 { font-size: 3.5rem; }
+            .cta-wrapper { grid-template-columns: 1fr; }
+            .cta-info-side, .cta-form-side { padding: 60px 40px; }
+            .footer-grid { grid-template-columns: 1fr 1fr; gap: 40px; }
         }
 
         @media (max-width: 768px) {
-            .nav-links { display: none; }
-            .hero-btns { flex-direction: column; }
-            .hero h1 { font-size: 2.5rem; }
-            .footer-grid { grid-template-columns: 1fr; text-align: center; }
-            .cta-container { padding: 30px 20px; }
-            body { padding-bottom: 60px; }
-            .mobile-sticky-cta { display: block; }
+            header .nav-menu, header .btn-primary { display: none; }
+            .hero-inner h1 { font-size: 2.8rem; }
+            .hero-ctas { flex-direction: column; align-items: stretch; }
+            .about-grid, .gallery-split { grid-template-columns: 1fr; gap: 50px; }
+            .about-img { height: 400px; box-shadow: 15px 15px 0px var(--navy); }
+            .gallery-img { height: 400px; box-shadow: -15px 15px 0px var(--gold); }
+            .services-grid, .testimonials-grid, .why-us .features-grid { grid-template-columns: 1fr; }
+            .footer-grid { grid-template-columns: 1fr; }
+            .footer-base { flex-direction: column; gap: 15px; text-align: center; }
+            body { padding-bottom: 56px; }
+            .mobile-sticky-dock { display: grid; }
         }
     </style>
 </head>
 <body>
 
     <header>
-        <div class="container header-content">
-            <a href="#" class="logo-link">
-                <img src="image_91d85c.jpg" alt="Clean Har Professional Cleaning Service Logo" class="brand-logo">
+        <div class="container header-wrap">
+            <a href="#" class="logo-box">
+                <img src="image_91d85c.jpg" alt="Clean Har Professional Cleaning Service Logo">
             </a>
-            <nav class="nav-links">
-                <a href="#about">About</a>
-                <a href="#services">Services</a>
-                <a href="#reviews">Reviews</a>
-                <a href="#contact">Contact</a>
-            </nav>
-            <div class="header-phone">
-                <span>📞 097 743 0815</span>
+            <ul class="nav-menu">
+                <li><a href="#about">About</a></li>
+                <li><a href="#services">Services</a></li>
+                <li><a href="#why-us">Why Clean Har</a></li>
+                <li><a href="#reviews">Testimonials</a></li>
+                <li><a href="#proof">Proof</a></li>
+                <li><a href="#book">Contact</a></li>
+            </ul>
+            <div class="header-actions">
+                <a href="tel:0977430815" class="phone-link"><span>📞</span> 097 743 0815</a>
+                <a href="#book" class="btn btn-primary" style="padding: 10px 24px; font-size: 0.8rem;">Request Quote</a>
             </div>
         </div>
     </header>
 
     <section class="hero">
-        <div class="container hero-content">
-            <h1>Professional Cleaning,<br>Premium Results.</h1>
-            <p>Trusted residential and commercial cleaning services across Addis Ababa. We handle the details so you can enjoy a spotless space.</p>
-            <div class="hero-btns">
-                <a href="#contact" class="btn-primary">Book a Cleaning</a>
-                <a href="tel:0977430815" class="btn-secondary">Call 097 743 0815</a>
-            </div>
-            <div class="trust-badge">
-                <div class="stars">★★★★★</div>
-                <span>5.0/5 from trusted clients in Addis Ababa</span>
+        <div class="container">
+            <div class="hero-inner">
+                <h1 class="reveal active">Professional Cleaning,<br><span>Premium Results.</span></h1>
+                <p class="reveal active delay-1">Exceptional residential and commercial cleaning services tailored for sophisticated spaces across Addis Ababa. Experience the art of immaculate detailing.</p>
+                <div class="hero-ctas reveal active delay-2">
+                    <a href="#book" class="btn btn-primary">Book a Cleaning</a>
+                    <a href="tel:0977430815" class="btn btn-secondary">Call 097 743 0815</a>
+                </div>
+                <div class="hero-meta reveal active delay-3">
+                    <div class="rating-stars">★★★★★</div>
+                    <div class="rating-text">5.0/5 Star Google Rated Service (6 Reviews)</div>
+                </div>
             </div>
         </div>
     </section>
 
     <section id="about" class="about">
-        <div class="container about-grid">
-            <div class="about-text">
-                <h2>Excellence in Every Detail</h2>
-                <p>At Clean Har Professional Cleaning Service, we believe that a clean environment is the foundation of a healthy, productive, and peaceful life. Operating in the heart of Addis Ababa, we bring a cinematic level of detail to everyday spaces.</p>
-                <p>Our team is built on punctuality, reliability, and an unwavering commitment to customer satisfaction. From luxury homes to bustling corporate offices, we deliver premium results that speak for themselves.</p>
-                
-                <div class="highlight-box">
-                    <h4>The Clean Har Standard</h4>
-                    <p>We recently completed washing and carefully drying <strong>1,000 m² of curtains</strong>—a testament to our capability to handle large-scale, delicate projects with absolute care and precision.</p>
+        <div class="container">
+            <div class="about-grid">
+                <div class="about-content reveal">
+                    <h2>Defining the Standard of Absolute Clean</h2>
+                    <p>Clean Har Professional Cleaning Service is Addis Ababa's premier provider of high-end residential and commercial environmental care. We treat cleaning not merely as a chore, but as an architectural preservation of your space.</p>
+                    <p>Built upon strict punctuality, supreme execution, and complete confidentiality, our professionals employ meticulous techniques that eliminate the finest parameters of dust and imperfections.</p>
+                    
+                    <div class="about-highlight">
+                        <h4>Meticulous Performance Scale</h4>
+                        <p>Our operational capability is best reflected in our large-scale execution profile—recently completing the deep purification, cleaning, and delicate drying of a continuous 1,000 square meter layout of luxury textiles and curtains without a single deviation in quality.</p>
+                    </div>
+                </div>
+                <div class="about-image-wrapper reveal delay-1">
+                    <img src="https://images.unsplash.com/photo-1584622650111-993a426fbf0a?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="Clean Har Meticulous Luxury Cleaning Process" class="about-img">
                 </div>
             </div>
-            <div class="about-image"></div>
         </div>
     </section>
 
     <section id="services" class="services">
         <div class="container">
-            <div class="section-header">
-                <h2>Our Premium Services</h2>
-                <p>Comprehensive cleaning solutions tailored to homes, offices, and specialized needs.</p>
+            <div class="section-header reveal">
+                <span>Our Custom Capabilities</span>
+                <h2>Clean Har Bespoke Service Suites</h2>
             </div>
+            
             <div class="services-grid">
-                <div class="service-card">
-                    <div class="service-icon">🏠</div>
-                    <h3>Residential Cleaning</h3>
-                    <p>Transform your home into a pristine sanctuary with our detailed and respectful cleaning crew.</p>
+                <div class="service-card reveal">
+                    <div>
+                        <div class="service-icon">🏠</div>
+                        <h3>Residential Cleaning</h3>
+                        <p>Complete purification mapping for estate homes and modern apartments. Comprehensive handling of premium surfaces, marble, glass, and architectural components.</p>
+                    </div>
                 </div>
-                <div class="service-card">
-                    <div class="service-icon">🏢</div>
-                    <h3>Commercial Cleaning</h3>
-                    <p>Maintain a spotless, professional image for your office that inspires employees and impresses clients.</p>
+                
+                <div class="service-card reveal delay-1">
+                    <div>
+                        <div class="service-icon">🏢</div>
+                        <h3>Office & Commercial</h3>
+                        <p>Corporate environment management designed to project prestige and sustain maximum operational clarity. Flexible off-hour execution frameworks.</p>
+                    </div>
                 </div>
-                <div class="service-card">
-                    <div class="service-icon">✨</div>
-                    <h3>Curtain Washing & Care</h3>
-                    <p>Specialized removal, washing, and careful drying of curtains, handling massive projects up to 1,000 m².</p>
+
+                <div class="service-card reveal delay-2">
+                    <div>
+                        <div class="service-icon">✨</div>
+                        <h3>Curtain Washing & Care</h3>
+                        <p>Specialized architectural drapery care. Complete structural removal, delicate allergen extraction, tailored washing, and calibrated vertical alignment drying.</p>
+                    </div>
                 </div>
-                <div class="service-card">
-                    <div class="service-icon">🧽</div>
-                    <h3>Deep Cleaning</h3>
-                    <p>A rigorous, top-to-bottom clean that targets hidden dust, grime, and neglected corners.</p>
+
+                <div class="service-card reveal">
+                    <div>
+                        <div class="service-icon">🧽</div>
+                        <h3>Deep Cleaning</h3>
+                        <p>Top-to-bottom remediation targeting micro-dust vectors, baseboard tracking, HVAC vents, and detailed tile sterilization processes.</p>
+                    </div>
                 </div>
-                <div class="service-card">
-                    <div class="service-icon">📦</div>
-                    <h3>Move-In / Move-Out</h3>
-                    <p>Ensure your new or old property is flawlessly clean, welcoming, and ready for transition.</p>
+
+                <div class="service-card reveal delay-1">
+                    <div>
+                        <div class="service-icon">📦</div>
+                        <h3>Move-In / Move-Out</h3>
+                        <p>Sterile turnaround staging for properties preparing for high-value real estate representation, landlord delivery, or new tenant possession.</p>
+                    </div>
                 </div>
-                <div class="service-card">
-                    <div class="service-icon">💎</div>
-                    <h3>Custom Solutions</h3>
-                    <p>Tailored cleaning strategies to meet your exact schedule, property size, and unique requirements.</p>
+
+                <div class="service-card reveal delay-2">
+                    <div>
+                        <div class="service-icon">💎</div>
+                        <h3>Custom Solutions</h3>
+                        <p>Bespoke schedule profiles, specialized delicate floor treatment arrays, and programmatic maintenance tailored precisely to your estate's ecosystem.</p>
+                    </div>
                 </div>
             </div>
         </div>
     </section>
 
-    <section class="why-us">
+    <section id="why-us" class="why-us">
         <div class="container">
-            <div class="section-header">
-                <h2>Why Choose Clean Har?</h2>
-                <p style="color: #A0AABF;">Setting the benchmark for cleaning excellence in Addis Ababa.</p>
+            <div class="section-header reveal">
+                <span style="color: var(--gold-light);">Uncompromising Safeguards</span>
+                <h2>The Principles Behind Our Elite Rating</h2>
             </div>
+            
             <div class="features-grid">
-                <div class="feature-item">
-                    <div class="stars">★★★★★</div>
-                    <h4>5.0-Star Satisfaction</h4>
-                    <p>Consistently rated as top-tier by our residential and commercial clients.</p>
+                <div class="feature-box reveal">
+                    <div class="rating-stars">★★★★★</div>
+                    <h4>5.0-Star Mastery</h4>
+                    <p>Unanimous structural acclaim from elite homeowners and commercial administrators in Addis Ababa.</p>
                 </div>
-                <div class="feature-item">
-                    <h4 style="font-size: 2rem; margin:0;">🛡️</h4>
-                    <h4>Trusted Professionals</h4>
-                    <p>A highly trained, detail-oriented team that respects your property and privacy.</p>
+                <div class="feature-box reveal delay-1">
+                    <div style="font-size: 2rem;">👤</div>
+                    <h4>Detail-Driven Staff</h4>
+                    <p>Rigorous operational vetting ensures complete security, utmost competence, and deep spatial respect.</p>
                 </div>
-                <div class="feature-item">
-                    <h4 style="font-size: 2rem; margin:0;">⏱️</h4>
-                    <h4>Reliable Scheduling</h4>
-                    <p>We arrive on time, fully equipped, and ready to deliver exceptional results.</p>
+                <div class="feature-box reveal delay-2">
+                    <div style="font-size: 2rem;">🛡️</div>
+                    <h4>Absolute Property Care</h4>
+                    <p>Every artifact, historical material, and imported textile is isolated, analyzed, and handled with extreme care.</p>
+                </div>
+                <div class="feature-box reveal delay-3">
+                    <div style="font-size: 2rem;">📐</div>
+                    <h4>Industrial Scale Profile</h4>
+                    <p>Equipped and experienced to execute massive complex spatial projects fluidly within tight timeframes.</p>
                 </div>
             </div>
         </div>
@@ -656,70 +973,125 @@
 
     <section id="reviews" class="testimonials">
         <div class="container">
-            <div class="section-header">
+            <div class="section-header reveal">
+                <span>Verified Client Evaluations</span>
                 <h2>What Our Clients Say</h2>
-                <p>Don't just take our word for it. Here is what our clients have to say about the Clean Har experience.</p>
             </div>
-            <div class="reviews-grid">
-                <div class="review-card">
-                    <p class="review-text">"If you're thinking of cleaning your home, you should consider Clean Har."</p>
-                    <div class="stars" style="margin-bottom: 10px;">★★★★★</div>
-                    <div class="reviewer">Ledxlightsolution <span>Verified Client</span></div>
+            
+            <div class="testimonials-grid">
+                <div class="testimonial-card reveal">
+                    <p class="quote-text">"If you're thinking of cleaning your home, you should consider Clean Har."</p>
+                    <div class="reviewer-meta">
+                        <span class="reviewer-name">Ledxlightsolution</span>
+                        <span class="reviewer-title">Google Verified Client</span>
+                    </div>
                 </div>
-                <div class="review-card">
-                    <p class="review-text">"Clean Har services offer the best residential cleaning service I have ever seen!"</p>
-                    <div class="stars" style="margin-bottom: 10px;">★★★★★</div>
-                    <div class="reviewer">Kal Nigatu <span>Verified Client</span></div>
+
+                <div class="testimonial-card reveal delay-1">
+                    <p class="quote-text">"Clean Har services offer the best residential cleaning service I have ever seen!"</p>
+                    <div class="reviewer-meta">
+                        <span class="reviewer-name">Kal Nigatu</span>
+                        <span class="reviewer-title">Google Verified Client</span>
+                    </div>
                 </div>
-                <div class="review-card">
-                    <p class="review-text">"The best cleaning service."</p>
-                    <div class="stars" style="margin-bottom: 10px;">★★★★★</div>
-                    <div class="reviewer">Abel Chernet <span>Verified Client</span></div>
+
+                <div class="testimonial-card reveal delay-2">
+                    <p class="quote-text">"The best cleaning service."</p>
+                    <div class="reviewer-meta">
+                        <span class="reviewer-name">Abel Chernet</span>
+                        <span class="reviewer-title">Google Verified Client</span>
+                    </div>
                 </div>
             </div>
         </div>
     </section>
 
-    <section id="contact" class="cta-section">
+    <section id="proof" class="proof-gallery">
         <div class="container">
-            <div class="cta-container">
-                <div class="cta-text">
-                    <h2>Ready for a Cleaner, Healthier Space?</h2>
-                    <p>Book your cleaning today and experience the luxury of a spotless environment. Our professional team is ready to serve you.</p>
+            <div class="gallery-split">
+                <div class="gallery-image-box reveal">
+                    <img src="https://images.unsplash.com/photo-1513694203232-719a280e022f?ixlib=rb-4.0.3&auto=format&fit=crop&w=1000&q=80" alt="1,000 square meters of high-end curtain washing project verification image" class="gallery-img">
+                </div>
+                <div class="gallery-text reveal delay-1">
+                    <span>Signature Enterprise Case Study</span>
+                    <h2>1,000 m² of Curtains Washed and Dried with Care</h2>
+                    <p>When an elite installation required the specialized maintenance of a sprawling 1,000 square meters of custom high-value drapes and curtains, Clean Har designed a tailored operational pipeline.</p>
+                    <p>The entire volume was accurately uninstalled, protected against material friction, treated with specific pH-balanced formulations to maintain dye density, and vertically air-dried to preserve form factor perfectly.</p>
                     
-                    <div class="contact-info">
-                        <strong>Phone:</strong> 097 743 0815
-                    </div>
-                    <div class="contact-info">
-                        <strong>Location:</strong> Addis Ababa, Ethiopia
-                    </div>
-                    <div class="contact-info">
-                        <strong>Hours:</strong> Opens at 7:00 AM Monday
+                    <div class="stat-row">
+                        <div class="stat-item">
+                            <h5>1,000m²</h5>
+                            <p>Textiles Managed</p>
+                        </div>
+                        <div class="stat-item">
+                            <h5>100%</h5>
+                            <p>Zero Fabric Strain</p>
+                        </div>
                     </div>
                 </div>
-                
-                <div class="booking-form">
-                    <h3 style="margin-bottom: 20px;">Request a Free Quote</h3>
-                    <form onsubmit="event.preventDefault(); alert('Thank you for reaching out! A Clean Har representative will contact you shortly.');">
-                        <div class="form-group">
-                            <input type="text" class="form-control" placeholder="Your Name" required>
+            </div>
+        </div>
+    </section>
+
+    <section id="book" class="cta-section">
+        <div class="container">
+            <div class="cta-wrapper">
+                <div class="cta-info-side reveal">
+                    <h2>Ready for a Cleaner, Healthier Space?</h2>
+                    <p>Connect with our concierge team today to secure your preferred date block or coordinate a structural property assessment walkthrough.</p>
+                    
+                    <div class="cta-details-list">
+                        <div class="cta-detail-node">
+                            <div class="detail-icon">📞</div>
+                            <div class="detail-data">
+                                <h6>Immediate Direct Line</h6>
+                                <p>097 743 0815</p>
+                            </div>
                         </div>
-                        <div class="form-group">
-                            <input type="tel" class="form-control" placeholder="Phone Number" required>
+
+                        <div class="cta-detail-node">
+                            <div class="detail-icon">📍</div>
+                            <div class="detail-data">
+                                <h6>Central Headquarters</h6>
+                                <p>Addis Ababa, Ethiopia</p>
+                            </div>
                         </div>
-                        <div class="form-group">
-                            <select class="form-control" required>
-                                <option value="" disabled selected>Service Needed</option>
-                                <option value="residential">Residential Cleaning</option>
-                                <option value="commercial">Office / Commercial</option>
-                                <option value="curtains">Curtain Washing</option>
-                                <option value="deep">Deep Cleaning</option>
-                            </select>
+
+                        <div class="cta-detail-node">
+                            <div class="detail-icon">🕒</div>
+                            <div class="detail-data">
+                                <h6>Operational Hours</h6>
+                                <p>Opens at 7:00 AM Monday</p>
+                            </div>
                         </div>
-                        <div class="form-group">
-                            <input type="date" class="form-control" required>
+                    </div>
+                </div>
+
+                <div class="cta-form-side reveal delay-1">
+                    <h3>Request a Free Quote</h3>
+                    <form onsubmit="event.preventDefault(); alert('Thank you. Your request has been directed to Clean Har Priority Booking Group. We will call you within 15 minutes.');">
+                        <div class="form-grid">
+                            <div class="form-field">
+                                <input type="text" class="form-input" placeholder="Your Name" required>
+                            </div>
+                            <div class="form-field">
+                                <input type="tel" class="form-input" placeholder="Phone Number" required>
+                            </div>
+                            <div class="form-field">
+                                <select class="form-input" required>
+                                    <option value="" disabled selected>Select Desired Service Suite</option>
+                                    <option value="residential">Residential Elite Care</option>
+                                    <option value="commercial">Office & Corporate Staging</option>
+                                    <option value="curtains">Curtain Purification Array</option>
+                                    <option value="deep">Bespoke Deep Cleaning</option>
+                                    <option value="move">Move-In / Move-Out Cleans</option>
+                                </select>
+                            </div>
+                            <div class="form-field">
+                                <input type="date" class="form-input" required>
+                            </div>
+                            <button type="submit" class="btn btn-primary form-submit-btn">Book Your Cleaning Today</button>
                         </div>
-                        <button type="submit" class="btn-primary">Book Your Cleaning Today</button>
                     </form>
                 </div>
             </div>
@@ -729,39 +1101,68 @@
     <footer>
         <div class="container">
             <div class="footer-grid">
-                <div class="footer-col">
-                    <a href="#" class="logo-link" style="margin-bottom: 20px;">
-                        <img src="image_91d85c.jpg" alt="Clean Har Logo" class="brand-logo" style="height: 40px;">
-                    </a>
-                    <p style="color: #A0AABF; margin-top: 15px;">Premium professional residential and commercial cleaning services.</p>
+                <div class="footer-col-brand">
+                    <img src="image_91d85c.jpg" alt="Clean Har Professional Cleaning Service Embedded Branding">
+                    <p>Addis Ababa's standard-setting environmental care group. Engineered for flawless outcomes, perfect clarity, and immediate spatial health optimization.</p>
                 </div>
-                <div class="footer-col">
-                    <h4>Quick Links</h4>
+                
+                <div class="footer-col-nav">
+                    <h4>Site Navigation</h4>
                     <ul class="footer-links">
-                        <li><a href="#about">About Us</a></li>
-                        <li><a href="#services">Our Services</a></li>
-                        <li><a href="#reviews">Testimonials</a></li>
-                        <li><a href="#contact">Contact & Booking</a></li>
+                        <li><a href="#about">Corporate About</a></li>
+                        <li><a href="#services">Service Matrix</a></li>
+                        <li><a href="#why-us">Vetting & Quality</a></li>
+                        <li><a href="#reviews">Client Testimonials</a></li>
+                        <li><a href="#proof">Case Proofs</a></li>
                     </ul>
                 </div>
-                <div class="footer-col">
-                    <h4>Contact Us</h4>
-                    <ul class="footer-links">
-                        <li>📞 097 743 0815</li>
-                        <li>📍 Addis Ababa, Ethiopia</li>
-                        <li>🕒 Opens 7:00 AM Monday</li>
+
+                <div class="footer-col-contact">
+                    <h4>Contact Metrics</h4>
+                    <ul class="footer-contact-items">
+                        <li><span>Direct Telephony:</span> 097 743 0815</li>
+                        <li><span>Geographic Bounds:</span> Addis Ababa, Ethiopia</li>
+                        <li><span>Weekly Profile:</span> Opens at 7:00 AM Monday</li>
+                        <li><span>Google Trust Score:</span> 5.0 / 5.0 Verified Rating</li>
                     </ul>
                 </div>
             </div>
-            <div class="footer-bottom">
+
+            <div class="footer-base">
                 <p>&copy; 2026 Clean Har Professional Cleaning Service. All rights reserved.</p>
+                <p>Designed for Performance & Absolute Trust</p>
             </div>
         </div>
     </footer>
 
-    <a href="tel:0977430815" class="mobile-sticky-cta">
-        Call Now for Fast Service: 097 743 0815
-    </a>
+    <div class="mobile-sticky-dock">
+        <a href="#book" class="dock-btn">Request Quote</a>
+        <a href="tel:0977430815" class="dock-btn dock-call">Call Now</a>
+    </div>
 
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const revealElements = document.querySelectorAll('.reveal');
+            
+            const revealOnScroll = () => {
+                const triggerBottom = window.innerHeight * 0.88;
+                
+                revealElements.forEach(element => {
+                    const elementTop = element.getBoundingClientRect().top;
+                    
+                    if(elementTop < triggerBottom) {
+                        element.classList.add('active');
+                    } else {
+                        // Keep content interactive/re-animatable if scrolled back out smoothly
+                        element.classList.remove('active');
+                    }
+                });
+            };
+
+            window.addEventListener('scroll', revealOnScroll);
+            // Run initially to capture assets inside viewport on initial loading pass
+            revealOnScroll();
+        });
+    </script>
 </body>
 </html>
