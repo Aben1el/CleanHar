@@ -127,22 +127,24 @@
             transform: translateY(-2px);
         }
 
-        /* --- Futuristic Glass Header (Fully Re-Engineered) --- */
+        /* --- Futuristic Glass Header (Fully Re-Engineered & Perfected) --- */
         header {
             position: fixed;
             top: 0; left: 0; width: 100%;
             padding: 15px 0;
             z-index: 1000;
-            background: rgba(253, 251, 247, 0.75);
+            background: rgba(253, 251, 247, 0.85);
             backdrop-filter: blur(16px);
             -webkit-backdrop-filter: blur(16px);
             border-bottom: 1px solid rgba(74, 144, 226, 0.15);
             transition: var(--transition-smooth);
+            display: flex;
+            align-items: center;
         }
 
         header.scrolled {
             padding: 10px 0;
-            background: rgba(253, 251, 247, 0.9);
+            background: rgba(253, 251, 247, 0.95);
             box-shadow: 0 10px 30px rgba(0,0,0,0.05);
         }
 
@@ -151,6 +153,8 @@
             justify-content: space-between;
             align-items: center;
             gap: 30px;
+            position: relative; /* Essential for true absolute alignment of the middle nav menu */
+            width: 100%;
         }
 
         /* Logo Configuration */
@@ -159,8 +163,8 @@
             align-items: center;
             gap: 12px;
             text-decoration: none;
-            flex-shrink: 0; /* Prevents squishing */
-            white-space: nowrap; /* Forces one line */
+            flex-shrink: 0;
+            white-space: nowrap;
         }
 
         .logo-box img {
@@ -168,6 +172,7 @@
             width: auto;
             object-fit: contain;
             transition: var(--transition-fast);
+            flex-shrink: 0;
         }
 
         .logo-text {
@@ -176,18 +181,20 @@
             font-weight: 700;
             color: var(--text-dark);
             letter-spacing: 0.5px;
+            white-space: nowrap;
         }
 
         .logo-box:hover img {
             transform: scale(1.05);
         }
 
-        /* Navigation Menu */
+        /* Navigation Container */
         .nav-container {
             display: flex;
             flex-grow: 1;
-            justify-content: center;
+            justify-content: flex-end; /* Right align the actions block */
             align-items: center;
+            gap: 35px;
         }
 
         .nav-menu {
@@ -196,6 +203,17 @@
             list-style: none;
             margin: 0;
             padding: 0;
+            flex-shrink: 0;
+        }
+
+        /* Absolute Center Alignment for Desktop Nav Menu */
+        @media (min-width: 1151px) {
+            .nav-menu {
+                position: absolute;
+                left: 50%;
+                top: 50%;
+                transform: translate(-50%, -50%);
+            }
         }
 
         .nav-menu a {
@@ -241,6 +259,8 @@
             align-items: center;
             gap: 8px;
             transition: var(--transition-fast);
+            white-space: nowrap;
+            flex-shrink: 0;
         }
         
         .phone-link:hover {
@@ -257,6 +277,7 @@
             height: 20px;
             position: relative;
             z-index: 1001;
+            flex-shrink: 0;
         }
 
         .hamburger span {
@@ -700,7 +721,7 @@
         }
 
         /* --- Global Breakpoints --- */
-        @media (max-width: 1100px) {
+        @media (max-width: 1150px) {
             /* Safely shrink margins on smaller laptops before full mobile layout */
             .header-wrap { gap: 15px; }
             .nav-menu { gap: 20px; }
@@ -708,9 +729,11 @@
             .btn { padding: 12px 20px; font-size: 0.9rem; }
         }
 
-        @media (max-width: 992px) {
-            /* Critical Mobile Header Overhaul */
-            .hamburger { display: block; }
+        /* --- Dedicated Header Responsive Configuration --- */
+        @media (max-width: 1150px) {
+            .hamburger { 
+                display: block; 
+            }
             
             .nav-container {
                 position: fixed;
@@ -720,34 +743,43 @@
                 height: 100vh;
                 background: rgba(253, 251, 247, 0.98);
                 backdrop-filter: blur(15px);
+                -webkit-backdrop-filter: blur(15px);
                 flex-direction: column;
                 justify-content: center;
                 align-items: center;
+                gap: 40px;
                 transition: var(--transition-smooth);
                 z-index: 1000;
+                padding: 40px;
             }
             
-            .nav-container.active { left: 0; }
+            .nav-container.active { 
+                left: 0; 
+            }
             
             .nav-menu {
                 flex-direction: column;
                 text-align: center;
                 gap: 30px;
-                margin-bottom: 40px;
+                margin: 0 0 20px 0;
             }
             
-            .nav-menu a { font-size: 1.5rem; }
+            .nav-menu a { 
+                font-size: 1.5rem; 
+            }
 
-            /* Move header actions inside the mobile dropdown */
             .header-actions {
                 flex-direction: column;
-                gap: 20px;
+                gap: 25px;
             }
             
-            /* Hide long part of logo to guarantee no overlap with hamburger */
-            .hide-mobile { display: none; }
+            .hide-mobile { 
+                display: none; 
+            }
+        }
 
-            /* Standard Section Resizing */
+        @media (max-width: 992px) {
+            /* Standard Section Resizing - Kept perfectly intact */
             .about-grid { grid-template-columns: 1fr; gap: 50px; }
             .cta-wrapper { grid-template-columns: 1fr; }
             .footer-grid { grid-template-columns: 1fr 1fr; }
