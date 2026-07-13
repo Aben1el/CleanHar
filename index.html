@@ -126,7 +126,7 @@
 
         /* Respect users who prefer reduced motion */
         @media (prefers-reduced-motion: reduce) {
-            .bg-shape, .fx-sparkle, .fx-bubble, .fx-streak, .reveal {
+            .bg-shape, .fx-sparkle, .fx-bubble, .fx-streak, .reveal, .aurora-blob, .wave-layer {
                 animation: none !important;
                 transition: opacity 0.4s ease !important;
             }
@@ -292,8 +292,11 @@
 
         /* ==========================================================
            Cleaning-Themed Parallax Layer
-           (soap bubbles, light sparkles, gentle wipe streaks —
-            translated on scroll via JS for a subtle premium feel)
+           Two-tier structure: the outer span is translated by JS on
+           scroll (data-speed), while the inner .fx-shape carries its
+           own independent CSS float/twinkle/shimmer animation — so
+           ambient motion and scroll parallax combine cleanly instead
+           of fighting over the same transform property.
         ========================================================== */
         .fx-layer {
             position: absolute;
@@ -303,45 +306,159 @@
             overflow: hidden;
         }
 
-        .fx-bubble {
+        .fx-bubble { position: absolute; will-change: transform; }
+        .fx-bubble .fx-shape {
             position: absolute;
+            inset: 0;
             border-radius: 50%;
             background: radial-gradient(circle at 30% 28%, rgba(255,255,255,0.95), rgba(74,144,226,0.12) 60%, transparent 72%);
             border: 1px solid rgba(255,255,255,0.55);
             box-shadow: inset 0 0 12px rgba(255,255,255,0.5), 0 10px 24px rgba(74,144,226,0.08);
             opacity: 0.55;
-            will-change: transform;
             animation: floatY 12s ease-in-out infinite;
         }
 
-        .fx-sparkle {
+        .fx-sparkle { position: absolute; width: 7px; height: 7px; will-change: transform; }
+        .fx-sparkle .fx-shape {
             position: absolute;
-            width: 7px;
-            height: 7px;
+            inset: 0;
             background: radial-gradient(circle, #ffffff, var(--light-blue) 70%, transparent);
             border-radius: 50%;
             opacity: 0.8;
-            will-change: transform, opacity;
             animation: sparkleTwinkle 3.4s ease-in-out infinite;
         }
 
-        .fx-streak {
+        .fx-streak { position: absolute; height: 2px; will-change: transform; }
+        .fx-streak .fx-shape {
             position: absolute;
-            height: 2px;
+            inset: 0;
             border-radius: 2px;
             background: linear-gradient(90deg, transparent, rgba(74,144,226,0.4), transparent);
             opacity: 0.4;
-            will-change: transform, opacity;
+            transform: rotate(var(--rot, 0deg));
             animation: streakShimmer 5s ease-in-out infinite;
         }
 
         /* Lighter variants for use on the deep-blue Why-Us section */
-        .why-us .fx-bubble {
+        .why-us .fx-bubble .fx-shape {
             background: radial-gradient(circle at 30% 28%, rgba(255,255,255,0.95), rgba(255,255,255,0.1) 60%, transparent 72%);
             border-color: rgba(255,255,255,0.4);
         }
-        .why-us .fx-sparkle { background: radial-gradient(circle, #ffffff, rgba(255,255,255,0.6) 70%, transparent); }
-        .why-us .fx-streak { background: linear-gradient(90deg, transparent, rgba(255,255,255,0.45), transparent); }
+        .why-us .fx-sparkle .fx-shape { background: radial-gradient(circle, #ffffff, rgba(255,255,255,0.6) 70%, transparent); }
+        .why-us .fx-streak .fx-shape { background: linear-gradient(90deg, transparent, rgba(255,255,255,0.45), transparent); }
+
+        /* ==========================================================
+           Aurora Flow — immersive drifting gradient atmosphere
+           Ambient ("living") motion lives on the .aurora-blob itself;
+           the .aurora-layer wrapper gets its own independent
+           scroll-parallax transform from JS via data-speed, so the
+           whole cloud of light drifts slowly as the visitor scrolls
+           while each blob keeps breathing on its own.
+        ========================================================== */
+        .aurora-layer {
+            position: absolute;
+            inset: 0;
+            z-index: 0;
+            overflow: hidden;
+            pointer-events: none;
+            will-change: transform;
+        }
+
+        .aurora-blob {
+            position: absolute;
+            border-radius: 50%;
+        }
+
+        .aurora-blob.a1 {
+            width: clamp(280px, 34vw, 540px);
+            height: clamp(280px, 34vw, 540px);
+            top: -14%;
+            left: -8%;
+            background: radial-gradient(circle, rgba(74,144,226,0.30), transparent 72%);
+            animation: auroraDriftA 22s ease-in-out infinite;
+        }
+
+        .aurora-blob.a2 {
+            width: clamp(240px, 28vw, 460px);
+            height: clamp(240px, 28vw, 460px);
+            bottom: -16%;
+            right: -6%;
+            background: radial-gradient(circle, rgba(197,160,89,0.16), transparent 72%);
+            animation: auroraDriftB 27s ease-in-out infinite;
+        }
+
+        .aurora-blob.a3 {
+            width: clamp(200px, 22vw, 380px);
+            height: clamp(200px, 22vw, 380px);
+            top: 28%;
+            left: 42%;
+            background: radial-gradient(circle, rgba(255,255,255,0.55), transparent 72%);
+            animation: auroraDriftC 30s ease-in-out infinite;
+        }
+
+        @keyframes auroraDriftA {
+            0%, 100% { transform: translate(0, 0) scale(1); }
+            50% { transform: translate(4%, 3%) scale(1.08); }
+        }
+        @keyframes auroraDriftB {
+            0%, 100% { transform: translate(0, 0) scale(1); }
+            50% { transform: translate(-4%, -3%) scale(1.1); }
+        }
+        @keyframes auroraDriftC {
+            0%, 100% { transform: translate(0, 0) scale(1); }
+            50% { transform: translate(-3%, 4%) scale(0.94); }
+        }
+
+        /* Subtler single/double-blob variant for About, Services & Pricing */
+        .aurora-layer.subtle .aurora-blob { opacity: 0.55; }
+        .aurora-layer.subtle .aurora-blob.a1,
+        .aurora-layer.subtle .aurora-blob.a2 {
+            width: clamp(200px, 22vw, 360px);
+            height: clamp(200px, 22vw, 360px);
+        }
+
+        @media (max-width: 768px) {
+            .aurora-blob.a3 { display: none; }
+            .aurora-blob { opacity: 0.7; }
+        }
+
+        /* ==========================================================
+           Gentle Water Wave — hero → content transition
+           Two independently-looping SVG layers create a soft,
+           continuous water-wipe motion along the hero's lower edge;
+           the wrapper itself also drifts slightly on scroll (JS).
+        ========================================================== */
+        .hero-wave {
+            position: absolute;
+            left: 0;
+            right: 0;
+            bottom: -2px;
+            height: clamp(46px, 8vw, 90px);
+            z-index: 1;
+            overflow: hidden;
+            line-height: 0;
+            pointer-events: none;
+            will-change: transform;
+        }
+
+        .wave-layer {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 200%;
+            height: 100%;
+        }
+
+        .wave-layer-1 { animation: waveScroll 20s linear infinite; opacity: 1; }
+        .wave-layer-2 { animation: waveScroll 30s linear infinite reverse; opacity: 0.55; }
+
+        @keyframes waveScroll {
+            from { transform: translateX(0); }
+            to { transform: translateX(-50%); }
+        }
+
+        .wave-path-1 { fill: var(--pure-white); }
+        .wave-path-2 { fill: var(--pale-blue); }
 
         /* ==========================================================
            Decorative layered background shapes (shared)
@@ -1349,16 +1466,21 @@
     </header>
 
     <section class="hero">
+        <span class="aurora-layer" data-speed="0.05">
+            <span class="aurora-blob a1"></span>
+            <span class="aurora-blob a2"></span>
+            <span class="aurora-blob a3"></span>
+        </span>
         <span class="bg-shape s1"></span>
         <span class="bg-shape s2"></span>
         <span class="fx-layer">
-            <span class="fx-bubble" style="width:70px;height:70px;top:18%;left:6%;" data-speed="0.12"></span>
-            <span class="fx-bubble" style="width:34px;height:34px;top:62%;left:12%;animation-delay:-4s;" data-speed="0.2"></span>
-            <span class="fx-bubble" style="width:50px;height:50px;top:38%;right:10%;animation-delay:-2s;" data-speed="0.08"></span>
-            <span class="fx-sparkle" style="top:24%;left:22%;animation-delay:-1s;" data-speed="0.3"></span>
-            <span class="fx-sparkle" style="top:70%;right:20%;animation-delay:-2.2s;" data-speed="0.22"></span>
-            <span class="fx-sparkle" style="top:16%;right:32%;animation-delay:-0.6s;" data-speed="0.16"></span>
-            <span class="fx-streak" style="width:160px;top:46%;left:30%;transform:rotate(-8deg);" data-speed="0.06"></span>
+            <span class="fx-bubble" style="width:70px; height:70px; top:18%; left:6%;" data-speed="0.12"><span class="fx-shape"></span></span>
+            <span class="fx-bubble" style="width:34px; height:34px; top:62%; left:12%;" data-speed="0.2"><span class="fx-shape" style="animation-delay:-4s;"></span></span>
+            <span class="fx-bubble" style="width:50px; height:50px; top:38%; right:10%;" data-speed="0.08"><span class="fx-shape" style="animation-delay:-2s;"></span></span>
+            <span class="fx-sparkle" style="top:24%; left:22%;" data-speed="0.3"><span class="fx-shape" style="animation-delay:-1s;"></span></span>
+            <span class="fx-sparkle" style="top:70%; right:20%;" data-speed="0.22"><span class="fx-shape" style="animation-delay:-2.2s;"></span></span>
+            <span class="fx-sparkle" style="top:16%; right:32%;" data-speed="0.16"><span class="fx-shape" style="animation-delay:-0.6s;"></span></span>
+            <span class="fx-streak" style="width:160px; top:46%; left:30%;" data-speed="0.06"><span class="fx-shape" style="--rot:-8deg;"></span></span>
         </span>
         <div class="container">
             <div class="hero-inner">
@@ -1374,13 +1496,25 @@
                 </div>
             </div>
         </div>
+        <span class="hero-wave" data-speed="0.03" aria-hidden="true">
+            <svg class="wave-layer wave-layer-1" viewBox="0 0 2880 100" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg">
+                <path class="wave-path-1" d="M0,50 C120,90 240,10 480,50 C600,90 720,10 960,50 C1080,90 1200,10 1440,50 C1560,90 1680,10 1920,50 C2040,90 2160,10 2400,50 C2520,90 2640,10 2880,50 L2880,100 L0,100 Z"/>
+            </svg>
+            <svg class="wave-layer wave-layer-2" viewBox="0 0 2880 100" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg">
+                <path class="wave-path-2" d="M0,60 C120,20 240,100 480,60 C600,20 720,100 960,60 C1080,20 1200,100 1440,60 C1560,20 1680,100 1920,60 C2040,20 2160,100 2400,60 C2520,20 2640,100 2880,60 L2880,100 L0,100 Z"/>
+            </svg>
+        </span>
     </section>
 
     <section id="about" class="about">
+        <span class="aurora-layer subtle" data-speed="0.04">
+            <span class="aurora-blob a1"></span>
+            <span class="aurora-blob a2"></span>
+        </span>
         <span class="fx-layer">
-            <span class="fx-bubble" style="width:44px;height:44px;top:12%;right:8%;" data-speed="0.1"></span>
-            <span class="fx-sparkle" style="top:80%;left:6%;animation-delay:-1.4s;" data-speed="0.18"></span>
-            <span class="fx-streak" style="width:120px;top:8%;left:4%;transform:rotate(6deg);" data-speed="0.05"></span>
+            <span class="fx-bubble" style="width:44px; height:44px; top:12%; right:8%;" data-speed="0.1"><span class="fx-shape"></span></span>
+            <span class="fx-sparkle" style="top:80%; left:6%;" data-speed="0.18"><span class="fx-shape" style="animation-delay:-1.4s;"></span></span>
+            <span class="fx-streak" style="width:120px; top:8%; left:4%;" data-speed="0.05"><span class="fx-shape" style="--rot:6deg;"></span></span>
         </span>
         <div class="container">
             <div class="about-grid">
@@ -1402,11 +1536,15 @@
     </section>
 
     <section id="services" class="services">
+        <span class="aurora-layer subtle" data-speed="0.04">
+            <span class="aurora-blob a1"></span>
+            <span class="aurora-blob a2"></span>
+        </span>
         <span class="fx-layer">
-            <span class="fx-bubble" style="width:56px;height:56px;top:10%;left:5%;" data-speed="0.09"></span>
-            <span class="fx-bubble" style="width:30px;height:30px;bottom:16%;right:8%;animation-delay:-3s;" data-speed="0.15"></span>
-            <span class="fx-sparkle" style="top:26%;right:14%;animation-delay:-1.8s;" data-speed="0.2"></span>
-            <span class="fx-sparkle" style="bottom:24%;left:16%;animation-delay:-0.4s;" data-speed="0.14"></span>
+            <span class="fx-bubble" style="width:56px; height:56px; top:10%; left:5%;" data-speed="0.09"><span class="fx-shape"></span></span>
+            <span class="fx-bubble" style="width:30px; height:30px; bottom:16%; right:8%;" data-speed="0.15"><span class="fx-shape" style="animation-delay:-3s;"></span></span>
+            <span class="fx-sparkle" style="top:26%; right:14%;" data-speed="0.2"><span class="fx-shape" style="animation-delay:-1.8s;"></span></span>
+            <span class="fx-sparkle" style="bottom:24%; left:16%;" data-speed="0.14"><span class="fx-shape" style="animation-delay:-0.4s;"></span></span>
         </span>
         <div class="container">
             <div class="section-header reveal">
@@ -1450,12 +1588,16 @@
     </section>
 
     <section id="pricing" class="pricing">
+        <span class="aurora-layer subtle" data-speed="0.04">
+            <span class="aurora-blob a1"></span>
+            <span class="aurora-blob a2"></span>
+        </span>
         <span class="fx-layer">
-            <span class="fx-bubble" style="width:60px;height:60px;top:14%;right:6%;" data-speed="0.11"></span>
-            <span class="fx-bubble" style="width:36px;height:36px;bottom:12%;left:8%;animation-delay:-3.4s;" data-speed="0.17"></span>
-            <span class="fx-sparkle" style="top:8%;left:14%;animation-delay:-1s;" data-speed="0.22"></span>
-            <span class="fx-sparkle" style="bottom:20%;right:20%;animation-delay:-2.4s;" data-speed="0.13"></span>
-            <span class="fx-streak" style="width:140px;bottom:30%;right:4%;transform:rotate(-5deg);" data-speed="0.07"></span>
+            <span class="fx-bubble" style="width:60px; height:60px; top:14%; right:6%;" data-speed="0.11"><span class="fx-shape"></span></span>
+            <span class="fx-bubble" style="width:36px; height:36px; bottom:12%; left:8%;" data-speed="0.17"><span class="fx-shape" style="animation-delay:-3.4s;"></span></span>
+            <span class="fx-sparkle" style="top:8%; left:14%;" data-speed="0.22"><span class="fx-shape" style="animation-delay:-1s;"></span></span>
+            <span class="fx-sparkle" style="bottom:20%; right:20%;" data-speed="0.13"><span class="fx-shape" style="animation-delay:-2.4s;"></span></span>
+            <span class="fx-streak" style="width:140px; bottom:30%; right:4%;" data-speed="0.07"><span class="fx-shape" style="--rot:-5deg;"></span></span>
         </span>
         <div class="container">
             <div class="section-header reveal">
@@ -1520,10 +1662,10 @@
         <span class="bg-shape s1"></span>
         <span class="bg-shape s2"></span>
         <span class="fx-layer">
-            <span class="fx-bubble" style="width:52px;height:52px;top:16%;left:10%;" data-speed="0.1"></span>
-            <span class="fx-bubble" style="width:32px;height:32px;bottom:18%;right:14%;animation-delay:-2.6s;" data-speed="0.16"></span>
-            <span class="fx-sparkle" style="top:30%;right:22%;animation-delay:-1.2s;" data-speed="0.2"></span>
-            <span class="fx-sparkle" style="bottom:30%;left:24%;animation-delay:-2s;" data-speed="0.14"></span>
+            <span class="fx-bubble" style="width:52px; height:52px; top:16%; left:10%;" data-speed="0.1"><span class="fx-shape"></span></span>
+            <span class="fx-bubble" style="width:32px; height:32px; bottom:18%; right:14%;" data-speed="0.16"><span class="fx-shape" style="animation-delay:-2.6s;"></span></span>
+            <span class="fx-sparkle" style="top:30%; right:22%;" data-speed="0.2"><span class="fx-shape" style="animation-delay:-1.2s;"></span></span>
+            <span class="fx-sparkle" style="bottom:30%; left:24%;" data-speed="0.14"><span class="fx-shape" style="animation-delay:-2s;"></span></span>
         </span>
         <div class="container">
             <div class="section-header reveal" style="margin-bottom: 40px;">
@@ -1558,9 +1700,9 @@
 
     <section id="reviews" class="testimonials">
         <span class="fx-layer">
-            <span class="fx-bubble" style="width:46px;height:46px;top:10%;right:10%;" data-speed="0.09"></span>
-            <span class="fx-sparkle" style="bottom:16%;left:8%;animation-delay:-1.6s;" data-speed="0.18"></span>
-            <span class="fx-streak" style="width:130px;top:14%;left:6%;transform:rotate(4deg);" data-speed="0.05"></span>
+            <span class="fx-bubble" style="width:46px; height:46px; top:10%; right:10%;" data-speed="0.09"><span class="fx-shape"></span></span>
+            <span class="fx-sparkle" style="bottom:16%; left:8%;" data-speed="0.18"><span class="fx-shape" style="animation-delay:-1.6s;"></span></span>
+            <span class="fx-streak" style="width:130px; top:14%; left:6%;" data-speed="0.05"><span class="fx-shape" style="--rot:4deg;"></span></span>
         </span>
         <div class="container">
             <div class="section-header reveal">
@@ -1590,8 +1732,8 @@
 
     <section id="book" class="cta-section">
         <span class="fx-layer">
-            <span class="fx-bubble" style="width:54px;height:54px;bottom:12%;left:6%;" data-speed="0.1"></span>
-            <span class="fx-sparkle" style="top:12%;right:10%;animation-delay:-1s;" data-speed="0.2"></span>
+            <span class="fx-bubble" style="width:54px; height:54px; bottom:12%; left:6%;" data-speed="0.1"><span class="fx-shape"></span></span>
+            <span class="fx-sparkle" style="top:12%; right:10%;" data-speed="0.2"><span class="fx-shape" style="animation-delay:-1s;"></span></span>
         </span>
         <div class="container">
             <div class="cta-wrapper">
