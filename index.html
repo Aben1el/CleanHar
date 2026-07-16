@@ -116,7 +116,6 @@ h1,h2,h3,h4{
   pointer-events: none;
 }
 
-/* Ambient floating orbs for depth */
 .pre-ambient{
   position: absolute;
   border-radius: 50%;
@@ -132,7 +131,6 @@ h1,h2,h3,h4{
   100% { transform: translate(40px,-30px) scale(1.1); }
 }
 
-/* Subtle vignette for cinematic feel */
 .pre-vignette{
   position: absolute;
   inset: 0;
@@ -140,7 +138,6 @@ h1,h2,h3,h4{
   pointer-events: none;
 }
 
-/* Central stage */
 .pre-stage{
   position: relative;
   z-index: 5;
@@ -152,7 +149,6 @@ h1,h2,h3,h4{
   padding: 40px;
 }
 
-/* Logo mark — animated entrance */
 .pre-logo-mark{
   width: 88px;
   height: 88px;
@@ -181,7 +177,6 @@ h1,h2,h3,h4{
   background: linear-gradient(135deg, rgba(255,255,255,0.4), transparent 50%);
   border-radius: inherit;
 }
-/* Shimmer sweep across logo */
 .pre-logo-mark::after{
   content: '';
   position: absolute;
@@ -203,7 +198,6 @@ h1,h2,h3,h4{
   100% { left: 150%; }
 }
 
-/* Company name */
 .pre-brand{
   margin-top: 28px;
   opacity: 0;
@@ -234,7 +228,6 @@ h1,h2,h3,h4{
   color: var(--muted);
 }
 
-/* Tagline */
 .pre-tagline{
   margin-top: 18px;
   font-family: 'Fraunces', serif;
@@ -251,7 +244,6 @@ h1,h2,h3,h4{
   color: var(--champagne);
 }
 
-/* Progress line — elegant thin shimmer */
 .pre-progress{
   margin-top: 40px;
   width: 180px;
@@ -290,8 +282,6 @@ h1,h2,h3,h4{
   100% { opacity: 1; transform: translateY(0); }
 }
 
-/* ====== REALISTIC COCKROACH SILHOUETTE ====== */
-/* Subtle, realistic, positioned in bottom-right corner, appears briefly */
 .pre-cockroach{
   position: absolute;
   bottom: 18%;
@@ -316,8 +306,6 @@ h1,h2,h3,h4{
   100% { opacity: 0; transform: translate(-40px, -25px) rotate(-35deg) scale(0.7); }
 }
 
-/* ====== CLEANING SWIPE — glass cleaning effect ====== */
-/* A diagonal light streak that sweeps across, revealing the "cleaned" state */
 .pre-swipe-layer{
   position: absolute;
   inset: 0;
@@ -326,7 +314,6 @@ h1,h2,h3,h4{
   overflow: hidden;
 }
 
-/* The cleaning streak itself — a diagonal gradient band */
 .pre-swipe-streak{
   position: absolute;
   top: -20%;
@@ -355,7 +342,6 @@ h1,h2,h3,h4{
   100% { opacity: 0; left: 140%; }
 }
 
-/* Secondary subtle streak for realism */
 .pre-swipe-streak.secondary{
   width: 20%;
   background: linear-gradient(
@@ -370,7 +356,6 @@ h1,h2,h3,h4{
   animation-duration: 1.3s;
 }
 
-/* The "cleaned" overlay — revealed by the wipe, makes everything brighter and polished */
 .pre-cleaned{
   position: absolute;
   inset: 0;
@@ -390,7 +375,6 @@ h1,h2,h3,h4{
   100% { opacity: 1; clip-path: polygon(-20% 0, 140% 0, 140% 100%, -20% 100%); }
 }
 
-/* Sparkle accents that appear after the wipe */
 .pre-sparkle{
   position: absolute;
   width: 18px;
@@ -410,7 +394,6 @@ h1,h2,h3,h4{
   100% { opacity: 0; transform: scale(0.6) rotate(360deg); }
 }
 
-/* Final logo brightening after wipe */
 .pre-logo-mark.bright{
   animation:
     preLogoEnter 1.2s var(--ease-cinema) 0.2s forwards,
@@ -1806,7 +1789,6 @@ footer::before{
   .footer-grid{ grid-template-columns: 1fr; gap: 30px; }
   .footer-bottom{ flex-direction: column; text-align: center; }
 
-  /* Preloader responsive */
   .pre-logo-mark{ width: 72px; height: 72px; font-size: 34px; border-radius: 18px; }
   .pre-cockroach{ width: 42px; height: 42px; bottom: 22%; right: 15%; }
   .pre-progress{ width: 140px; }
@@ -1824,7 +1806,6 @@ footer::before{
   .pre-cockroach{ width: 36px; height: 36px; }
 }
 
-/* Reduced motion */
 @media (prefers-reduced-motion: reduce){
   *, *::before, *::after{
     animation-duration: 0.01ms !important;
@@ -1838,13 +1819,11 @@ footer::before{
 
 <!-- ============== PREMIUM CINEMATIC PRELOADER ============== -->
 <div id="preloader">
-  <!-- Ambient depth orbs -->
   <div class="pre-ambient a1"></div>
   <div class="pre-ambient a2"></div>
   <div class="pre-ambient a3"></div>
   <div class="pre-vignette"></div>
 
-  <!-- Central branded stage -->
   <div class="pre-stage">
     <div class="pre-logo-mark bright">C</div>
     <div class="pre-brand">
@@ -1859,7 +1838,6 @@ footer::before{
     </div>
   </div>
 
-  <!-- Realistic cockroach silhouette (subtle, bottom-right) -->
   <svg class="pre-cockroach" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
     <defs>
       <radialGradient id="roachBody" cx="50%" cy="40%" r="60%">
@@ -1872,43 +1850,30 @@ footer::before{
         <stop offset="100%" stop-color="#1a0d06"/>
       </radialGradient>
     </defs>
-    <!-- Legs (back pair) -->
     <path d="M 30 55 Q 15 60, 8 72" stroke="#1a0d06" stroke-width="1.5" fill="none" stroke-linecap="round"/>
     <path d="M 70 55 Q 85 60, 92 72" stroke="#1a0d06" stroke-width="1.5" fill="none" stroke-linecap="round"/>
-    <!-- Legs (middle pair) -->
     <path d="M 28 45 Q 12 45, 5 52" stroke="#1a0d06" stroke-width="1.5" fill="none" stroke-linecap="round"/>
     <path d="M 72 45 Q 88 45, 95 52" stroke="#1a0d06" stroke-width="1.5" fill="none" stroke-linecap="round"/>
-    <!-- Legs (front pair) -->
     <path d="M 32 35 Q 18 30, 10 25" stroke="#1a0d06" stroke-width="1.5" fill="none" stroke-linecap="round"/>
     <path d="M 68 35 Q 82 30, 90 25" stroke="#1a0d06" stroke-width="1.5" fill="none" stroke-linecap="round"/>
-    <!-- Abdomen (back body) -->
     <ellipse cx="50" cy="60" rx="22" ry="28" fill="url(#roachBody)"/>
-    <!-- Wing cases -->
     <ellipse cx="44" cy="58" rx="10" ry="22" fill="#2d1810" opacity="0.7"/>
     <ellipse cx="56" cy="58" rx="10" ry="22" fill="#2d1810" opacity="0.7"/>
-    <!-- Wing seam -->
     <path d="M 50 38 L 50 82" stroke="#1a0d06" stroke-width="0.8" opacity="0.6"/>
-    <!-- Thorax -->
     <ellipse cx="50" cy="38" rx="14" ry="10" fill="url(#roachBody)"/>
-    <!-- Head -->
     <ellipse cx="50" cy="25" rx="10" ry="8" fill="url(#roachHead)"/>
-    <!-- Antennae -->
     <path d="M 45 20 Q 35 10, 25 5" stroke="#1a0d06" stroke-width="1.2" fill="none" stroke-linecap="round"/>
     <path d="M 55 20 Q 65 10, 75 5" stroke="#1a0d06" stroke-width="1.2" fill="none" stroke-linecap="round"/>
-    <!-- Subtle shine on body -->
     <ellipse cx="45" cy="50" rx="4" ry="12" fill="#6b4020" opacity="0.4"/>
   </svg>
 
-  <!-- Cleaning swipe layer -->
   <div class="pre-swipe-layer">
     <div class="pre-swipe-streak"></div>
     <div class="pre-swipe-streak secondary"></div>
   </div>
 
-  <!-- Cleaned overlay (revealed by wipe) -->
   <div class="pre-cleaned"></div>
 
-  <!-- Sparkles after wipe -->
   <div class="pre-sparkle s1">
     <svg viewBox="0 0 24 24" fill="none"><path d="M12 2 L14 10 L22 12 L14 14 L12 22 L10 14 L2 12 L10 10 Z" fill="#D4AF7A"/></svg>
   </div>
@@ -2420,14 +2385,6 @@ footer::before{
 <script>
 /* =========================================================
    PRELOADER — cinematic orchestration
-   Total duration: ~3.6 seconds
-   Timeline:
-   0.0s - 0.6s : Logo fades in
-   0.6s - 1.4s : Brand name + tagline appear
-   1.4s - 2.0s : Cockroach silhouette appears subtly
-   2.2s - 3.6s : Cleaning swipe moves across, cockroach fades,
-                 logo brightens, sparkles appear
-   3.6s - 4.4s : Preloader fades out
    ========================================================= */
 (function(){
   const preloader = document.getElementById('preloader');
@@ -2477,56 +2434,158 @@ links.querySelectorAll('a').forEach(a => {
 });
 
 /* =========================================================
-   HERO PARALLAX
+   SHARED MOUSE TRACKING + TOUCH DETECTION
+   ========================================================= */
+const isTouchOnly = window.matchMedia('(hover: none)').matches
+                 || ('ontouchstart' in window && navigator.maxTouchPoints > 0);
+
+let cursorX = window.innerWidth / 2;
+let cursorY = window.innerHeight / 2;
+let smoothCursorX = cursorX;
+let smoothCursorY = cursorY;
+
+let parallaxTargetX = 0;
+let parallaxTargetY = 0;
+let parallaxMouseX = 0;
+let parallaxMouseY = 0;
+
+if (!isTouchOnly) {
+  document.addEventListener('mousemove', (e) => {
+    const cx = window.innerWidth / 2;
+    const cy = window.innerHeight / 2;
+    parallaxTargetX = (e.clientX - cx) / cx;
+    parallaxTargetY = (e.clientY - cy) / cy;
+    cursorX = e.clientX;
+    cursorY = e.clientY;
+  }, { passive: true });
+}
+
+/* =========================================================
+   CURSOR REPEL CONFIG
+   ========================================================= */
+const REPEL_RADIUS = 200;   // influence radius in px
+const REPEL_MAX    = 22;    // max repulsion distance in px
+const REPEL_EASE   = 0.08;  // lerp factor (lower = smoother return)
+
+/* =========================================================
+   HERO — PARALLAX + CURSOR REPEL
    ========================================================= */
 const hero3d = document.getElementById('hero3d');
-const shapes = hero3d.querySelectorAll('.shape');
-let mouseX = 0, mouseY = 0, targetX = 0, targetY = 0;
+const heroShapes = hero3d.querySelectorAll('.shape');
 
-document.addEventListener('mousemove', (e) => {
-  const cx = window.innerWidth / 2;
-  const cy = window.innerHeight / 2;
-  targetX = (e.clientX - cx) / cx;
-  targetY = (e.clientY - cy) / cy;
-});
+const heroRepel = new Map();
+heroShapes.forEach(s => heroRepel.set(s, { rx: 0, ry: 0, sc: 1 }));
 
 function animateHero(){
-  mouseX += (targetX - mouseX) * 0.06;
-  mouseY += (targetY - mouseY) * 0.06;
+  // Parallax smoothing
+  parallaxMouseX += (parallaxTargetX - parallaxMouseX) * 0.06;
+  parallaxMouseY += (parallaxTargetY - parallaxMouseY) * 0.06;
+
+  // Cursor smoothing for repulsion
+  if (!isTouchOnly) {
+    smoothCursorX += (cursorX - smoothCursorX) * 0.15;
+    smoothCursorY += (cursorY - smoothCursorY) * 0.15;
+  }
+
   const scrollY = window.scrollY;
-  shapes.forEach(s => {
+  const vh = window.innerHeight;
+
+  heroShapes.forEach(s => {
     const depth = parseFloat(s.dataset.depth || 0.3);
-    const tx = mouseX * 40 * depth;
-    const ty = mouseY * 30 * depth - scrollY * 0.15 * depth;
-    s.style.transform = `translate3d(${tx}px, ${ty}px, 0)`;
+    const tx = parallaxMouseX * 40 * depth;
+    const ty = parallaxMouseY * 30 * depth - scrollY * 0.15 * depth;
+
+    let rx = 0, ry = 0, sc = 1;
+
+    if (!isTouchOnly) {
+      const rect = s.getBoundingClientRect();
+      if (rect.bottom > -50 && rect.top < vh + 50) {
+        const cx = rect.left + rect.width / 2;
+        const cy = rect.top + rect.height / 2;
+        const dx = cx - smoothCursorX;
+        const dy = cy - smoothCursorY;
+        const dist = Math.sqrt(dx * dx + dy * dy);
+
+        let targetRx = 0, targetRy = 0, targetSc = 1;
+        if (dist < REPEL_RADIUS && dist > 0.1) {
+          const strength = 1 - dist / REPEL_RADIUS;
+          const eased = strength * strength; // quadratic falloff
+          const offset = eased * REPEL_MAX;
+          targetRx = (dx / dist) * offset;
+          targetRy = (dy / dist) * offset;
+          targetSc = 1 + eased * 0.04;
+        }
+
+        const state = heroRepel.get(s);
+        state.rx += (targetRx - state.rx) * REPEL_EASE;
+        state.ry += (targetRy - state.ry) * REPEL_EASE;
+        state.sc += (targetSc - state.sc) * REPEL_EASE;
+        rx = state.rx;
+        ry = state.ry;
+        sc = state.sc;
+      }
+    }
+
+    s.style.transform = `translate3d(${tx + rx}px, ${ty + ry}px, 0) scale(${sc})`;
   });
+
   requestAnimationFrame(animateHero);
 }
 animateHero();
 
 /* =========================================================
-   SECTION PARALLAX
+   SECTION BUBBLES — SCROLL PARALLAX + CURSOR REPEL
+   Continuous loop for smooth easing (even when not scrolling)
    ========================================================= */
-const parallaxEls = document.querySelectorAll('.parallax-slow');
-let ticking = false;
-function updateParallax(){
+const secBubbles = document.querySelectorAll('.sec-bg .parallax-slow');
+const secRepel = new Map();
+secBubbles.forEach(b => secRepel.set(b, { rx: 0, ry: 0, sc: 1 }));
+
+function updateSecBubbles(){
   const scrollY = window.scrollY;
-  parallaxEls.forEach(el => {
-    const speed = parseFloat(el.dataset.speed || 0.1);
+  const vh = window.innerHeight;
+
+  secBubbles.forEach(el => {
     const rect = el.getBoundingClientRect();
-    if (rect.bottom > -200 && rect.top < window.innerHeight + 200) {
-      const offset = (scrollY - el.offsetTop) * speed;
-      el.style.transform = `translate3d(0, ${offset}px, 0)`;
+    // Skip elements far off-screen for performance
+    if (rect.bottom < -200 || rect.top > vh + 200) return;
+
+    const speed = parseFloat(el.dataset.speed || 0.1);
+    const scrollOffset = (scrollY - el.offsetTop) * speed;
+
+    let rx = 0, ry = 0, sc = 1;
+
+    if (!isTouchOnly && rect.bottom > -50 && rect.top < vh + 50) {
+      const cx = rect.left + rect.width / 2;
+      const cy = rect.top + rect.height / 2;
+      const dx = cx - smoothCursorX;
+      const dy = cy - smoothCursorY;
+      const dist = Math.sqrt(dx * dx + dy * dy);
+
+      let targetRx = 0, targetRy = 0, targetSc = 1;
+      if (dist < REPEL_RADIUS && dist > 0.1) {
+        const strength = 1 - dist / REPEL_RADIUS;
+        const eased = strength * strength;
+        targetRx = (dx / dist) * eased * REPEL_MAX;
+        targetRy = (dy / dist) * eased * REPEL_MAX;
+        targetSc = 1 + eased * 0.03;
+      }
+
+      const state = secRepel.get(el);
+      state.rx += (targetRx - state.rx) * REPEL_EASE;
+      state.ry += (targetRy - state.ry) * REPEL_EASE;
+      state.sc += (targetSc - state.sc) * REPEL_EASE;
+      rx = state.rx;
+      ry = state.ry;
+      sc = state.sc;
     }
+
+    el.style.transform = `translate3d(${rx}px, ${scrollOffset + ry}px, 0) scale(${sc})`;
   });
-  ticking = false;
+
+  requestAnimationFrame(updateSecBubbles);
 }
-window.addEventListener('scroll', () => {
-  if (!ticking) {
-    requestAnimationFrame(updateParallax);
-    ticking = true;
-  }
-}, { passive: true });
+updateSecBubbles();
 
 /* =========================================================
    PARTICLES
