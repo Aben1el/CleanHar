@@ -15,7 +15,6 @@
    CLEAN HAR — PREMIUM DESIGN SYSTEM
    ========================================================= */
 :root{
-  /* Brand palette — light blue + warm white, elevated */
   --blue-50:  #F4F9FF;
   --blue-100: #E6F1FC;
   --blue-200: #CDE4FA;
@@ -39,24 +38,21 @@
   --muted: #6B7A8F;
   --line: rgba(10, 37, 64, 0.08);
 
-  /* Surfaces */
   --glass-bg: rgba(255, 255, 255, 0.62);
   --glass-border: rgba(255, 255, 255, 0.55);
   --glass-shadow: 0 10px 40px -10px rgba(30, 95, 160, 0.18),
                   0 2px 8px -2px rgba(10, 37, 64, 0.06);
 
-  /* Motion */
   --ease-out: cubic-bezier(0.22, 1, 0.36, 1);
   --ease-spring: cubic-bezier(0.34, 1.56, 0.64, 1);
+  --ease-smooth: cubic-bezier(0.65, 0, 0.35, 1);
 
-  /* Radius */
   --r-sm: 12px;
   --r-md: 18px;
   --r-lg: 28px;
   --r-xl: 40px;
   --r-pill: 999px;
 
-  /* Layout */
   --container: 1240px;
 }
 
@@ -69,6 +65,7 @@ body{
   line-height: 1.6;
   overflow-x: hidden;
 }
+body.loading{ overflow: hidden; }
 img{ max-width: 100%; display: block; }
 a{ color: inherit; text-decoration: none; }
 button{ font: inherit; cursor: pointer; border: none; background: none; }
@@ -85,6 +82,227 @@ h1,h2,h3,h4{
   max-width: var(--container);
   margin: 0 auto;
   padding: 0 24px;
+}
+
+/* =========================================================
+   PRELOADER — Cockroach + Gloved Hand Animation
+   ========================================================= */
+#preloader{
+  position: fixed;
+  inset: 0;
+  z-index: 9999;
+  background:
+    radial-gradient(ellipse 80% 60% at 30% 20%, #E8F2FC 0%, transparent 60%),
+    radial-gradient(ellipse 70% 50% at 80% 80%, #FDF4E3 0%, transparent 55%),
+    linear-gradient(180deg, var(--warm-50) 0%, var(--blue-50) 100%);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+  transition: opacity .8s var(--ease-out), visibility .8s var(--ease-out);
+}
+#preloader.done{
+  opacity: 0;
+  visibility: hidden;
+  pointer-events: none;
+}
+
+/* Subtle floating background orbs in preloader */
+.pre-orb{
+  position: absolute;
+  border-radius: 50%;
+  filter: blur(60px);
+  opacity: 0.5;
+  animation: preOrbFloat 8s ease-in-out infinite alternate;
+}
+.pre-orb.o1{ width: 300px; height: 300px; top: 10%; left: 10%; background: var(--blue-200); }
+.pre-orb.o2{ width: 250px; height: 250px; bottom: 15%; right: 10%; background: var(--champagne-soft); animation-delay: -3s; }
+.pre-orb.o3{ width: 200px; height: 200px; top: 50%; left: 60%; background: var(--blue-300); opacity: 0.3; animation-delay: -5s; }
+@keyframes preOrbFloat{
+  0%   { transform: translate(0,0) scale(1); }
+  100% { transform: translate(30px,-20px) scale(1.1); }
+}
+
+.pre-stage{
+  position: relative;
+  width: 100%;
+  max-width: 600px;
+  height: 280px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* Cockroach */
+.cockroach{
+  position: absolute;
+  width: 90px;
+  height: 60px;
+  left: -120px;
+  top: 50%;
+  transform: translateY(-50%) rotate(-5deg);
+  animation: cockroachCrawl 1.8s var(--ease-smooth) forwards;
+  z-index: 3;
+  filter: drop-shadow(0 6px 10px rgba(10, 37, 64, 0.25));
+}
+@keyframes cockroachCrawl{
+  0%   { left: -120px; transform: translateY(-50%) rotate(-5deg); }
+  20%  { transform: translateY(-55%) rotate(-8deg); }
+  40%  { transform: translateY(-48%) rotate(-3deg); }
+  60%  { transform: translateY(-52%) rotate(-7deg); }
+  80%  { transform: translateY(-50%) rotate(-5deg); }
+  100% { left: calc(50% - 45px); transform: translateY(-50%) rotate(-5deg); }
+}
+
+/* Leg wiggle */
+.leg{ transform-origin: center; animation: legWiggle .25s ease-in-out infinite alternate; }
+.leg.l1, .leg.l4{ animation-delay: 0s; }
+.leg.l2, .leg.l5{ animation-delay: .08s; }
+.leg.l3, .leg.l6{ animation-delay: .16s; }
+@keyframes legWiggle{
+  0%   { transform: rotate(-10deg); }
+  100% { transform: rotate(10deg); }
+}
+
+/* Antennae wiggle */
+.antenna{ transform-origin: bottom center; animation: antennaWiggle .4s ease-in-out infinite alternate; }
+.antenna.a2{ animation-delay: .15s; }
+@keyframes antennaWiggle{
+  0%   { transform: rotate(-8deg); }
+  100% { transform: rotate(8deg); }
+}
+
+/* Gloved hand */
+.glove{
+  position: absolute;
+  width: 220px;
+  height: 220px;
+  right: -260px;
+  top: 50%;
+  transform: translateY(-50%) rotate(15deg);
+  animation: gloveSwipe 1.4s var(--ease-smooth) 1.8s forwards;
+  z-index: 4;
+  filter: drop-shadow(0 10px 20px rgba(30, 95, 160, 0.35));
+}
+@keyframes gloveSwipe{
+  0%   { right: -260px; transform: translateY(-50%) rotate(15deg); }
+  30%  { transform: translateY(-55%) rotate(10deg); }
+  60%  { transform: translateY(-45%) rotate(20deg); }
+  100% { right: calc(100% + 40px); transform: translateY(-50%) rotate(15deg); }
+}
+
+/* Wipe trail — sparkle + shine */
+.wipe-trail{
+  position: absolute;
+  top: 0; left: 0;
+  width: 100%; height: 100%;
+  pointer-events: none;
+  z-index: 5;
+  opacity: 0;
+  animation: wipeReveal 1.4s var(--ease-smooth) 1.8s forwards;
+}
+@keyframes wipeReveal{
+  0%   { opacity: 0; clip-path: inset(0 100% 0 0); }
+  100% { opacity: 1; clip-path: inset(0 0 0 0); }
+}
+
+.sparkle{
+  position: absolute;
+  width: 14px; height: 14px;
+  opacity: 0;
+  animation: sparklePop .8s var(--ease-spring) forwards;
+}
+.sparkle svg{ width: 100%; height: 100%; }
+.sparkle.s1{ top: 30%; left: 20%; animation-delay: 2.1s; }
+.sparkle.s2{ top: 60%; left: 45%; animation-delay: 2.25s; }
+.sparkle.s3{ top: 25%; left: 70%; animation-delay: 2.4s; }
+.sparkle.s4{ top: 70%; left: 80%; animation-delay: 2.55s; }
+@keyframes sparklePop{
+  0%   { opacity: 0; transform: scale(0) rotate(0deg); }
+  50%  { opacity: 1; transform: scale(1.3) rotate(180deg); }
+  100% { opacity: 0; transform: scale(0.8) rotate(360deg); }
+}
+
+/* Cockroach gets squished / disappears when hand passes */
+.cockroach.squished{
+  animation: cockroachSquish .4s var(--ease-out) 2.3s forwards;
+}
+@keyframes cockroachSquish{
+  0%   { transform: translateY(-50%) rotate(-5deg) scale(1); opacity: 1; }
+  50%  { transform: translateY(-50%) rotate(-5deg) scale(1.3, 0.3); opacity: 0.7; }
+  100% { transform: translateY(-50%) rotate(-5deg) scale(0); opacity: 0; }
+}
+
+/* Loading text */
+.pre-text{
+  position: absolute;
+  bottom: 40px;
+  left: 50%;
+  transform: translateX(-50%);
+  text-align: center;
+  z-index: 6;
+}
+.pre-logo{
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  font-family: 'Fraunces', serif;
+  font-weight: 600;
+  font-size: 22px;
+  color: var(--ink);
+  margin-bottom: 14px;
+  opacity: 0;
+  animation: preTextFade .8s var(--ease-out) .3s forwards;
+}
+.pre-logo .logo-mark{
+  width: 36px; height: 36px;
+  border-radius: 10px;
+  background: linear-gradient(135deg, var(--blue-400), var(--blue-600));
+  display: grid; place-items: center;
+  color: white;
+  font-family: 'Fraunces', serif;
+  font-weight: 700;
+  font-size: 17px;
+  box-shadow: 0 6px 14px -4px rgba(46, 123, 196, 0.5),
+              inset 0 1px 0 rgba(255,255,255,0.4);
+}
+.pre-logo b{ color: var(--blue-600); }
+
+.pre-tagline{
+  font-size: 13px;
+  color: var(--muted);
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  opacity: 0;
+  animation: preTextFade .8s var(--ease-out) .6s forwards;
+}
+@keyframes preTextFade{
+  to { opacity: 1; }
+}
+
+/* Progress bar */
+.pre-progress{
+  position: absolute;
+  bottom: 0; left: 0;
+  width: 100%;
+  height: 3px;
+  background: rgba(74, 151, 219, 0.1);
+  overflow: hidden;
+  z-index: 7;
+}
+.pre-progress-bar{
+  height: 100%;
+  width: 0;
+  background: linear-gradient(90deg, var(--blue-400), var(--champagne));
+  animation: preProgress 3.2s var(--ease-smooth) forwards;
+}
+@keyframes preProgress{
+  0%   { width: 0; }
+  30%  { width: 35%; }
+  60%  { width: 70%; }
+  100% { width: 100%; }
 }
 
 /* =========================================================
@@ -276,7 +494,6 @@ h1,h2,h3,h4{
   isolation: isolate;
 }
 
-/* Base gradient backdrop */
 .hero-bg{
   position: absolute;
   inset: 0;
@@ -288,7 +505,6 @@ h1,h2,h3,h4{
     linear-gradient(180deg, var(--warm-50) 0%, var(--blue-50) 100%);
 }
 
-/* Animated mesh / aurora layer */
 .hero-aurora{
   position: absolute;
   inset: -20%;
@@ -306,7 +522,6 @@ h1,h2,h3,h4{
   100% { transform: translate(-2%, 2%) scale(1.05); }
 }
 
-/* 3D canvas for floating shapes */
 .hero-3d{
   position: absolute;
   inset: 0;
@@ -406,7 +621,6 @@ h1,h2,h3,h4{
   to { transform: rotate(360deg); }
 }
 
-/* Particle canvas */
 #particles{
   position: absolute;
   inset: 0;
@@ -414,7 +628,6 @@ h1,h2,h3,h4{
   pointer-events: none;
 }
 
-/* Hero content */
 .hero-inner{
   position: relative;
   z-index: 2;
@@ -502,13 +715,20 @@ h1,h2,h3,h4{
 .rating-text b{ color: var(--ink); font-weight: 600; display: block; }
 
 /* =========================================================
-   SECTIONS — SHARED
+   SECTIONS — SHARED + UNIQUE BACKGROUNDS
    ========================================================= */
-section{ padding: 110px 0; position: relative; }
+section{
+  padding: 110px 0;
+  position: relative;
+  overflow: hidden;
+  isolation: isolate;
+}
 .section-head{
   text-align: center;
   max-width: 720px;
   margin: 0 auto 70px;
+  position: relative;
+  z-index: 2;
 }
 .eyebrow{
   display: inline-block;
@@ -531,15 +751,77 @@ section{ padding: 110px 0; position: relative; }
   color: var(--muted);
 }
 
+/* Shared section background elements */
+.sec-bg{
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  pointer-events: none;
+  overflow: hidden;
+}
+.sec-orb{
+  position: absolute;
+  border-radius: 50%;
+  filter: blur(80px);
+  opacity: 0.5;
+  will-change: transform;
+}
+.sec-shape{
+  position: absolute;
+  border-radius: 50%;
+  opacity: 0.6;
+  will-change: transform;
+}
+
 /* =========================================================
-   ABOUT
+   ABOUT — Warm champagne + soft blue atmosphere
    ========================================================= */
-.about{ background: linear-gradient(180deg, var(--warm-50), var(--blue-50)); }
+.about{
+  background: linear-gradient(180deg, var(--warm-50), var(--blue-50));
+}
+.about .sec-bg .orb-1{
+  width: 500px; height: 500px;
+  top: -150px; right: -100px;
+  background: radial-gradient(circle, var(--champagne-soft), transparent 70%);
+  opacity: 0.4;
+}
+.about .sec-bg .orb-2{
+  width: 400px; height: 400px;
+  bottom: -100px; left: -80px;
+  background: radial-gradient(circle, var(--blue-200), transparent 70%);
+  opacity: 0.5;
+}
+.about .sec-bg .shape-1{
+  width: 180px; height: 180px;
+  top: 20%; right: 15%;
+  background: radial-gradient(circle at 30% 30%, #fff, var(--blue-200) 50%, var(--blue-400));
+  box-shadow: inset -20px -20px 40px rgba(30, 95, 160, 0.25),
+              0 20px 40px -10px rgba(46, 123, 196, 0.3);
+  animation: floatA 12s ease-in-out infinite;
+}
+.about .sec-bg .shape-2{
+  width: 100px; height: 100px;
+  bottom: 25%; right: 30%;
+  background: radial-gradient(circle at 30% 30%, #fff, var(--champagne-soft) 50%, var(--champagne));
+  box-shadow: inset -15px -15px 30px rgba(100, 60, 20, 0.25),
+              0 15px 30px -8px rgba(212, 175, 122, 0.3);
+  animation: floatB 14s ease-in-out infinite;
+}
+.about .sec-bg .ring-1{
+  width: 220px; height: 220px;
+  top: 60%; left: 5%;
+  border: 2px solid rgba(212, 175, 122, 0.25);
+  background: transparent;
+  animation: spinSlow 25s linear infinite;
+}
+
 .about-grid{
   display: grid;
   grid-template-columns: 1.05fr 1fr;
   gap: 70px;
   align-items: center;
+  position: relative;
+  z-index: 2;
 }
 .about-text h2{
   font-size: clamp(2rem, 3.2vw, 2.8rem);
@@ -563,6 +845,11 @@ section{ padding: 110px 0; position: relative; }
   border: 1px solid rgba(255,255,255,0.8);
   border-radius: var(--r-md);
   box-shadow: 0 4px 20px -6px rgba(30, 95, 160, 0.1);
+  transition: all .4s var(--ease-out);
+}
+.stat:hover{
+  transform: translateY(-4px);
+  box-shadow: 0 12px 30px -8px rgba(30, 95, 160, 0.18);
 }
 .stat .num{
   font-family: 'Fraunces', serif;
@@ -620,12 +907,54 @@ section{ padding: 110px 0; position: relative; }
 .about-badge .txt span{ color: var(--muted); }
 
 /* =========================================================
-   SERVICES
+   SERVICES — Diagonal gradient + geometric accents
    ========================================================= */
+.services{
+  background:
+    linear-gradient(135deg, var(--blue-50) 0%, var(--warm-50) 50%, var(--blue-50) 100%);
+}
+.services .sec-bg .orb-1{
+  width: 600px; height: 600px;
+  top: -200px; left: -200px;
+  background: radial-gradient(circle, var(--blue-200), transparent 70%);
+  opacity: 0.4;
+}
+.services .sec-bg .orb-2{
+  width: 500px; height: 500px;
+  bottom: -150px; right: -150px;
+  background: radial-gradient(circle, var(--champagne-soft), transparent 70%);
+  opacity: 0.35;
+}
+.services .sec-bg .geo-1{
+  width: 280px; height: 280px;
+  top: 10%; right: 5%;
+  border-radius: 30% 70% 70% 30% / 30% 30% 70% 70%;
+  background: linear-gradient(135deg, rgba(255,255,255,0.6), rgba(255,255,255,0.1));
+  backdrop-filter: blur(20px);
+  border: 1px solid rgba(255,255,255,0.5);
+  box-shadow: 0 20px 50px -15px rgba(46, 123, 196, 0.2);
+  animation: morphBlob 18s ease-in-out infinite, floatA 14s ease-in-out infinite;
+}
+.services .sec-bg .geo-2{
+  width: 160px; height: 160px;
+  bottom: 15%; left: 8%;
+  border-radius: 50%;
+  background: radial-gradient(circle at 30% 30%, #fff, var(--blue-300) 60%, var(--blue-500));
+  box-shadow: inset -20px -20px 40px rgba(30, 95, 160, 0.3),
+              0 20px 40px -10px rgba(46, 123, 196, 0.3);
+  animation: floatB 12s ease-in-out infinite;
+}
+@keyframes morphBlob{
+  0%,100% { border-radius: 30% 70% 70% 30% / 30% 30% 70% 70%; }
+  50%     { border-radius: 70% 30% 30% 70% / 70% 70% 30% 30%; }
+}
+
 .services-grid{
   display: grid;
   grid-template-columns: repeat(3, 1fr);
   gap: 24px;
+  position: relative;
+  z-index: 2;
 }
 .service-card{
   position: relative;
@@ -648,6 +977,15 @@ section{ padding: 110px 0; position: relative; }
   transform-origin: left;
   transition: transform .5s var(--ease-out);
 }
+.service-card::after{
+  content: '';
+  position: absolute;
+  top: -50%; right: -50%;
+  width: 200%; height: 200%;
+  background: radial-gradient(circle, rgba(74, 151, 219, 0.08), transparent 50%);
+  opacity: 0;
+  transition: opacity .5s var(--ease-out);
+}
 .service-card:hover{
   transform: translateY(-8px);
   box-shadow: 0 30px 60px -15px rgba(30, 95, 160, 0.2),
@@ -655,6 +993,7 @@ section{ padding: 110px 0; position: relative; }
   background: rgba(255,255,255,0.95);
 }
 .service-card:hover::before{ transform: scaleX(1); }
+.service-card:hover::after{ opacity: 1; }
 
 .service-icon{
   width: 58px; height: 58px;
@@ -664,6 +1003,8 @@ section{ padding: 110px 0; position: relative; }
   font-size: 26px;
   margin-bottom: 22px;
   transition: all .4s var(--ease-out);
+  position: relative;
+  z-index: 1;
 }
 .service-card:hover .service-icon{
   background: linear-gradient(135deg, var(--blue-500), var(--blue-700));
@@ -673,21 +1014,60 @@ section{ padding: 110px 0; position: relative; }
   font-size: 1.35rem;
   margin-bottom: 10px;
   font-weight: 600;
+  position: relative;
+  z-index: 1;
 }
 .service-card p{
   color: var(--muted);
   font-size: 0.95rem;
   line-height: 1.6;
+  position: relative;
+  z-index: 1;
 }
 
 /* =========================================================
-   PRICING
+   PRICING — Layered gradient with subtle pattern
    ========================================================= */
-.pricing{ background: linear-gradient(180deg, var(--blue-50), var(--warm-50)); }
+.pricing{
+  background:
+    radial-gradient(ellipse 60% 50% at 10% 20%, rgba(127, 184, 234, 0.15), transparent 60%),
+    radial-gradient(ellipse 60% 50% at 90% 80%, rgba(212, 175, 122, 0.12), transparent 60%),
+    linear-gradient(180deg, var(--blue-50), var(--warm-50));
+}
+.pricing .sec-bg .orb-1{
+  width: 450px; height: 450px;
+  top: -100px; right: 20%;
+  background: radial-gradient(circle, var(--blue-200), transparent 70%);
+  opacity: 0.4;
+}
+.pricing .sec-bg .orb-2{
+  width: 380px; height: 380px;
+  bottom: -80px; left: 15%;
+  background: radial-gradient(circle, var(--champagne-soft), transparent 70%);
+  opacity: 0.35;
+}
+.pricing .sec-bg .shape-1{
+  width: 140px; height: 140px;
+  top: 25%; left: 8%;
+  background: radial-gradient(circle at 30% 30%, #fff, var(--champagne-soft) 60%, var(--champagne));
+  box-shadow: inset -15px -15px 30px rgba(100, 60, 20, 0.25),
+              0 15px 30px -8px rgba(212, 175, 122, 0.3);
+  animation: floatA 11s ease-in-out infinite;
+}
+.pricing .sec-bg .ring-1{
+  width: 200px; height: 200px;
+  bottom: 20%; right: 10%;
+  border: 2px solid rgba(74, 151, 219, 0.2);
+  background: transparent;
+  animation: spinSlow 22s linear infinite;
+}
+
 .pricing-grid{
   display: grid;
   grid-template-columns: repeat(3, 1fr);
   gap: 22px;
+  position: relative;
+  z-index: 2;
 }
 .price-card{
   padding: 34px 28px;
@@ -698,12 +1078,23 @@ section{ padding: 110px 0; position: relative; }
   position: relative;
   display: flex;
   flex-direction: column;
+  overflow: hidden;
+}
+.price-card::before{
+  content: '';
+  position: absolute;
+  top: 0; left: 0; right: 0;
+  height: 100%;
+  background: linear-gradient(180deg, rgba(74, 151, 219, 0.04), transparent 40%);
+  opacity: 0;
+  transition: opacity .4s var(--ease-out);
 }
 .price-card:hover{
   transform: translateY(-6px);
   box-shadow: 0 24px 50px -15px rgba(30, 95, 160, 0.18);
   border-color: transparent;
 }
+.price-card:hover::before{ opacity: 1; }
 .price-card .ico{
   width: 48px; height: 48px;
   border-radius: 14px;
@@ -711,17 +1102,25 @@ section{ padding: 110px 0; position: relative; }
   display: grid; place-items: center;
   font-size: 22px;
   margin-bottom: 18px;
+  position: relative;
+  z-index: 1;
+  transition: transform .4s var(--ease-out);
 }
+.price-card:hover .ico{ transform: scale(1.08) rotate(-5deg); }
 .price-card h4{
   font-size: 1.2rem;
   margin-bottom: 8px;
   font-weight: 600;
+  position: relative;
+  z-index: 1;
 }
 .price-card .desc{
   color: var(--muted);
   font-size: 0.9rem;
   margin-bottom: 22px;
   flex-grow: 1;
+  position: relative;
+  z-index: 1;
 }
 .price-card .price{
   font-family: 'Fraunces', serif;
@@ -729,11 +1128,15 @@ section{ padding: 110px 0; position: relative; }
   font-weight: 600;
   color: var(--blue-700);
   margin-bottom: 18px;
+  position: relative;
+  z-index: 1;
 }
 .price-card .btn{
   width: 100%;
   background: var(--warm-100);
   color: var(--ink);
+  position: relative;
+  z-index: 1;
 }
 .price-card .btn:hover{
   background: linear-gradient(135deg, var(--blue-600), var(--blue-700));
@@ -745,6 +1148,8 @@ section{ padding: 110px 0; position: relative; }
   margin-top: 40px;
   color: var(--muted);
   font-size: 0.95rem;
+  position: relative;
+  z-index: 2;
 }
 .pricing-note a{
   color: var(--blue-600);
@@ -753,12 +1158,48 @@ section{ padding: 110px 0; position: relative; }
 }
 
 /* =========================================================
-   WHY US
+   WHY US — Warm champagne atmosphere
    ========================================================= */
+.why-us{
+  background:
+    radial-gradient(ellipse 70% 50% at 80% 20%, rgba(212, 175, 122, 0.15), transparent 60%),
+    radial-gradient(ellipse 60% 50% at 20% 80%, rgba(127, 184, 234, 0.12), transparent 60%),
+    linear-gradient(180deg, var(--warm-50), var(--warm-100));
+}
+.why-us .sec-bg .orb-1{
+  width: 500px; height: 500px;
+  top: -150px; left: -100px;
+  background: radial-gradient(circle, var(--champagne-soft), transparent 70%);
+  opacity: 0.4;
+}
+.why-us .sec-bg .orb-2{
+  width: 400px; height: 400px;
+  bottom: -100px; right: -80px;
+  background: radial-gradient(circle, var(--blue-200), transparent 70%);
+  opacity: 0.35;
+}
+.why-us .sec-bg .shape-1{
+  width: 160px; height: 160px;
+  top: 30%; right: 12%;
+  background: radial-gradient(circle at 30% 30%, #fff, var(--blue-200) 50%, var(--blue-400));
+  box-shadow: inset -18px -18px 36px rgba(30, 95, 160, 0.25),
+              0 18px 36px -10px rgba(46, 123, 196, 0.3);
+  animation: floatB 13s ease-in-out infinite;
+}
+.why-us .sec-bg .ring-1{
+  width: 240px; height: 240px;
+  bottom: 15%; left: 8%;
+  border: 2px solid rgba(212, 175, 122, 0.25);
+  background: transparent;
+  animation: spinSlow 28s linear infinite reverse;
+}
+
 .why-grid{
   display: grid;
   grid-template-columns: repeat(4, 1fr);
   gap: 22px;
+  position: relative;
+  z-index: 2;
 }
 .why-card{
   padding: 32px 26px;
@@ -767,11 +1208,22 @@ section{ padding: 110px 0; position: relative; }
   border-radius: var(--r-lg);
   text-align: left;
   transition: all .4s var(--ease-out);
+  position: relative;
+  overflow: hidden;
+}
+.why-card::before{
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(135deg, rgba(212, 175, 122, 0.08), transparent 60%);
+  opacity: 0;
+  transition: opacity .4s var(--ease-out);
 }
 .why-card:hover{
   transform: translateY(-6px);
   box-shadow: 0 20px 40px -12px rgba(30, 95, 160, 0.15);
 }
+.why-card:hover::before{ opacity: 1; }
 .why-card .ico{
   width: 50px; height: 50px;
   border-radius: 14px;
@@ -781,25 +1233,69 @@ section{ padding: 110px 0; position: relative; }
   font-size: 22px;
   margin-bottom: 18px;
   box-shadow: 0 10px 20px -6px rgba(46, 123, 196, 0.4);
+  position: relative;
+  z-index: 1;
+  transition: transform .4s var(--ease-spring);
 }
+.why-card:hover .ico{ transform: scale(1.1) rotate(-8deg); }
 .why-card h4{
   font-size: 1.15rem;
   margin-bottom: 8px;
   font-weight: 600;
+  position: relative;
+  z-index: 1;
 }
 .why-card p{
   color: var(--muted);
   font-size: 0.92rem;
+  position: relative;
+  z-index: 1;
 }
 
 /* =========================================================
-   TESTIMONIALS
+   TESTIMONIALS — Soft blue atmosphere
    ========================================================= */
-.testimonials{ background: linear-gradient(180deg, var(--warm-50), var(--blue-50)); }
+.testimonials{
+  background:
+    radial-gradient(ellipse 70% 50% at 20% 30%, rgba(127, 184, 234, 0.18), transparent 60%),
+    radial-gradient(ellipse 60% 50% at 85% 70%, rgba(212, 175, 122, 0.12), transparent 60%),
+    linear-gradient(180deg, var(--warm-50), var(--blue-50));
+}
+.testimonials .sec-bg .orb-1{
+  width: 500px; height: 500px;
+  top: -150px; right: -100px;
+  background: radial-gradient(circle, var(--blue-200), transparent 70%);
+  opacity: 0.45;
+}
+.testimonials .sec-bg .orb-2{
+  width: 400px; height: 400px;
+  bottom: -100px; left: -80px;
+  background: radial-gradient(circle, var(--champagne-soft), transparent 70%);
+  opacity: 0.35;
+}
+.testimonials .sec-bg .shape-1{
+  width: 140px; height: 140px;
+  top: 20%; left: 10%;
+  background: radial-gradient(circle at 30% 30%, #fff, var(--champagne-soft) 60%, var(--champagne));
+  box-shadow: inset -15px -15px 30px rgba(100, 60, 20, 0.25),
+              0 15px 30px -8px rgba(212, 175, 122, 0.3);
+  animation: floatA 12s ease-in-out infinite;
+}
+.testimonials .sec-bg .shape-2{
+  width: 100px; height: 100px;
+  bottom: 25%; right: 15%;
+  background: radial-gradient(circle at 30% 30%, #fff, var(--blue-300) 60%, var(--blue-500));
+  box-shadow: inset -12px -12px 24px rgba(30, 95, 160, 0.25),
+              0 12px 24px -6px rgba(46, 123, 196, 0.3);
+  animation: floatB 10s ease-in-out infinite;
+}
+
 .test-grid{
   display: grid;
   grid-template-columns: repeat(3, 1fr);
   gap: 24px;
+  position: relative;
+  z-index: 2;
 }
 .test-card{
   padding: 32px;
@@ -808,11 +1304,23 @@ section{ padding: 110px 0; position: relative; }
   border: 1px solid var(--line);
   transition: all .4s var(--ease-out);
   position: relative;
+  overflow: hidden;
+}
+.test-card::before{
+  content: '';
+  position: absolute;
+  top: 0; left: 0; right: 0;
+  height: 4px;
+  background: linear-gradient(90deg, var(--blue-400), var(--champagne));
+  transform: scaleX(0);
+  transform-origin: left;
+  transition: transform .5s var(--ease-out);
 }
 .test-card:hover{
   transform: translateY(-6px);
   box-shadow: 0 24px 50px -15px rgba(30, 95, 160, 0.18);
 }
+.test-card:hover::before{ transform: scaleX(1); }
 .test-card .quote-mark{
   font-family: 'Fraunces', serif;
   font-size: 4rem;
@@ -847,19 +1355,49 @@ section{ padding: 110px 0; position: relative; }
 .test-author .stars{ font-size: 13px; margin-top: 2px; }
 
 /* =========================================================
-   CONTACT / BOOK
+   CONTACT — Combined gradient matching hero
    ========================================================= */
 .contact{
   background:
-    radial-gradient(ellipse 80% 60% at 20% 20%, rgba(127, 184, 234, 0.15), transparent 60%),
-    radial-gradient(ellipse 70% 50% at 90% 80%, rgba(212, 175, 122, 0.1), transparent 60%),
-    var(--warm-50);
+    radial-gradient(ellipse 80% 60% at 20% 20%, rgba(127, 184, 234, 0.18), transparent 60%),
+    radial-gradient(ellipse 70% 50% at 90% 80%, rgba(212, 175, 122, 0.12), transparent 60%),
+    linear-gradient(180deg, var(--blue-50), var(--warm-50));
 }
+.contact .sec-bg .orb-1{
+  width: 550px; height: 550px;
+  top: -200px; left: -150px;
+  background: radial-gradient(circle, var(--blue-200), transparent 70%);
+  opacity: 0.4;
+}
+.contact .sec-bg .orb-2{
+  width: 450px; height: 450px;
+  bottom: -150px; right: -100px;
+  background: radial-gradient(circle, var(--champagne-soft), transparent 70%);
+  opacity: 0.35;
+}
+.contact .sec-bg .shape-1{
+  width: 180px; height: 180px;
+  top: 15%; right: 8%;
+  background: radial-gradient(circle at 30% 30%, #fff, var(--blue-200) 50%, var(--blue-400));
+  box-shadow: inset -20px -20px 40px rgba(30, 95, 160, 0.25),
+              0 20px 40px -10px rgba(46, 123, 196, 0.3);
+  animation: floatB 13s ease-in-out infinite;
+}
+.contact .sec-bg .ring-1{
+  width: 220px; height: 220px;
+  bottom: 10%; left: 5%;
+  border: 2px solid rgba(212, 175, 122, 0.25);
+  background: transparent;
+  animation: spinSlow 26s linear infinite;
+}
+
 .contact-grid{
   display: grid;
   grid-template-columns: 1fr 1.2fr;
   gap: 50px;
   align-items: start;
+  position: relative;
+  z-index: 2;
 }
 .contact-info h2{
   font-size: clamp(1.8rem, 3vw, 2.4rem);
@@ -890,6 +1428,7 @@ section{ padding: 110px 0; position: relative; }
 .info-item:hover{
   background: white;
   transform: translateX(4px);
+  box-shadow: 0 10px 24px -8px rgba(30, 95, 160, 0.12);
 }
 .info-item .ico{
   width: 42px; height: 42px;
@@ -898,7 +1437,9 @@ section{ padding: 110px 0; position: relative; }
   color: var(--blue-700);
   display: grid; place-items: center;
   flex-shrink: 0;
+  transition: transform .4s var(--ease-spring);
 }
+.info-item:hover .ico{ transform: scale(1.08) rotate(-5deg); }
 .info-item .lbl{
   font-size: 12px;
   color: var(--muted);
@@ -918,15 +1459,26 @@ section{ padding: 110px 0; position: relative; }
   border-radius: var(--r-xl);
   border: 1px solid var(--line);
   box-shadow: 0 30px 60px -20px rgba(30, 95, 160, 0.15);
+  position: relative;
+  overflow: hidden;
+}
+.contact-form::before{
+  content: '';
+  position: absolute;
+  top: 0; left: 0; right: 0;
+  height: 4px;
+  background: linear-gradient(90deg, var(--blue-400), var(--champagne));
 }
 .contact-form h3{
   font-size: 1.5rem;
   margin-bottom: 6px;
+  position: relative;
 }
 .contact-form .sub{
   color: var(--muted);
   margin-bottom: 26px;
   font-size: 0.95rem;
+  position: relative;
 }
 .form-row{
   display: grid;
@@ -934,7 +1486,7 @@ section{ padding: 110px 0; position: relative; }
   gap: 14px;
   margin-bottom: 14px;
 }
-.field{ margin-bottom: 14px; }
+.field{ margin-bottom: 14px; position: relative; }
 .field label{
   display: block;
   font-size: 13px;
@@ -972,6 +1524,7 @@ section{ padding: 110px 0; position: relative; }
   padding: 15px;
   font-size: 15px;
   margin-top: 8px;
+  position: relative;
 }
 
 /* =========================================================
@@ -1044,17 +1597,39 @@ footer::before{
 .trust-badge .stars{ font-size: 12px; }
 
 /* =========================================================
-   SCROLL REVEAL
+   SCROLL REVEAL — Enhanced
    ========================================================= */
 .reveal{
   opacity: 0;
-  transform: translateY(30px);
-  transition: opacity .8s var(--ease-out), transform .8s var(--ease-out);
+  transform: translateY(40px);
+  transition: opacity 1s var(--ease-out), transform 1s var(--ease-out);
+  will-change: opacity, transform;
 }
 .reveal.in{
   opacity: 1;
   transform: translateY(0);
 }
+.reveal-left{
+  opacity: 0;
+  transform: translateX(-40px);
+  transition: opacity 1s var(--ease-out), transform 1s var(--ease-out);
+}
+.reveal-left.in{ opacity: 1; transform: translateX(0); }
+.reveal-right{
+  opacity: 0;
+  transform: translateX(40px);
+  transition: opacity 1s var(--ease-out), transform 1s var(--ease-out);
+}
+.reveal-right.in{ opacity: 1; transform: translateX(0); }
+.reveal-scale{
+  opacity: 0;
+  transform: scale(0.92);
+  transition: opacity 1s var(--ease-out), transform 1s var(--ease-out);
+}
+.reveal-scale.in{ opacity: 1; transform: scale(1); }
+
+/* Parallax background elements */
+.parallax-slow{ will-change: transform; }
 
 /* =========================================================
    RESPONSIVE
@@ -1081,7 +1656,6 @@ footer::before{
   .menu-toggle{ display: flex; }
   .nav-cta .btn{ padding: 10px 18px; font-size: 13.5px; }
 
-  /* Mobile menu */
   .nav-links.mobile-open{
     display: flex;
     flex-direction: column;
@@ -1108,6 +1682,13 @@ footer::before{
   .shape.ring{ width: 200px; height: 200px; right: -40px; }
   .shape.glass-orb{ width: 110px; height: 110px; left: 5%; }
 
+  /* Hide some decorative shapes on mobile for performance */
+  .sec-bg .shape-1,
+  .sec-bg .shape-2,
+  .sec-bg .ring-1,
+  .sec-bg .geo-1,
+  .sec-bg .geo-2{ display: none; }
+
   .services-grid,
   .pricing-grid,
   .test-grid,
@@ -1117,6 +1698,11 @@ footer::before{
   .contact-form{ padding: 26px; }
   .footer-grid{ grid-template-columns: 1fr; gap: 30px; }
   .footer-bottom{ flex-direction: column; text-align: center; }
+
+  /* Preloader responsive */
+  .pre-stage{ height: 220px; }
+  .cockroach{ width: 70px; height: 48px; }
+  .glove{ width: 170px; height: 170px; }
 }
 
 @media (max-width: 480px){
@@ -1125,6 +1711,10 @@ footer::before{
   .hero-actions .btn{ width: 100%; }
   .hero-rating{ flex-direction: column; text-align: center; gap: 10px; }
   .about-stats{ grid-template-columns: 1fr; }
+  .pre-stage{ height: 200px; }
+  .cockroach{ width: 60px; height: 42px; }
+  .glove{ width: 140px; height: 140px; }
+  .pre-logo{ font-size: 19px; }
 }
 
 /* Reduced motion */
@@ -1133,10 +1723,123 @@ footer::before{
     animation-duration: 0.01ms !important;
     transition-duration: 0.01ms !important;
   }
+  #preloader{ display: none; }
 }
 </style>
 </head>
-<body>
+<body class="loading">
+
+<!-- ============== PRELOADER ============== -->
+<div id="preloader">
+  <div class="pre-orb o1"></div>
+  <div class="pre-orb o2"></div>
+  <div class="pre-orb o3"></div>
+
+  <div class="pre-stage">
+    <!-- Cartoon cockroach SVG -->
+    <svg class="cockroach squished" viewBox="0 0 120 80" xmlns="http://www.w3.org/2000/svg">
+      <!-- Antennae -->
+      <g class="antenna a1">
+        <path d="M 30 25 Q 20 15, 15 8" stroke="#3d2817" stroke-width="2" fill="none" stroke-linecap="round"/>
+        <circle cx="14" cy="7" r="2" fill="#3d2817"/>
+      </g>
+      <g class="antenna a2">
+        <path d="M 35 22 Q 28 12, 25 5" stroke="#3d2817" stroke-width="2" fill="none" stroke-linecap="round"/>
+        <circle cx="24" cy="4" r="2" fill="#3d2817"/>
+      </g>
+      <!-- Legs (left side) -->
+      <g class="leg l1"><path d="M 40 40 Q 30 35, 22 32" stroke="#3d2817" stroke-width="2.5" fill="none" stroke-linecap="round"/></g>
+      <g class="leg l2"><path d="M 45 48 Q 32 48, 22 50" stroke="#3d2817" stroke-width="2.5" fill="none" stroke-linecap="round"/></g>
+      <g class="leg l3"><path d="M 50 55 Q 38 60, 28 65" stroke="#3d2817" stroke-width="2.5" fill="none" stroke-linecap="round"/></g>
+      <!-- Legs (right side) -->
+      <g class="leg l4"><path d="M 80 40 Q 90 35, 98 32" stroke="#3d2817" stroke-width="2.5" fill="none" stroke-linecap="round"/></g>
+      <g class="leg l5"><path d="M 75 48 Q 88 48, 98 50" stroke="#3d2817" stroke-width="2.5" fill="none" stroke-linecap="round"/></g>
+      <g class="leg l6"><path d="M 70 55 Q 82 60, 92 65" stroke="#3d2817" stroke-width="2.5" fill="none" stroke-linecap="round"/></g>
+      <!-- Body (abdomen - back) -->
+      <ellipse cx="75" cy="48" rx="30" ry="20" fill="#5c3a1f"/>
+      <ellipse cx="75" cy="45" rx="28" ry="17" fill="#7a4e2a"/>
+      <!-- Body segments -->
+      <path d="M 60 35 Q 75 32, 90 35" stroke="#3d2817" stroke-width="1" fill="none" opacity="0.5"/>
+      <path d="M 58 42 Q 75 40, 92 42" stroke="#3d2817" stroke-width="1" fill="none" opacity="0.5"/>
+      <path d="M 58 50 Q 75 48, 92 50" stroke="#3d2817" stroke-width="1" fill="none" opacity="0.5"/>
+      <!-- Head -->
+      <ellipse cx="42" cy="42" rx="16" ry="14" fill="#5c3a1f"/>
+      <ellipse cx="42" cy="40" rx="14" ry="12" fill="#7a4e2a"/>
+      <!-- Eyes -->
+      <circle cx="36" cy="38" r="2.5" fill="#fff"/>
+      <circle cx="36" cy="38" r="1.5" fill="#1a0f08"/>
+      <circle cx="48" cy="38" r="2.5" fill="#fff"/>
+      <circle cx="48" cy="38" r="1.5" fill="#1a0f08"/>
+      <!-- Shine on body -->
+      <ellipse cx="70" cy="40" rx="10" ry="4" fill="#a0714a" opacity="0.5"/>
+    </svg>
+
+    <!-- Gloved cleaning hand SVG -->
+    <svg class="glove" viewBox="0 0 220 220" xmlns="http://www.w3.org/2000/svg">
+      <defs>
+        <linearGradient id="gloveGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+          <stop offset="0%" stop-color="#7FB8EA"/>
+          <stop offset="50%" stop-color="#4A97DB"/>
+          <stop offset="100%" stop-color="#2E7BC4"/>
+        </linearGradient>
+        <linearGradient id="gloveShine" x1="0%" y1="0%" x2="0%" y2="100%">
+          <stop offset="0%" stop-color="#ffffff" stop-opacity="0.5"/>
+          <stop offset="100%" stop-color="#ffffff" stop-opacity="0"/>
+        </linearGradient>
+      </defs>
+      <!-- Wrist/cuff -->
+      <path d="M 140 180 Q 130 200, 150 210 L 200 210 Q 215 200, 205 180 Z" fill="#1E5FA0"/>
+      <path d="M 145 185 Q 140 195, 155 200 L 195 200 Q 205 195, 200 185 Z" fill="#2E7BC4"/>
+      <!-- Palm -->
+      <ellipse cx="130" cy="130" rx="55" ry="50" fill="url(#gloveGrad)"/>
+      <!-- Thumb -->
+      <ellipse cx="75" cy="115" rx="18" ry="28" fill="url(#gloveGrad)" transform="rotate(-30 75 115)"/>
+      <ellipse cx="73" cy="110" rx="8" ry="14" fill="url(#gloveShine)" transform="rotate(-30 73 110)"/>
+      <!-- Fingers -->
+      <ellipse cx="95" cy="70" rx="14" ry="32" fill="url(#gloveGrad)"/>
+      <ellipse cx="120" cy="55" rx="14" ry="36" fill="url(#gloveGrad)"/>
+      <ellipse cx="148" cy="58" rx="14" ry="34" fill="url(#gloveGrad)"/>
+      <ellipse cx="172" cy="72" rx="13" ry="30" fill="url(#gloveGrad)"/>
+      <!-- Finger shine highlights -->
+      <ellipse cx="93" cy="60" rx="5" ry="15" fill="url(#gloveShine)"/>
+      <ellipse cx="118" cy="45" rx="5" ry="18" fill="url(#gloveShine)"/>
+      <ellipse cx="146" cy="48" rx="5" ry="17" fill="url(#gloveShine)"/>
+      <ellipse cx="170" cy="62" rx="4" ry="15" fill="url(#gloveShine)"/>
+      <!-- Palm shine -->
+      <ellipse cx="120" cy="115" rx="25" ry="18" fill="url(#gloveShine)" opacity="0.7"/>
+      <!-- Knuckle lines -->
+      <path d="M 90 95 Q 95 92, 100 95" stroke="#1E5FA0" stroke-width="1.5" fill="none" opacity="0.4"/>
+      <path d="M 115 90 Q 120 87, 125 90" stroke="#1E5FA0" stroke-width="1.5" fill="none" opacity="0.4"/>
+      <path d="M 143 92 Q 148 89, 153 92" stroke="#1E5FA0" stroke-width="1.5" fill="none" opacity="0.4"/>
+    </svg>
+
+    <!-- Sparkles -->
+    <div class="wipe-trail">
+      <div class="sparkle s1">
+        <svg viewBox="0 0 24 24" fill="none"><path d="M12 2 L14 10 L22 12 L14 14 L12 22 L10 14 L2 12 L10 10 Z" fill="#D4AF7A"/></svg>
+      </div>
+      <div class="sparkle s2">
+        <svg viewBox="0 0 24 24" fill="none"><path d="M12 2 L14 10 L22 12 L14 14 L12 22 L10 14 L2 12 L10 10 Z" fill="#4A97DB"/></svg>
+      </div>
+      <div class="sparkle s3">
+        <svg viewBox="0 0 24 24" fill="none"><path d="M12 2 L14 10 L22 12 L14 14 L12 22 L10 14 L2 12 L10 10 Z" fill="#7FB8EA"/></svg>
+      </div>
+      <div class="sparkle s4">
+        <svg viewBox="0 0 24 24" fill="none"><path d="M12 2 L14 10 L22 12 L14 14 L12 22 L10 14 L2 12 L10 10 Z" fill="#E8CFA6"/></svg>
+      </div>
+    </div>
+  </div>
+
+  <div class="pre-text">
+    <div class="pre-logo">
+      <span class="logo-mark">C</span>
+      <span>Clean<b>Har</b></span>
+    </div>
+    <div class="pre-tagline">Preparing your pristine experience…</div>
+  </div>
+
+  <div class="pre-progress"><div class="pre-progress-bar"></div></div>
+</div>
 
 <!-- ============== FLOATING HEADER ============== -->
 <div class="nav-wrap" id="navWrap">
@@ -1171,16 +1874,15 @@ footer::before{
   <div class="hero-bg"></div>
   <div class="hero-aurora"></div>
 
-  <!-- 3D floating shapes -->
   <div class="hero-3d" id="hero3d">
-    <div class="shape sphere-1" data-depth="0.4"></div>
-    <div class="shape sphere-2" data-depth="0.25"></div>
-    <div class="shape ring" data-depth="0.15"></div>
-    <div class="shape glass-orb" data-depth="0.35"></div>
-    <div class="shape dot d1" data-depth="0.5"></div>
-    <div class="shape dot d2" data-depth="0.45"></div>
-    <div class="shape dot d3" data-depth="0.55"></div>
-    <div class="shape dot d4" data-depth="0.4"></div>
+    <div class="shape sphere-1 parallax-slow" data-depth="0.4"></div>
+    <div class="shape sphere-2 parallax-slow" data-depth="0.25"></div>
+    <div class="shape ring parallax-slow" data-depth="0.15"></div>
+    <div class="shape glass-orb parallax-slow" data-depth="0.35"></div>
+    <div class="shape dot d1 parallax-slow" data-depth="0.5"></div>
+    <div class="shape dot d2 parallax-slow" data-depth="0.45"></div>
+    <div class="shape dot d3 parallax-slow" data-depth="0.55"></div>
+    <div class="shape dot d4 parallax-slow" data-depth="0.4"></div>
   </div>
 
   <canvas id="particles"></canvas>
@@ -1223,35 +1925,42 @@ footer::before{
 
 <!-- ============== ABOUT ============== -->
 <section class="about" id="about">
+  <div class="sec-bg">
+    <div class="sec-orb orb-1 parallax-slow" data-speed="0.15"></div>
+    <div class="sec-orb orb-2 parallax-slow" data-speed="0.1"></div>
+    <div class="sec-shape shape-1 parallax-slow" data-speed="0.2"></div>
+    <div class="sec-shape shape-2 parallax-slow" data-speed="0.18"></div>
+    <div class="sec-shape ring-1 parallax-slow" data-speed="0.12"></div>
+  </div>
   <div class="container">
     <div class="about-grid">
-      <div class="about-text reveal">
+      <div class="about-text reveal-left">
         <span class="eyebrow">Defining the Standard</span>
         <h2>Of Absolute Clean.</h2>
         <p>Clean Har Professional Cleaning Service is Addis Ababa's premier provider of high-end residential and commercial environmental care. We treat cleaning not merely as a chore, but as an architectural preservation of your space.</p>
         <p>Built upon strict punctuality, supreme execution, and complete confidentiality, our professionals employ meticulous techniques that eliminate the finest parameters of dust and imperfections.</p>
 
         <div class="about-stats">
-          <div class="stat">
+          <div class="stat reveal">
             <div class="num">1,000<span style="font-size:1.4rem">m²</span></div>
             <div class="lbl">Curtains Purified — Zero Deviation</div>
           </div>
-          <div class="stat">
+          <div class="stat reveal">
             <div class="num">5.0<span style="font-size:1.4rem">★</span></div>
             <div class="lbl">Unanimous Client Rating</div>
           </div>
-          <div class="stat">
+          <div class="stat reveal">
             <div class="num">24<span style="font-size:1.4rem">/7</span></div>
             <div class="lbl">Concierge Availability</div>
           </div>
-          <div class="stat">
+          <div class="stat reveal">
             <div class="num">100<span style="font-size:1.4rem">%</span></div>
             <div class="lbl">Vetted & Insured Staff</div>
           </div>
         </div>
       </div>
 
-      <div class="about-visual reveal">
+      <div class="about-visual reveal-right">
         <img src="https://images.unsplash.com/photo-1584622650111-993a426fbf0a?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="Premium cleaning interior" loading="lazy">
         <div class="about-badge">
           <div class="icon">
@@ -1268,7 +1977,13 @@ footer::before{
 </section>
 
 <!-- ============== SERVICES ============== -->
-<section id="services">
+<section class="services" id="services">
+  <div class="sec-bg">
+    <div class="sec-orb orb-1 parallax-slow" data-speed="0.12"></div>
+    <div class="sec-orb orb-2 parallax-slow" data-speed="0.1"></div>
+    <div class="sec-shape geo-1 parallax-slow" data-speed="0.18"></div>
+    <div class="sec-shape geo-2 parallax-slow" data-speed="0.22"></div>
+  </div>
   <div class="container">
     <div class="section-head reveal">
       <span class="eyebrow">Our Custom Capabilities</span>
@@ -1313,6 +2028,12 @@ footer::before{
 
 <!-- ============== PRICING ============== -->
 <section class="pricing" id="pricing">
+  <div class="sec-bg">
+    <div class="sec-orb orb-1 parallax-slow" data-speed="0.14"></div>
+    <div class="sec-orb orb-2 parallax-slow" data-speed="0.1"></div>
+    <div class="sec-shape shape-1 parallax-slow" data-speed="0.2"></div>
+    <div class="sec-shape ring-1 parallax-slow" data-speed="0.12"></div>
+  </div>
   <div class="container">
     <div class="section-head reveal">
       <span class="eyebrow">Transparent Investment</span>
@@ -1373,7 +2094,13 @@ footer::before{
 </section>
 
 <!-- ============== WHY US ============== -->
-<section id="why-us">
+<section class="why-us" id="why-us">
+  <div class="sec-bg">
+    <div class="sec-orb orb-1 parallax-slow" data-speed="0.13"></div>
+    <div class="sec-orb orb-2 parallax-slow" data-speed="0.1"></div>
+    <div class="sec-shape shape-1 parallax-slow" data-speed="0.2"></div>
+    <div class="sec-shape ring-1 parallax-slow" data-speed="0.12"></div>
+  </div>
   <div class="container">
     <div class="section-head reveal">
       <span class="eyebrow">Uncompromising Safeguards</span>
@@ -1413,6 +2140,12 @@ footer::before{
 
 <!-- ============== TESTIMONIALS ============== -->
 <section class="testimonials" id="reviews">
+  <div class="sec-bg">
+    <div class="sec-orb orb-1 parallax-slow" data-speed="0.14"></div>
+    <div class="sec-orb orb-2 parallax-slow" data-speed="0.1"></div>
+    <div class="sec-shape shape-1 parallax-slow" data-speed="0.2"></div>
+    <div class="sec-shape shape-2 parallax-slow" data-speed="0.18"></div>
+  </div>
   <div class="container">
     <div class="section-head reveal">
       <span class="eyebrow">Verified Client Evaluations</span>
@@ -1459,15 +2192,21 @@ footer::before{
 
 <!-- ============== CONTACT ============== -->
 <section class="contact" id="book">
+  <div class="sec-bg">
+    <div class="sec-orb orb-1 parallax-slow" data-speed="0.13"></div>
+    <div class="sec-orb orb-2 parallax-slow" data-speed="0.1"></div>
+    <div class="sec-shape shape-1 parallax-slow" data-speed="0.2"></div>
+    <div class="sec-shape ring-1 parallax-slow" data-speed="0.12"></div>
+  </div>
   <div class="container">
     <div class="contact-grid">
-      <div class="contact-info reveal">
+      <div class="contact-info reveal-left">
         <span class="eyebrow">Ready for a Cleaner Space?</span>
         <h2>Connect with our concierge team today.</h2>
         <p>Secure your preferred date block or coordinate a structural property assessment with our specialists.</p>
 
         <ul class="info-list">
-          <li class="info-item">
+          <li class="info-item reveal">
             <div class="ico">
               <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
             </div>
@@ -1476,7 +2215,7 @@ footer::before{
               <div class="val">097 743 0815</div>
             </div>
           </li>
-          <li class="info-item">
+          <li class="info-item reveal">
             <div class="ico">
               <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
             </div>
@@ -1485,7 +2224,7 @@ footer::before{
               <div class="val">Addis Ababa, Ethiopia</div>
             </div>
           </li>
-          <li class="info-item">
+          <li class="info-item reveal">
             <div class="ico">
               <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
             </div>
@@ -1497,7 +2236,7 @@ footer::before{
         </ul>
       </div>
 
-      <form class="contact-form reveal" onsubmit="event.preventDefault(); alert('Thank you! Our concierge team will reach out shortly.');">
+      <form class="contact-form reveal-right" onsubmit="event.preventDefault(); alert('Thank you! Our concierge team will reach out shortly.');">
         <h3>Request a Free Quote</h3>
         <p class="sub">Tell us about your space — we'll tailor a proposal within 24 hours.</p>
 
@@ -1598,6 +2337,28 @@ footer::before{
 
 <script>
 /* =========================================================
+   PRELOADER — orchestrate animation + hide
+   ========================================================= */
+(function(){
+  const preloader = document.getElementById('preloader');
+  const cockroach = document.querySelector('.cockroach');
+  const totalDuration = 3800; // ms
+
+  // After the cockroach is squished and sparkles finish, fade out preloader
+  setTimeout(() => {
+    preloader.classList.add('done');
+    document.body.classList.remove('loading');
+  }, totalDuration);
+
+  // Remove from DOM after fade completes to free memory
+  setTimeout(() => {
+    if (preloader && preloader.parentNode) {
+      preloader.parentNode.removeChild(preloader);
+    }
+  }, totalDuration + 900);
+})();
+
+/* =========================================================
    NAV — scroll state + hide on scroll down / show on up
    ========================================================= */
 const nav = document.getElementById('nav');
@@ -1657,6 +2418,31 @@ function animateHero(){
 animateHero();
 
 /* =========================================================
+   SECTION PARALLAX — scroll-based movement for background orbs
+   ========================================================= */
+const parallaxEls = document.querySelectorAll('.parallax-slow');
+let ticking = false;
+function updateParallax(){
+  const scrollY = window.scrollY;
+  parallaxEls.forEach(el => {
+    const speed = parseFloat(el.dataset.speed || 0.1);
+    const rect = el.getBoundingClientRect();
+    // Only animate when in or near viewport
+    if (rect.bottom > -200 && rect.top < window.innerHeight + 200) {
+      const offset = (scrollY - el.offsetTop) * speed;
+      el.style.transform = `translate3d(0, ${offset}px, 0)`;
+    }
+  });
+  ticking = false;
+}
+window.addEventListener('scroll', () => {
+  if (!ticking) {
+    requestAnimationFrame(updateParallax);
+    ticking = true;
+  }
+}, { passive: true });
+
+/* =========================================================
    PARTICLES — subtle floating dots
    ========================================================= */
 const canvas = document.getElementById('particles');
@@ -1703,7 +2489,7 @@ function drawParticles(){
 drawParticles();
 
 /* =========================================================
-   SCROLL REVEAL
+   SCROLL REVEAL — Enhanced with multiple variants + stagger
    ========================================================= */
 const io = new IntersectionObserver((entries) => {
   entries.forEach(e => {
@@ -1714,12 +2500,32 @@ const io = new IntersectionObserver((entries) => {
   });
 }, { threshold: 0.12, rootMargin: '0px 0px -60px 0px' });
 
-document.querySelectorAll('.reveal').forEach(el => io.observe(el));
+document.querySelectorAll('.reveal, .reveal-left, .reveal-right, .reveal-scale').forEach(el => io.observe(el));
 
 /* Staggered reveal for grids */
-document.querySelectorAll('.services-grid, .pricing-grid, .test-grid, .why-grid').forEach(grid => {
+document.querySelectorAll('.services-grid, .pricing-grid, .test-grid, .why-grid, .about-stats').forEach(grid => {
   Array.from(grid.children).forEach((child, i) => {
-    child.style.transitionDelay = `${i * 80}ms`;
+    child.style.transitionDelay = `${i * 90}ms`;
+  });
+});
+
+/* Stagger info items */
+document.querySelectorAll('.info-list').forEach(list => {
+  Array.from(list.children).forEach((child, i) => {
+    child.style.transitionDelay = `${i * 100}ms`;
+  });
+});
+
+/* Smooth scroll for anchor links (extra smoothness) */
+document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+  anchor.addEventListener('click', function(e){
+    const target = document.querySelector(this.getAttribute('href'));
+    if (target) {
+      e.preventDefault();
+      const offset = 90; // account for floating header
+      const top = target.getBoundingClientRect().top + window.scrollY - offset;
+      window.scrollTo({ top, behavior: 'smooth' });
+    }
   });
 });
 </script>
