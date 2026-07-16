@@ -6,9 +6,16 @@
 <meta name="description" content="Clean Har — Addis Ababa's premier professional cleaning service. Residential, commercial, curtain washing, deep cleaning, and bespoke solutions." />
 <title>Clean Har | Premium Professional Cleaning Service — Addis Ababa</title>
 
+<!-- ============== FAVICON — SVG + PNG fallbacks ============== -->
+<link rel="icon" type="image/svg+xml" href="data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'><defs><linearGradient id='g' x1='0' y1='0' x2='1' y2='1'><stop offset='0' stop-color='%237FB8EA'/><stop offset='1' stop-color='%231E5FA0'/></linearGradient></defs><rect width='64' height='64' rx='14' fill='url(%23g)'/><text x='32' y='44' text-anchor='middle' font-family='Georgia,serif' font-weight='700' font-size='36' fill='white'>C</text></svg>">
+<link rel="icon" type="image/png" sizes="32x32" href="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACAAAAAgCAYAAABzenr0AAAAAXNSR0IArs4c6QAAAERlWElmTU0AKgAAAAgAAY2oAAYpcgAAbBIAAAY0wAAAAMhJREFUWIXt1jEOgCAMBVCcOII38P4Xw0Vw0g661KQxpfX/LYQQQgghhBBCCCGEEEIIIYQQQgghhBBCCCGEEEIIIYQQQgghhBDyf3qO7Ow0Hh/4rO8t8KwP4LkFnvUBPLfA/33g9P8Bx0d+AJ5b4FkfwHMLPOsDeG6BZ30Az+1/ffwB3z8m1xqW0KMAAAAASUVORK5CYII=">
+<link rel="apple-touch-icon" sizes="180x180" href="data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 180 180'><defs><linearGradient id='g' x1='0' y1='0' x2='1' y2='1'><stop offset='0' stop-color='%237FB8EA'/><stop offset='1' stop-color='%231E5FA0'/></linearGradient></defs><rect width='180' height='180' rx='40' fill='url(%23g)'/><text x='90' y='125' text-anchor='middle' font-family='Georgia,serif' font-weight='700' font-size='100' fill='white'>C</text></svg>">
+<link rel="manifest" href="data:application/manifest+json,{%22name%22:%22Clean%20Har%22,%22short_name%22:%22CleanHar%22,%22icons%22:[{%22src%22:%22data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 192 192'><rect width='192' height='192' rx='40' fill='%231E5FA0'/><text x='96' y='135' text-anchor='middle' font-family='Georgia,serif' font-weight='700' font-size='110' fill='white'>C</text></svg>%22,%22sizes%22:%22192x192%22,%22type%22:%22image/svg+xml%22}],%22theme_color%22:%22%231E5FA0%22,%22background_color%22:%22%23FDFBF7%22,%22display%22:%22standalone%22}">
+<meta name="theme-color" content="#1E5FA0">
+
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600;9..144,700&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,300;9..144,400;9..144,500;9..144,600;9..144,700&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 
 <style>
 /* =========================================================
@@ -46,6 +53,7 @@
   --ease-out: cubic-bezier(0.22, 1, 0.36, 1);
   --ease-spring: cubic-bezier(0.34, 1.56, 0.64, 1);
   --ease-smooth: cubic-bezier(0.65, 0, 0.35, 1);
+  --ease-cinema: cubic-bezier(0.77, 0, 0.175, 1);
 
   --r-sm: 12px;
   --r-md: 18px;
@@ -65,7 +73,7 @@ body{
   line-height: 1.6;
   overflow-x: hidden;
 }
-body.loading{ overflow: hidden; }
+body.loading{ overflow: hidden; height: 100vh; }
 img{ max-width: 100%; display: block; }
 a{ color: inherit; text-decoration: none; }
 button{ font: inherit; cursor: pointer; border: none; background: none; }
@@ -85,7 +93,7 @@ h1,h2,h3,h4{
 }
 
 /* =========================================================
-   PRELOADER — Cockroach + Gloved Hand Animation
+   PREMIUM CINEMATIC PRELOADER
    ========================================================= */
 #preloader{
   position: fixed;
@@ -94,13 +102,13 @@ h1,h2,h3,h4{
   background:
     radial-gradient(ellipse 80% 60% at 30% 20%, #E8F2FC 0%, transparent 60%),
     radial-gradient(ellipse 70% 50% at 80% 80%, #FDF4E3 0%, transparent 55%),
+    radial-gradient(ellipse 60% 50% at 50% 50%, #F4F9FF 0%, transparent 70%),
     linear-gradient(180deg, var(--warm-50) 0%, var(--blue-50) 100%);
   display: flex;
-  flex-direction: column;
   align-items: center;
   justify-content: center;
   overflow: hidden;
-  transition: opacity .8s var(--ease-out), visibility .8s var(--ease-out);
+  transition: opacity 1s var(--ease-cinema), visibility 1s var(--ease-cinema);
 }
 #preloader.done{
   opacity: 0;
@@ -108,201 +116,310 @@ h1,h2,h3,h4{
   pointer-events: none;
 }
 
-/* Subtle floating background orbs in preloader */
-.pre-orb{
+/* Ambient floating orbs for depth */
+.pre-ambient{
   position: absolute;
   border-radius: 50%;
-  filter: blur(60px);
+  filter: blur(80px);
   opacity: 0.5;
-  animation: preOrbFloat 8s ease-in-out infinite alternate;
+  animation: preAmbientFloat 12s ease-in-out infinite alternate;
 }
-.pre-orb.o1{ width: 300px; height: 300px; top: 10%; left: 10%; background: var(--blue-200); }
-.pre-orb.o2{ width: 250px; height: 250px; bottom: 15%; right: 10%; background: var(--champagne-soft); animation-delay: -3s; }
-.pre-orb.o3{ width: 200px; height: 200px; top: 50%; left: 60%; background: var(--blue-300); opacity: 0.3; animation-delay: -5s; }
-@keyframes preOrbFloat{
+.pre-ambient.a1{ width: 400px; height: 400px; top: 10%; left: 5%; background: var(--blue-200); }
+.pre-ambient.a2{ width: 350px; height: 350px; bottom: 10%; right: 5%; background: var(--champagne-soft); animation-delay: -4s; }
+.pre-ambient.a3{ width: 280px; height: 280px; top: 50%; left: 50%; transform: translate(-50%,-50%); background: var(--blue-300); opacity: 0.25; animation-delay: -7s; }
+@keyframes preAmbientFloat{
   0%   { transform: translate(0,0) scale(1); }
-  100% { transform: translate(30px,-20px) scale(1.1); }
+  100% { transform: translate(40px,-30px) scale(1.1); }
 }
 
+/* Subtle vignette for cinematic feel */
+.pre-vignette{
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(ellipse at center, transparent 40%, rgba(10, 37, 64, 0.08) 100%);
+  pointer-events: none;
+}
+
+/* Central stage */
 .pre-stage{
   position: relative;
-  width: 100%;
-  max-width: 600px;
-  height: 280px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
-
-/* Cockroach */
-.cockroach{
-  position: absolute;
-  width: 90px;
-  height: 60px;
-  left: -120px;
-  top: 50%;
-  transform: translateY(-50%) rotate(-5deg);
-  animation: cockroachCrawl 1.8s var(--ease-smooth) forwards;
-  z-index: 3;
-  filter: drop-shadow(0 6px 10px rgba(10, 37, 64, 0.25));
-}
-@keyframes cockroachCrawl{
-  0%   { left: -120px; transform: translateY(-50%) rotate(-5deg); }
-  20%  { transform: translateY(-55%) rotate(-8deg); }
-  40%  { transform: translateY(-48%) rotate(-3deg); }
-  60%  { transform: translateY(-52%) rotate(-7deg); }
-  80%  { transform: translateY(-50%) rotate(-5deg); }
-  100% { left: calc(50% - 45px); transform: translateY(-50%) rotate(-5deg); }
-}
-
-/* Leg wiggle */
-.leg{ transform-origin: center; animation: legWiggle .25s ease-in-out infinite alternate; }
-.leg.l1, .leg.l4{ animation-delay: 0s; }
-.leg.l2, .leg.l5{ animation-delay: .08s; }
-.leg.l3, .leg.l6{ animation-delay: .16s; }
-@keyframes legWiggle{
-  0%   { transform: rotate(-10deg); }
-  100% { transform: rotate(10deg); }
-}
-
-/* Antennae wiggle */
-.antenna{ transform-origin: bottom center; animation: antennaWiggle .4s ease-in-out infinite alternate; }
-.antenna.a2{ animation-delay: .15s; }
-@keyframes antennaWiggle{
-  0%   { transform: rotate(-8deg); }
-  100% { transform: rotate(8deg); }
-}
-
-/* Gloved hand */
-.glove{
-  position: absolute;
-  width: 220px;
-  height: 220px;
-  right: -260px;
-  top: 50%;
-  transform: translateY(-50%) rotate(15deg);
-  animation: gloveSwipe 1.4s var(--ease-smooth) 1.8s forwards;
-  z-index: 4;
-  filter: drop-shadow(0 10px 20px rgba(30, 95, 160, 0.35));
-}
-@keyframes gloveSwipe{
-  0%   { right: -260px; transform: translateY(-50%) rotate(15deg); }
-  30%  { transform: translateY(-55%) rotate(10deg); }
-  60%  { transform: translateY(-45%) rotate(20deg); }
-  100% { right: calc(100% + 40px); transform: translateY(-50%) rotate(15deg); }
-}
-
-/* Wipe trail — sparkle + shine */
-.wipe-trail{
-  position: absolute;
-  top: 0; left: 0;
-  width: 100%; height: 100%;
-  pointer-events: none;
   z-index: 5;
-  opacity: 0;
-  animation: wipeReveal 1.4s var(--ease-smooth) 1.8s forwards;
-}
-@keyframes wipeReveal{
-  0%   { opacity: 0; clip-path: inset(0 100% 0 0); }
-  100% { opacity: 1; clip-path: inset(0 0 0 0); }
-}
-
-.sparkle{
-  position: absolute;
-  width: 14px; height: 14px;
-  opacity: 0;
-  animation: sparklePop .8s var(--ease-spring) forwards;
-}
-.sparkle svg{ width: 100%; height: 100%; }
-.sparkle.s1{ top: 30%; left: 20%; animation-delay: 2.1s; }
-.sparkle.s2{ top: 60%; left: 45%; animation-delay: 2.25s; }
-.sparkle.s3{ top: 25%; left: 70%; animation-delay: 2.4s; }
-.sparkle.s4{ top: 70%; left: 80%; animation-delay: 2.55s; }
-@keyframes sparklePop{
-  0%   { opacity: 0; transform: scale(0) rotate(0deg); }
-  50%  { opacity: 1; transform: scale(1.3) rotate(180deg); }
-  100% { opacity: 0; transform: scale(0.8) rotate(360deg); }
-}
-
-/* Cockroach gets squished / disappears when hand passes */
-.cockroach.squished{
-  animation: cockroachSquish .4s var(--ease-out) 2.3s forwards;
-}
-@keyframes cockroachSquish{
-  0%   { transform: translateY(-50%) rotate(-5deg) scale(1); opacity: 1; }
-  50%  { transform: translateY(-50%) rotate(-5deg) scale(1.3, 0.3); opacity: 0.7; }
-  100% { transform: translateY(-50%) rotate(-5deg) scale(0); opacity: 0; }
-}
-
-/* Loading text */
-.pre-text{
-  position: absolute;
-  bottom: 40px;
-  left: 50%;
-  transform: translateX(-50%);
-  text-align: center;
-  z-index: 6;
-}
-.pre-logo{
   display: flex;
+  flex-direction: column;
   align-items: center;
   justify-content: center;
-  gap: 10px;
-  font-family: 'Fraunces', serif;
-  font-weight: 600;
-  font-size: 22px;
-  color: var(--ink);
-  margin-bottom: 14px;
-  opacity: 0;
-  animation: preTextFade .8s var(--ease-out) .3s forwards;
+  text-align: center;
+  padding: 40px;
 }
-.pre-logo .logo-mark{
-  width: 36px; height: 36px;
-  border-radius: 10px;
-  background: linear-gradient(135deg, var(--blue-400), var(--blue-600));
-  display: grid; place-items: center;
+
+/* Logo mark — animated entrance */
+.pre-logo-mark{
+  width: 88px;
+  height: 88px;
+  border-radius: 22px;
+  background: linear-gradient(135deg, var(--blue-400) 0%, var(--blue-600) 50%, var(--blue-700) 100%);
+  display: grid;
+  place-items: center;
   color: white;
   font-family: 'Fraunces', serif;
   font-weight: 700;
-  font-size: 17px;
-  box-shadow: 0 6px 14px -4px rgba(46, 123, 196, 0.5),
-              inset 0 1px 0 rgba(255,255,255,0.4);
-}
-.pre-logo b{ color: var(--blue-600); }
-
-.pre-tagline{
-  font-size: 13px;
-  color: var(--muted);
-  letter-spacing: 0.1em;
-  text-transform: uppercase;
+  font-size: 42px;
+  box-shadow:
+    0 20px 50px -10px rgba(46, 123, 196, 0.5),
+    inset 0 2px 0 rgba(255,255,255,0.3),
+    inset 0 -4px 10px rgba(10, 37, 64, 0.2);
+  position: relative;
   opacity: 0;
-  animation: preTextFade .8s var(--ease-out) .6s forwards;
+  transform: scale(0.8) translateY(20px);
+  animation: preLogoEnter 1.2s var(--ease-cinema) 0.2s forwards;
+  overflow: hidden;
 }
-@keyframes preTextFade{
-  to { opacity: 1; }
+.pre-logo-mark::before{
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(135deg, rgba(255,255,255,0.4), transparent 50%);
+  border-radius: inherit;
+}
+/* Shimmer sweep across logo */
+.pre-logo-mark::after{
+  content: '';
+  position: absolute;
+  top: -50%;
+  left: -100%;
+  width: 60%;
+  height: 200%;
+  background: linear-gradient(115deg, transparent 30%, rgba(255,255,255,0.6) 50%, transparent 70%);
+  transform: skewX(-20deg);
+  animation: preLogoShimmer 2.8s var(--ease-smooth) 0.5s infinite;
+}
+@keyframes preLogoEnter{
+  0%   { opacity: 0; transform: scale(0.8) translateY(20px); }
+  100% { opacity: 1; transform: scale(1) translateY(0); }
+}
+@keyframes preLogoShimmer{
+  0%   { left: -100%; }
+  60%  { left: 150%; }
+  100% { left: 150%; }
 }
 
-/* Progress bar */
+/* Company name */
+.pre-brand{
+  margin-top: 28px;
+  opacity: 0;
+  transform: translateY(15px);
+  animation: preFadeUp 1s var(--ease-cinema) 0.6s forwards;
+}
+.pre-brand-name{
+  font-family: 'Fraunces', serif;
+  font-weight: 500;
+  font-size: clamp(26px, 4vw, 34px);
+  letter-spacing: -0.02em;
+  color: var(--ink);
+  line-height: 1.1;
+}
+.pre-brand-name b{
+  font-weight: 600;
+  background: linear-gradient(135deg, var(--blue-600), var(--blue-700));
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+.pre-brand-sub{
+  margin-top: 8px;
+  font-size: 13px;
+  font-weight: 400;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--muted);
+}
+
+/* Tagline */
+.pre-tagline{
+  margin-top: 18px;
+  font-family: 'Fraunces', serif;
+  font-style: italic;
+  font-size: 15px;
+  color: var(--ink-soft);
+  opacity: 0;
+  transform: translateY(10px);
+  animation: preFadeUp 1s var(--ease-cinema) 0.9s forwards;
+}
+.pre-tagline .dot{
+  display: inline-block;
+  margin: 0 10px;
+  color: var(--champagne);
+}
+
+/* Progress line — elegant thin shimmer */
 .pre-progress{
-  position: absolute;
-  bottom: 0; left: 0;
-  width: 100%;
-  height: 3px;
-  background: rgba(74, 151, 219, 0.1);
+  margin-top: 40px;
+  width: 180px;
+  height: 2px;
+  background: rgba(74, 151, 219, 0.12);
+  border-radius: 2px;
   overflow: hidden;
-  z-index: 7;
+  position: relative;
+  opacity: 0;
+  animation: preFadeUp 0.8s var(--ease-cinema) 1s forwards;
 }
 .pre-progress-bar{
+  position: absolute;
+  top: 0; left: 0;
   height: 100%;
   width: 0;
-  background: linear-gradient(90deg, var(--blue-400), var(--champagne));
-  animation: preProgress 3.2s var(--ease-smooth) forwards;
+  background: linear-gradient(90deg, var(--blue-400), var(--champagne), var(--blue-500));
+  background-size: 200% 100%;
+  border-radius: 2px;
+  animation:
+    preProgressFill 2.2s var(--ease-smooth) 1s forwards,
+    preProgressShimmer 1.5s linear 1s infinite;
+  box-shadow: 0 0 12px rgba(74, 151, 219, 0.5);
 }
-@keyframes preProgress{
+@keyframes preProgressFill{
   0%   { width: 0; }
-  30%  { width: 35%; }
-  60%  { width: 70%; }
   100% { width: 100%; }
+}
+@keyframes preProgressShimmer{
+  0%   { background-position: 200% 0; }
+  100% { background-position: -200% 0; }
+}
+
+@keyframes preFadeUp{
+  0%   { opacity: 0; transform: translateY(15px); }
+  100% { opacity: 1; transform: translateY(0); }
+}
+
+/* ====== REALISTIC COCKROACH SILHOUETTE ====== */
+/* Subtle, realistic, positioned in bottom-right corner, appears briefly */
+.pre-cockroach{
+  position: absolute;
+  bottom: 18%;
+  right: 22%;
+  width: 54px;
+  height: 54px;
+  z-index: 4;
+  opacity: 0;
+  transform: translate(0, 0) rotate(-25deg) scale(0.6);
+  animation:
+    preCockroachAppear 0.8s var(--ease-cinema) 1.4s forwards,
+    preCockroachMove 1.6s var(--ease-smooth) 2.0s forwards;
+  filter: drop-shadow(0 4px 8px rgba(10, 37, 64, 0.3));
+}
+@keyframes preCockroachAppear{
+  0%   { opacity: 0; transform: translate(0, 0) rotate(-25deg) scale(0.6); }
+  100% { opacity: 0.85; transform: translate(0, 0) rotate(-25deg) scale(1); }
+}
+@keyframes preCockroachMove{
+  0%   { opacity: 0.85; transform: translate(0, 0) rotate(-25deg) scale(1); }
+  40%  { opacity: 0.85; transform: translate(-15px, -10px) rotate(-30deg) scale(1); }
+  100% { opacity: 0; transform: translate(-40px, -25px) rotate(-35deg) scale(0.7); }
+}
+
+/* ====== CLEANING SWIPE — glass cleaning effect ====== */
+/* A diagonal light streak that sweeps across, revealing the "cleaned" state */
+.pre-swipe-layer{
+  position: absolute;
+  inset: 0;
+  z-index: 6;
+  pointer-events: none;
+  overflow: hidden;
+}
+
+/* The cleaning streak itself — a diagonal gradient band */
+.pre-swipe-streak{
+  position: absolute;
+  top: -20%;
+  left: -60%;
+  width: 40%;
+  height: 140%;
+  background: linear-gradient(
+    115deg,
+    transparent 0%,
+    rgba(255, 255, 255, 0.1) 20%,
+    rgba(255, 255, 255, 0.6) 45%,
+    rgba(255, 255, 255, 0.95) 50%,
+    rgba(255, 255, 255, 0.6) 55%,
+    rgba(255, 255, 255, 0.1) 80%,
+    transparent 100%
+  );
+  transform: skewX(-15deg);
+  opacity: 0;
+  animation: preSwipeStreak 1.4s var(--ease-cinema) 2.2s forwards;
+  filter: blur(2px);
+}
+@keyframes preSwipeStreak{
+  0%   { opacity: 0; left: -60%; }
+  15%  { opacity: 1; }
+  85%  { opacity: 1; }
+  100% { opacity: 0; left: 140%; }
+}
+
+/* Secondary subtle streak for realism */
+.pre-swipe-streak.secondary{
+  width: 20%;
+  background: linear-gradient(
+    115deg,
+    transparent 0%,
+    rgba(127, 184, 234, 0.2) 40%,
+    rgba(255, 255, 255, 0.5) 50%,
+    rgba(127, 184, 234, 0.2) 60%,
+    transparent 100%
+  );
+  animation-delay: 2.35s;
+  animation-duration: 1.3s;
+}
+
+/* The "cleaned" overlay — revealed by the wipe, makes everything brighter and polished */
+.pre-cleaned{
+  position: absolute;
+  inset: 0;
+  z-index: 7;
+  pointer-events: none;
+  background:
+    radial-gradient(ellipse 80% 60% at 30% 20%, rgba(232, 242, 252, 0.4) 0%, transparent 60%),
+    radial-gradient(ellipse 70% 50% at 80% 80%, rgba(253, 244, 227, 0.3) 0%, transparent 55%),
+    linear-gradient(180deg, rgba(253, 251, 247, 0.3) 0%, rgba(244, 249, 255, 0.3) 100%);
+  opacity: 0;
+  clip-path: polygon(0 0, 0 0, 0 100%, 0 100%);
+  animation: preCleanedReveal 1.4s var(--ease-cinema) 2.2s forwards;
+}
+@keyframes preCleanedReveal{
+  0%   { opacity: 0; clip-path: polygon(-20% 0, -20% 0, -20% 100%, -20% 100%); }
+  10%  { opacity: 1; }
+  100% { opacity: 1; clip-path: polygon(-20% 0, 140% 0, 140% 100%, -20% 100%); }
+}
+
+/* Sparkle accents that appear after the wipe */
+.pre-sparkle{
+  position: absolute;
+  width: 18px;
+  height: 18px;
+  z-index: 8;
+  opacity: 0;
+  pointer-events: none;
+}
+.pre-sparkle svg{ width: 100%; height: 100%; display: block; }
+.pre-sparkle.s1{ top: 30%; left: 25%; animation: preSparkle 1s var(--ease-spring) 2.8s forwards; }
+.pre-sparkle.s2{ top: 55%; left: 60%; animation: preSparkle 1s var(--ease-spring) 2.95s forwards; }
+.pre-sparkle.s3{ top: 40%; left: 75%; animation: preSparkle 1s var(--ease-spring) 3.1s forwards; }
+.pre-sparkle.s4{ top: 65%; left: 35%; animation: preSparkle 1s var(--ease-spring) 3.0s forwards; }
+@keyframes preSparkle{
+  0%   { opacity: 0; transform: scale(0) rotate(0deg); }
+  40%  { opacity: 1; transform: scale(1.2) rotate(180deg); }
+  100% { opacity: 0; transform: scale(0.6) rotate(360deg); }
+}
+
+/* Final logo brightening after wipe */
+.pre-logo-mark.bright{
+  animation:
+    preLogoEnter 1.2s var(--ease-cinema) 0.2s forwards,
+    preLogoBright 0.8s var(--ease-cinema) 2.6s forwards;
+}
+@keyframes preLogoBright{
+  0%   { box-shadow: 0 20px 50px -10px rgba(46, 123, 196, 0.5), inset 0 2px 0 rgba(255,255,255,0.3), inset 0 -4px 10px rgba(10, 37, 64, 0.2); filter: brightness(1); }
+  50%  { box-shadow: 0 30px 70px -10px rgba(46, 123, 196, 0.7), inset 0 2px 0 rgba(255,255,255,0.5), inset 0 -4px 10px rgba(10, 37, 64, 0.15); filter: brightness(1.2); }
+  100% { box-shadow: 0 20px 50px -10px rgba(46, 123, 196, 0.5), inset 0 2px 0 rgba(255,255,255,0.3), inset 0 -4px 10px rgba(10, 37, 64, 0.2); filter: brightness(1); }
 }
 
 /* =========================================================
@@ -388,7 +505,6 @@ h1,h2,h3,h4{
   color: var(--ink-soft);
   border-radius: var(--r-pill);
   transition: all .3s var(--ease-out);
-  position: relative;
 }
 .nav-links a:hover{
   color: var(--blue-700);
@@ -751,7 +867,6 @@ section{
   color: var(--muted);
 }
 
-/* Shared section background elements */
 .sec-bg{
   position: absolute;
   inset: 0;
@@ -774,7 +889,7 @@ section{
 }
 
 /* =========================================================
-   ABOUT — Warm champagne + soft blue atmosphere
+   ABOUT
    ========================================================= */
 .about{
   background: linear-gradient(180deg, var(--warm-50), var(--blue-50));
@@ -907,7 +1022,7 @@ section{
 .about-badge .txt span{ color: var(--muted); }
 
 /* =========================================================
-   SERVICES — Diagonal gradient + geometric accents
+   SERVICES
    ========================================================= */
 .services{
   background:
@@ -1026,7 +1141,7 @@ section{
 }
 
 /* =========================================================
-   PRICING — Layered gradient with subtle pattern
+   PRICING
    ========================================================= */
 .pricing{
   background:
@@ -1158,7 +1273,7 @@ section{
 }
 
 /* =========================================================
-   WHY US — Warm champagne atmosphere
+   WHY US
    ========================================================= */
 .why-us{
   background:
@@ -1253,7 +1368,7 @@ section{
 }
 
 /* =========================================================
-   TESTIMONIALS — Soft blue atmosphere
+   TESTIMONIALS
    ========================================================= */
 .testimonials{
   background:
@@ -1355,7 +1470,7 @@ section{
 .test-author .stars{ font-size: 13px; margin-top: 2px; }
 
 /* =========================================================
-   CONTACT — Combined gradient matching hero
+   CONTACT
    ========================================================= */
 .contact{
   background:
@@ -1569,10 +1684,7 @@ footer::before{
   letter-spacing: 0.02em;
 }
 .footer-col ul{ list-style: none; display: flex; flex-direction: column; gap: 10px; }
-.footer-col a{
-  font-size: 14px;
-  transition: color .3s;
-}
+.footer-col a{ font-size: 14px; transition: color .3s; }
 .footer-col a:hover{ color: var(--blue-300); }
 .footer-bottom{
   padding-top: 26px;
@@ -1597,7 +1709,7 @@ footer::before{
 .trust-badge .stars{ font-size: 12px; }
 
 /* =========================================================
-   SCROLL REVEAL — Enhanced
+   SCROLL REVEAL
    ========================================================= */
 .reveal{
   opacity: 0;
@@ -1605,10 +1717,7 @@ footer::before{
   transition: opacity 1s var(--ease-out), transform 1s var(--ease-out);
   will-change: opacity, transform;
 }
-.reveal.in{
-  opacity: 1;
-  transform: translateY(0);
-}
+.reveal.in{ opacity: 1; transform: translateY(0); }
 .reveal-left{
   opacity: 0;
   transform: translateX(-40px);
@@ -1628,7 +1737,6 @@ footer::before{
 }
 .reveal-scale.in{ opacity: 1; transform: scale(1); }
 
-/* Parallax background elements */
 .parallax-slow{ will-change: transform; }
 
 /* =========================================================
@@ -1682,7 +1790,6 @@ footer::before{
   .shape.ring{ width: 200px; height: 200px; right: -40px; }
   .shape.glass-orb{ width: 110px; height: 110px; left: 5%; }
 
-  /* Hide some decorative shapes on mobile for performance */
   .sec-bg .shape-1,
   .sec-bg .shape-2,
   .sec-bg .ring-1,
@@ -1700,9 +1807,9 @@ footer::before{
   .footer-bottom{ flex-direction: column; text-align: center; }
 
   /* Preloader responsive */
-  .pre-stage{ height: 220px; }
-  .cockroach{ width: 70px; height: 48px; }
-  .glove{ width: 170px; height: 170px; }
+  .pre-logo-mark{ width: 72px; height: 72px; font-size: 34px; border-radius: 18px; }
+  .pre-cockroach{ width: 42px; height: 42px; bottom: 22%; right: 15%; }
+  .pre-progress{ width: 140px; }
 }
 
 @media (max-width: 480px){
@@ -1711,10 +1818,10 @@ footer::before{
   .hero-actions .btn{ width: 100%; }
   .hero-rating{ flex-direction: column; text-align: center; gap: 10px; }
   .about-stats{ grid-template-columns: 1fr; }
-  .pre-stage{ height: 200px; }
-  .cockroach{ width: 60px; height: 42px; }
-  .glove{ width: 140px; height: 140px; }
-  .pre-logo{ font-size: 19px; }
+  .pre-logo-mark{ width: 64px; height: 64px; font-size: 30px; }
+  .pre-brand-name{ font-size: 24px; }
+  .pre-tagline{ font-size: 13px; }
+  .pre-cockroach{ width: 36px; height: 36px; }
 }
 
 /* Reduced motion */
@@ -1729,116 +1836,91 @@ footer::before{
 </head>
 <body class="loading">
 
-<!-- ============== PRELOADER ============== -->
+<!-- ============== PREMIUM CINEMATIC PRELOADER ============== -->
 <div id="preloader">
-  <div class="pre-orb o1"></div>
-  <div class="pre-orb o2"></div>
-  <div class="pre-orb o3"></div>
+  <!-- Ambient depth orbs -->
+  <div class="pre-ambient a1"></div>
+  <div class="pre-ambient a2"></div>
+  <div class="pre-ambient a3"></div>
+  <div class="pre-vignette"></div>
 
+  <!-- Central branded stage -->
   <div class="pre-stage">
-    <!-- Cartoon cockroach SVG -->
-    <svg class="cockroach squished" viewBox="0 0 120 80" xmlns="http://www.w3.org/2000/svg">
-      <!-- Antennae -->
-      <g class="antenna a1">
-        <path d="M 30 25 Q 20 15, 15 8" stroke="#3d2817" stroke-width="2" fill="none" stroke-linecap="round"/>
-        <circle cx="14" cy="7" r="2" fill="#3d2817"/>
-      </g>
-      <g class="antenna a2">
-        <path d="M 35 22 Q 28 12, 25 5" stroke="#3d2817" stroke-width="2" fill="none" stroke-linecap="round"/>
-        <circle cx="24" cy="4" r="2" fill="#3d2817"/>
-      </g>
-      <!-- Legs (left side) -->
-      <g class="leg l1"><path d="M 40 40 Q 30 35, 22 32" stroke="#3d2817" stroke-width="2.5" fill="none" stroke-linecap="round"/></g>
-      <g class="leg l2"><path d="M 45 48 Q 32 48, 22 50" stroke="#3d2817" stroke-width="2.5" fill="none" stroke-linecap="round"/></g>
-      <g class="leg l3"><path d="M 50 55 Q 38 60, 28 65" stroke="#3d2817" stroke-width="2.5" fill="none" stroke-linecap="round"/></g>
-      <!-- Legs (right side) -->
-      <g class="leg l4"><path d="M 80 40 Q 90 35, 98 32" stroke="#3d2817" stroke-width="2.5" fill="none" stroke-linecap="round"/></g>
-      <g class="leg l5"><path d="M 75 48 Q 88 48, 98 50" stroke="#3d2817" stroke-width="2.5" fill="none" stroke-linecap="round"/></g>
-      <g class="leg l6"><path d="M 70 55 Q 82 60, 92 65" stroke="#3d2817" stroke-width="2.5" fill="none" stroke-linecap="round"/></g>
-      <!-- Body (abdomen - back) -->
-      <ellipse cx="75" cy="48" rx="30" ry="20" fill="#5c3a1f"/>
-      <ellipse cx="75" cy="45" rx="28" ry="17" fill="#7a4e2a"/>
-      <!-- Body segments -->
-      <path d="M 60 35 Q 75 32, 90 35" stroke="#3d2817" stroke-width="1" fill="none" opacity="0.5"/>
-      <path d="M 58 42 Q 75 40, 92 42" stroke="#3d2817" stroke-width="1" fill="none" opacity="0.5"/>
-      <path d="M 58 50 Q 75 48, 92 50" stroke="#3d2817" stroke-width="1" fill="none" opacity="0.5"/>
-      <!-- Head -->
-      <ellipse cx="42" cy="42" rx="16" ry="14" fill="#5c3a1f"/>
-      <ellipse cx="42" cy="40" rx="14" ry="12" fill="#7a4e2a"/>
-      <!-- Eyes -->
-      <circle cx="36" cy="38" r="2.5" fill="#fff"/>
-      <circle cx="36" cy="38" r="1.5" fill="#1a0f08"/>
-      <circle cx="48" cy="38" r="2.5" fill="#fff"/>
-      <circle cx="48" cy="38" r="1.5" fill="#1a0f08"/>
-      <!-- Shine on body -->
-      <ellipse cx="70" cy="40" rx="10" ry="4" fill="#a0714a" opacity="0.5"/>
-    </svg>
-
-    <!-- Gloved cleaning hand SVG -->
-    <svg class="glove" viewBox="0 0 220 220" xmlns="http://www.w3.org/2000/svg">
-      <defs>
-        <linearGradient id="gloveGrad" x1="0%" y1="0%" x2="100%" y2="100%">
-          <stop offset="0%" stop-color="#7FB8EA"/>
-          <stop offset="50%" stop-color="#4A97DB"/>
-          <stop offset="100%" stop-color="#2E7BC4"/>
-        </linearGradient>
-        <linearGradient id="gloveShine" x1="0%" y1="0%" x2="0%" y2="100%">
-          <stop offset="0%" stop-color="#ffffff" stop-opacity="0.5"/>
-          <stop offset="100%" stop-color="#ffffff" stop-opacity="0"/>
-        </linearGradient>
-      </defs>
-      <!-- Wrist/cuff -->
-      <path d="M 140 180 Q 130 200, 150 210 L 200 210 Q 215 200, 205 180 Z" fill="#1E5FA0"/>
-      <path d="M 145 185 Q 140 195, 155 200 L 195 200 Q 205 195, 200 185 Z" fill="#2E7BC4"/>
-      <!-- Palm -->
-      <ellipse cx="130" cy="130" rx="55" ry="50" fill="url(#gloveGrad)"/>
-      <!-- Thumb -->
-      <ellipse cx="75" cy="115" rx="18" ry="28" fill="url(#gloveGrad)" transform="rotate(-30 75 115)"/>
-      <ellipse cx="73" cy="110" rx="8" ry="14" fill="url(#gloveShine)" transform="rotate(-30 73 110)"/>
-      <!-- Fingers -->
-      <ellipse cx="95" cy="70" rx="14" ry="32" fill="url(#gloveGrad)"/>
-      <ellipse cx="120" cy="55" rx="14" ry="36" fill="url(#gloveGrad)"/>
-      <ellipse cx="148" cy="58" rx="14" ry="34" fill="url(#gloveGrad)"/>
-      <ellipse cx="172" cy="72" rx="13" ry="30" fill="url(#gloveGrad)"/>
-      <!-- Finger shine highlights -->
-      <ellipse cx="93" cy="60" rx="5" ry="15" fill="url(#gloveShine)"/>
-      <ellipse cx="118" cy="45" rx="5" ry="18" fill="url(#gloveShine)"/>
-      <ellipse cx="146" cy="48" rx="5" ry="17" fill="url(#gloveShine)"/>
-      <ellipse cx="170" cy="62" rx="4" ry="15" fill="url(#gloveShine)"/>
-      <!-- Palm shine -->
-      <ellipse cx="120" cy="115" rx="25" ry="18" fill="url(#gloveShine)" opacity="0.7"/>
-      <!-- Knuckle lines -->
-      <path d="M 90 95 Q 95 92, 100 95" stroke="#1E5FA0" stroke-width="1.5" fill="none" opacity="0.4"/>
-      <path d="M 115 90 Q 120 87, 125 90" stroke="#1E5FA0" stroke-width="1.5" fill="none" opacity="0.4"/>
-      <path d="M 143 92 Q 148 89, 153 92" stroke="#1E5FA0" stroke-width="1.5" fill="none" opacity="0.4"/>
-    </svg>
-
-    <!-- Sparkles -->
-    <div class="wipe-trail">
-      <div class="sparkle s1">
-        <svg viewBox="0 0 24 24" fill="none"><path d="M12 2 L14 10 L22 12 L14 14 L12 22 L10 14 L2 12 L10 10 Z" fill="#D4AF7A"/></svg>
-      </div>
-      <div class="sparkle s2">
-        <svg viewBox="0 0 24 24" fill="none"><path d="M12 2 L14 10 L22 12 L14 14 L12 22 L10 14 L2 12 L10 10 Z" fill="#4A97DB"/></svg>
-      </div>
-      <div class="sparkle s3">
-        <svg viewBox="0 0 24 24" fill="none"><path d="M12 2 L14 10 L22 12 L14 14 L12 22 L10 14 L2 12 L10 10 Z" fill="#7FB8EA"/></svg>
-      </div>
-      <div class="sparkle s4">
-        <svg viewBox="0 0 24 24" fill="none"><path d="M12 2 L14 10 L22 12 L14 14 L12 22 L10 14 L2 12 L10 10 Z" fill="#E8CFA6"/></svg>
-      </div>
+    <div class="pre-logo-mark bright">C</div>
+    <div class="pre-brand">
+      <div class="pre-brand-name">Clean<b>Har</b></div>
+      <div class="pre-brand-sub">Professional Cleaning Service</div>
+    </div>
+    <div class="pre-tagline">
+      Professional Cleaning <span class="dot">•</span> Spotless Results
+    </div>
+    <div class="pre-progress">
+      <div class="pre-progress-bar"></div>
     </div>
   </div>
 
-  <div class="pre-text">
-    <div class="pre-logo">
-      <span class="logo-mark">C</span>
-      <span>Clean<b>Har</b></span>
-    </div>
-    <div class="pre-tagline">Preparing your pristine experience…</div>
+  <!-- Realistic cockroach silhouette (subtle, bottom-right) -->
+  <svg class="pre-cockroach" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+    <defs>
+      <radialGradient id="roachBody" cx="50%" cy="40%" r="60%">
+        <stop offset="0%" stop-color="#4a2c17"/>
+        <stop offset="60%" stop-color="#2d1810"/>
+        <stop offset="100%" stop-color="#1a0d06"/>
+      </radialGradient>
+      <radialGradient id="roachHead" cx="50%" cy="50%" r="50%">
+        <stop offset="0%" stop-color="#3a2212"/>
+        <stop offset="100%" stop-color="#1a0d06"/>
+      </radialGradient>
+    </defs>
+    <!-- Legs (back pair) -->
+    <path d="M 30 55 Q 15 60, 8 72" stroke="#1a0d06" stroke-width="1.5" fill="none" stroke-linecap="round"/>
+    <path d="M 70 55 Q 85 60, 92 72" stroke="#1a0d06" stroke-width="1.5" fill="none" stroke-linecap="round"/>
+    <!-- Legs (middle pair) -->
+    <path d="M 28 45 Q 12 45, 5 52" stroke="#1a0d06" stroke-width="1.5" fill="none" stroke-linecap="round"/>
+    <path d="M 72 45 Q 88 45, 95 52" stroke="#1a0d06" stroke-width="1.5" fill="none" stroke-linecap="round"/>
+    <!-- Legs (front pair) -->
+    <path d="M 32 35 Q 18 30, 10 25" stroke="#1a0d06" stroke-width="1.5" fill="none" stroke-linecap="round"/>
+    <path d="M 68 35 Q 82 30, 90 25" stroke="#1a0d06" stroke-width="1.5" fill="none" stroke-linecap="round"/>
+    <!-- Abdomen (back body) -->
+    <ellipse cx="50" cy="60" rx="22" ry="28" fill="url(#roachBody)"/>
+    <!-- Wing cases -->
+    <ellipse cx="44" cy="58" rx="10" ry="22" fill="#2d1810" opacity="0.7"/>
+    <ellipse cx="56" cy="58" rx="10" ry="22" fill="#2d1810" opacity="0.7"/>
+    <!-- Wing seam -->
+    <path d="M 50 38 L 50 82" stroke="#1a0d06" stroke-width="0.8" opacity="0.6"/>
+    <!-- Thorax -->
+    <ellipse cx="50" cy="38" rx="14" ry="10" fill="url(#roachBody)"/>
+    <!-- Head -->
+    <ellipse cx="50" cy="25" rx="10" ry="8" fill="url(#roachHead)"/>
+    <!-- Antennae -->
+    <path d="M 45 20 Q 35 10, 25 5" stroke="#1a0d06" stroke-width="1.2" fill="none" stroke-linecap="round"/>
+    <path d="M 55 20 Q 65 10, 75 5" stroke="#1a0d06" stroke-width="1.2" fill="none" stroke-linecap="round"/>
+    <!-- Subtle shine on body -->
+    <ellipse cx="45" cy="50" rx="4" ry="12" fill="#6b4020" opacity="0.4"/>
+  </svg>
+
+  <!-- Cleaning swipe layer -->
+  <div class="pre-swipe-layer">
+    <div class="pre-swipe-streak"></div>
+    <div class="pre-swipe-streak secondary"></div>
   </div>
 
-  <div class="pre-progress"><div class="pre-progress-bar"></div></div>
+  <!-- Cleaned overlay (revealed by wipe) -->
+  <div class="pre-cleaned"></div>
+
+  <!-- Sparkles after wipe -->
+  <div class="pre-sparkle s1">
+    <svg viewBox="0 0 24 24" fill="none"><path d="M12 2 L14 10 L22 12 L14 14 L12 22 L10 14 L2 12 L10 10 Z" fill="#D4AF7A"/></svg>
+  </div>
+  <div class="pre-sparkle s2">
+    <svg viewBox="0 0 24 24" fill="none"><path d="M12 2 L14 10 L22 12 L14 14 L12 22 L10 14 L2 12 L10 10 Z" fill="#4A97DB"/></svg>
+  </div>
+  <div class="pre-sparkle s3">
+    <svg viewBox="0 0 24 24" fill="none"><path d="M12 2 L14 10 L22 12 L14 14 L12 22 L10 14 L2 12 L10 10 Z" fill="#7FB8EA"/></svg>
+  </div>
+  <div class="pre-sparkle s4">
+    <svg viewBox="0 0 24 24" fill="none"><path d="M12 2 L14 10 L22 12 L14 14 L12 22 L10 14 L2 12 L10 10 Z" fill="#E8CFA6"/></svg>
+  </div>
 </div>
 
 <!-- ============== FLOATING HEADER ============== -->
@@ -2337,29 +2419,35 @@ footer::before{
 
 <script>
 /* =========================================================
-   PRELOADER — orchestrate animation + hide
+   PRELOADER — cinematic orchestration
+   Total duration: ~3.6 seconds
+   Timeline:
+   0.0s - 0.6s : Logo fades in
+   0.6s - 1.4s : Brand name + tagline appear
+   1.4s - 2.0s : Cockroach silhouette appears subtly
+   2.2s - 3.6s : Cleaning swipe moves across, cockroach fades,
+                 logo brightens, sparkles appear
+   3.6s - 4.4s : Preloader fades out
    ========================================================= */
 (function(){
   const preloader = document.getElementById('preloader');
-  const cockroach = document.querySelector('.cockroach');
-  const totalDuration = 3800; // ms
+  const TOTAL_DURATION = 3800;
+  const FADE_DURATION = 900;
 
-  // After the cockroach is squished and sparkles finish, fade out preloader
   setTimeout(() => {
     preloader.classList.add('done');
     document.body.classList.remove('loading');
-  }, totalDuration);
+  }, TOTAL_DURATION);
 
-  // Remove from DOM after fade completes to free memory
   setTimeout(() => {
     if (preloader && preloader.parentNode) {
       preloader.parentNode.removeChild(preloader);
     }
-  }, totalDuration + 900);
+  }, TOTAL_DURATION + FADE_DURATION);
 })();
 
 /* =========================================================
-   NAV — scroll state + hide on scroll down / show on up
+   NAV
    ========================================================= */
 const nav = document.getElementById('nav');
 const navWrap = document.getElementById('navWrap');
@@ -2375,7 +2463,6 @@ window.addEventListener('scroll', () => {
   lastScroll = y;
 }, { passive: true });
 
-/* Mobile menu */
 const toggle = document.getElementById('menuToggle');
 const links = document.getElementById('navLinks');
 toggle.addEventListener('click', () => {
@@ -2390,7 +2477,7 @@ links.querySelectorAll('a').forEach(a => {
 });
 
 /* =========================================================
-   HERO PARALLAX — mouse + scroll
+   HERO PARALLAX
    ========================================================= */
 const hero3d = document.getElementById('hero3d');
 const shapes = hero3d.querySelectorAll('.shape');
@@ -2418,7 +2505,7 @@ function animateHero(){
 animateHero();
 
 /* =========================================================
-   SECTION PARALLAX — scroll-based movement for background orbs
+   SECTION PARALLAX
    ========================================================= */
 const parallaxEls = document.querySelectorAll('.parallax-slow');
 let ticking = false;
@@ -2427,7 +2514,6 @@ function updateParallax(){
   parallaxEls.forEach(el => {
     const speed = parseFloat(el.dataset.speed || 0.1);
     const rect = el.getBoundingClientRect();
-    // Only animate when in or near viewport
     if (rect.bottom > -200 && rect.top < window.innerHeight + 200) {
       const offset = (scrollY - el.offsetTop) * speed;
       el.style.transform = `translate3d(0, ${offset}px, 0)`;
@@ -2443,7 +2529,7 @@ window.addEventListener('scroll', () => {
 }, { passive: true });
 
 /* =========================================================
-   PARTICLES — subtle floating dots
+   PARTICLES
    ========================================================= */
 const canvas = document.getElementById('particles');
 const ctx = canvas.getContext('2d');
@@ -2489,7 +2575,7 @@ function drawParticles(){
 drawParticles();
 
 /* =========================================================
-   SCROLL REVEAL — Enhanced with multiple variants + stagger
+   SCROLL REVEAL
    ========================================================= */
 const io = new IntersectionObserver((entries) => {
   entries.forEach(e => {
@@ -2502,27 +2588,24 @@ const io = new IntersectionObserver((entries) => {
 
 document.querySelectorAll('.reveal, .reveal-left, .reveal-right, .reveal-scale').forEach(el => io.observe(el));
 
-/* Staggered reveal for grids */
 document.querySelectorAll('.services-grid, .pricing-grid, .test-grid, .why-grid, .about-stats').forEach(grid => {
   Array.from(grid.children).forEach((child, i) => {
     child.style.transitionDelay = `${i * 90}ms`;
   });
 });
 
-/* Stagger info items */
 document.querySelectorAll('.info-list').forEach(list => {
   Array.from(list.children).forEach((child, i) => {
     child.style.transitionDelay = `${i * 100}ms`;
   });
 });
 
-/* Smooth scroll for anchor links (extra smoothness) */
 document.querySelectorAll('a[href^="#"]').forEach(anchor => {
   anchor.addEventListener('click', function(e){
     const target = document.querySelector(this.getAttribute('href'));
     if (target) {
       e.preventDefault();
-      const offset = 90; // account for floating header
+      const offset = 90;
       const top = target.getBoundingClientRect().top + window.scrollY - offset;
       window.scrollTo({ top, behavior: 'smooth' });
     }
